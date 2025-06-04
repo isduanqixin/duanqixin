@@ -1,0 +1,321 @@
+1. 安装/更新httpd软件包；
+2. 卸载httpd软件包；
+3. 安装/更新'Security Tools'软件包组；
+4. 卸载'Security Tools'软件包组；
+5. 获取受控主机上已安装的软件包httpd的版本信息；
+6. 获取受控主机上已安装的软件包NetworkManager的版本信息；
+7. 根据受控主机的Linux发行版信息，确认使用ansible.builtin.yum还是ansible.builtin.dnf，来安装httpd软件包；
+8. 为centos8stream配置软件源；
+9. 为rhel9配置软件源；
+10. 将rhel9.example.com，centos8.example.com这两台受控主机上已有的软件，都更新到最新版；
+11. 将centos7.example.com这台受控主机上已有的软件，都更新到最新版；
+
+
+1. /* A20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+...
+2. /* B20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: absent
+...
+3. /* C20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: '@Security Tools'
+        state: latest
+...
+4. /* D20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: '@Security Tools'
+        state: absent
+...
+5. /* E20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package_facts:
+    - name: Task2
+      ansible.builtin.debug:
+        var: ansible_facts.packages.httpd.0.version
+...
+6. /* F20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package_facts:
+    - name: Task2
+      ansible.builtin.debug:
+        var: ansible_facts.packages.NetworkManager.0.version
+...
+7. /* G20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+      when: >
+        ( ansible_facts.distribution == "CentOS"
+        and
+        ansible_facts.distribution_major_version == "8" )
+        or
+        ansible_facts.distribution == "RedHat"
+    - name: Task2
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+      when: >
+        ansible_facts.distribution == "CentOS"
+        and
+        ansible_facts.distribution_major_version == "7"
+...
+或者
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+...
+8. /* H20240605.yaml */
+---
+- name: Play1
+  hosts: centos8.example.com
+  tasks:
+    - name: aliyun_baseos
+      ansible.builtin.yum_repository:
+        description: aliyun_baseos
+        file: aliyun_baseos
+        name: aliyun_baseos
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/BaseOS/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_appstream
+      ansible.builtin.yum_repository:
+        description: aliyun_appstream
+        file: aliyun_appstream
+        name: aliyun_appstream
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/AppStream/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_devel
+      ansible.builtin.yum_repository:
+        description: aliyun_devel
+        file: aliyun_devel
+        name: aliyun_devel
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/Devel/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_highavailability
+      ansible.builtin.yum_repository:
+        description: aliyun_highavailability
+        file: aliyun_highavailability
+        name: aliyun_highavailability
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/HighAvailability/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_nfv
+      ansible.builtin.yum_repository:
+        description: aliyun_nfv
+        file: aliyun_nfv
+        name: aliyun_nfv
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/NFV/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_powertools
+      ansible.builtin.yum_repository:
+        description: aliyun_powertools
+        file: aliyun_powertools
+        name: aliyun_powertools
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/PowerTools/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_rt
+      ansible.builtin.yum_repository:
+        description: aliyun_rt
+        file: aliyun_rt
+        name: aliyun_rt
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/RT/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_resilientstorage
+      ansible.builtin.yum_repository:
+        description: aliyun_resilientstorage
+        file: aliyun_resilientstorage
+        name: aliyun_resilientstorage
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/ResilientStorage/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_centosplus
+      ansible.builtin.yum_repository:
+        description: aliyun_centosplus
+        file: aliyun_centosplus
+        name: aliyun_centosplus
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/centosplus/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_core
+      ansible.builtin.yum_repository:
+        description: aliyun_core
+        file: aliyun_core
+        name: aliyun_centosplus
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/core/x86_64/centos-plus/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_cr
+      ansible.builtin.yum_repository:
+        description: aliyun_cr
+        file: aliyun_cr
+        name: aliyun_cr
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/cr/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_extras_extrascommon
+      ansible.builtin.yum_repository:
+        description: aliyun_extras_extrascommon
+        file: aliyun_extras_extrascommon
+        name: aliyun_extras_extrascommon
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/extras/x86_64/extras-common/
+        gpgcheck: no
+        enabled: yes
+        state: present
+    - name: aliyun_extras_os
+      ansible.builtin.yum_repository:
+        description: aliyun_extras_os
+        file: aliyun_extras_os
+        name: aliyun_extras_os
+        baseurl: https://mirrors.aliyun.com/centos/8-stream/extras/x86_64/os/
+        gpgcheck: no
+        enabled: yes
+        state: present
+...
+9. /* I20240605.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com
+  tasks:
+    - name: rhel9_appstream
+      ansible.builtin.yum_repository:
+        description: rhel9_appstream
+        name: rhel9_appstream
+        file: rhel9_appstream
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/AppStream/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_baseos
+      ansible.builtin.yum_repository:
+        description: rhel9_baseos
+        name: rhel9_baseos
+        file: rhel9_baseos
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/BaseOS/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_crb
+      ansible.builtin.yum_repository:
+        description: rhel9_crb
+        name: rhel9_crb
+        file: rhel9_crb
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/CRB/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_highavailability
+      ansible.builtin.yum_repository:
+        description: rhel9_highavailability
+        name: rhel9_highavailability
+        file: rhel9_highavailability
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/HighAvailability/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_nfv
+      ansible.builtin.yum_repository:
+        description: rhel9_nfv
+        name: rhel9_nfv
+        file: rhel9_nfv
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/NFV/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_rt
+      ansible.builtin.yum_repository:
+        description: rhel9_rt
+        name: rhel9_rt
+        file: rhel9_rt
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/RT/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+    - name: rhel9_resilientstorage
+      ansible.builtin.yum_repository:
+        description: rhel9_resilientstorage
+        name: rhel9_resilientstorage
+        file: rhel9_resilientstorage
+        baseurl: https://mirrors.aliyun.com/centos-stream/9-stream/ResilientStorage/x86_64/os/
+        enabled: yes
+        gpgcheck: no
+        state: present
+...
+10. /* J20240605.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com, centos8.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+...
+11. /* K20240605.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+...

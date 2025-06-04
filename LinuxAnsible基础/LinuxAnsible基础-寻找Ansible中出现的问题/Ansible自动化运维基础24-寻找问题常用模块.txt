@@ -1,0 +1,210 @@
+1. ansible.builtin.uri模块的作用是____________________________；
+2. ansible.builtin.uri模块的作用是____________________________；
+3. ansible.builtin.uri模块的作用是____________________________；
+4. 试着用ansible.builtin.uri模块写一个playbook，让受控主机都去curl https://baidu.com这个url；
+5. 试着用ansible.builtin.uri模块写一个playbook，让受控主机都去curl https://docs.ansible.com/ansible/latest/collections/ansible/builtin/add_host_module.html这个url；
+6. 试着用ansible.builtin.uri模块写一个playbook，让受控主机都去curl http://rhel9.example.com这个url；
+7. ansible.builtin.script模块的作用是____________________________；
+8. ansible.builtin.script模块的作用是____________________________；
+9. ansible.builtin.script模块的作用是____________________________；
+10. 试写一个包含ansible.builtin.script模块的简单playbook；
+11. 试写一个包含ansible.builtin.script模块的简单playbook；
+12. 试写一个包含ansible.builtin.script模块的简单playbook；
+13. ansible.builtin.stat模块的作用是____________________________；
+14. ansible.builtin.stat模块的作用是____________________________；
+15. ansible.builtin.stat模块的作用是____________________________；
+16. 试写一个包含ansible.builtin.stat模块的简单playbook；
+17. 试写一个包含ansible.builtin.stat模块的简单playbook；
+18. 试写一个包含ansible.builtin.stat模块的简单playbook；
+19. ansible.builtin.fail模块的作用是________________________；
+20. ansible.builtin.fail模块的作用是________________________；
+21. ansible.builtin.fail模块的作用是________________________；
+22. 试写一个包含ansible.builtin.fail模块的简单playbook；
+23. 试写一个包含ansible.builtin.fail模块的简单playbook；
+24. 试写一个包含ansible.builtin.fail模块的简单playbook；
+25. 使用ansible.builtin.assert模块，当受控主机的发行版本为CentOS并且版本号为7或8时，自定义输出"There's no reason, you just succeeded!"，否则只要有一个条件不满足，就自定义输出"There's no reason, you just failed!"；
+26. 使用ansible.builtin.assert模块，当受控主机的发行版本为CentOS并且版本号为7或8时，自定义输出"There's no reason, you just succeeded!"，否则只要有一个条件不满足，就自定义输出"There's no reason, you just failed!"；
+27. 使用ansible.builtin.assert模块，当受控主机的发行版本为CentOS并且版本号为7或8时，自定义输出"There's no reason, you just succeeded!"，否则只要有一个条件不满足，就自定义输出"There's no reason, you just failed!"；
+
+
+
+1. 确保各受控主机都能接触到某一url；
+2. 确保各受控主机都能接触到某一url；
+3. 确保各受控主机都能接触到某一url；
+4. /* A20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.uri:
+        url: https://baidu.com
+...
+5. /* B20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.uri:
+        url: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/add_host_module.html
+...
+6. /* C20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.uri:
+        url: http://rhel9.example.com
+...
+7. 将控制主机Ansible项目中的一个可执行文件分发到各个受控主机上，各个受控主机执行这个可执行文件，执行结果为0时才能够ok，否则failed；
+8. 将控制主机Ansible项目中的一个可执行文件分发到各个受控主机上，各个受控主机执行这个可执行文件，执行结果为0时才能够ok，否则failed；
+9. 将控制主机Ansible项目中的一个可执行文件分发到各个受控主机上，各个受控主机执行这个可执行文件，执行结果为0时才能够ok，否则failed；
+10. /* D20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.script: a.sh
+...
+/* a.sh */
+#!/bin/bash
+echo 1
+exit 0
+11. /* E20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.script: a.sh
+...
+/* a.sh */
+#!/bin/bash
+echo 1
+exit 0
+12. /* F20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.script: a.sh
+...
+/* a.sh */
+#!/bin/bash
+echo 1
+exit 0
+13. 获取受控主机上某文件的详细信息
+14. 获取受控主机上某文件的详细信息
+15. 获取受控主机上某文件的详细信息
+16. /* G20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.stat:
+        path: /home/centos/Desktop
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+17. /* H20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.stat:
+        path: /home/centos/Desktop
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+18. /* I20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.stat:
+        path: /home/centos/Desktop
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+19. 用自定义的消息来失败
+20. 用自定义的消息来失败
+21. 用自定义的消息来失败
+22. /* J20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fail:
+        msg: There's no reason, you just failed.
+...
+23. /* K20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fail:
+        msg: There's no reason, you just failed.
+...
+24. /* L20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fail:
+        msg: There's no reason, you just failed.
+...
+25. /* M20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task2
+      ansible.builtin.assert:
+        fail_msg: There's no reason, you just failed.
+        success_msg: There's no reason, you just succeeded.
+        that:
+          - ansible_facts.distribution == "CentOS"
+          - ansible_facts.distribution_major_version == "8" or ansible_facts.distribution_major_version == "7"
+...
+26. /* N20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task2
+      ansible.builtin.assert:
+        fail_msg: There's no reason, you just failed.
+        success_msg: There's no reason, you just succeeded.
+        that:
+          - ansible_facts.distribution == "CentOS"
+          - ansible_facts.distribution_major_version == "8" or ansible_facts.distribution_major_version == "7"
+...
+27. /* O20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task2
+      ansible.builtin.assert:
+        fail_msg: There's no reason, you just failed.
+        success_msg: There's no reason, you just succeeded.
+        that:
+          - ansible_facts.distribution == "CentOS"
+          - ansible_facts.distribution_major_version == "8" or ansible_facts.distribution_major_version == "7"
+...

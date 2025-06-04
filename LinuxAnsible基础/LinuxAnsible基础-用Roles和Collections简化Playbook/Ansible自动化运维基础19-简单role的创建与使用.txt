@@ -1,0 +1,189 @@
+1. 创建一个名为role1的新role；
+2. 创建一个名为role2的新role；
+3. 创建一个名为role3的新role；
+4. 什么是ansible中的role呢？
+5. 什么是ansible中的role呢？
+6. 什么是ansible中的role呢？
+7. 哪一个role的子文件夹包含了将会被role中的tasks引用到的jinja2模板文件呢？
+8. 哪一个role的子文件夹包含了将会被role中的tasks引用到的jinja2模板文件呢？
+9. 哪一个role的子文件夹包含了将会被role中的tasks引用到的jinja2模板文件呢？
+10. 为了使得一个role中的变量都暴露出来，应该用ansible.builtin中的哪个模块呢？
+11. 为了使得一个role中的变量都暴露出来，应该用ansible.builtin中的哪个模块呢？
+12. 为了使得一个role中的变量都暴露出来，应该用ansible.builtin中的哪个模块呢？
+13. 在一个role的目录结构中，哪个文件应该包含之后将被使用到的变量的默认值呢？
+14. 在一个role的目录结构中，哪个文件应该包含之后将被使用到的变量的默认值呢？
+15. 在一个role的目录结构中，哪个文件应该包含之后将被使用到的变量的默认值呢？
+16. 所有的role都被存放在________文件夹中，而这个文件夹被放置于与主playbook.yml文件、inventory文件、ansible.cfg文件同级别的位置；
+17. 所有的role都被存放在________文件夹中，而这个文件夹被放置于与主playbook.yml文件、inventory文件、ansible.cfg文件同级别的位置；
+18. 所有的role都被存放在________文件夹中，而这个文件夹被放置于与主playbook.yml文件、inventory文件、ansible.cfg文件同级别的位置；
+19. 已知有一个名为role1的role。写一份playbook，调用这个role；
+20. 已知有一个名为role2的role。写一份playbook，调用这个role；
+21. 已知有一个名为role3的role。写一份playbook，调用这个role；
+22. 如果要覆盖掉role中的某些变量，可以使用的方法是_______________________________；
+23. 如果要覆盖掉role中的某些变量，可以使用的方法是_______________________________；
+24. 如果要覆盖掉role中的某些变量，可以使用的方法是_______________________________；
+25. 写一份playbook，并在这份playbook中，重写system_owner变量；
+26. 写一份playbook，并在这份playbook中，重写system_owner变量；
+27. role与handlers：新建一个名为role2的role，在roles/role2/handlers/main.yml中添加一个名为role2Handler1的handler，在roles/role2/tasks/main.yml中使用到这个role2Handler1；
+28. role与handlers：新建一个名为role2的role，在roles/role2/handlers/main.yml中添加一个名为role2Handler1的handler，在roles/role2/tasks/main.yml中使用到这个role2Handler1；
+29. 创建一个role，并且使用这个role。这个role做的事情是：
+（1）安装httpd包，确保httpd服务已启动，并且下次开机自动启动；
+（2）安装firewalld包，确保firewalld服务已启动，并且下次开机自动启动；
+（3）放行web流量；
+（4）创建index.html.j2文件，该模板文件被分发到受控主机的/var/www/html/index.html文件，能够输出：
+Welcome to HOSTNAME on IPADDRESS
+接着创建apache.yml，apache.yml使用到了刚刚创建的role；
+
+
+
+1. ansible-galaxy init role1
+2. ansible-galaxy init role2
+3. ansible-galaxy init role3
+4. ansible中的role，是用特殊结构组织起来的，由task文件和支持task的相关项组成的集合
+5. ansible中的role，是用特殊结构组织起来的，由task文件和支持task的相关项组成的集合
+6. ansible中的role，是用特殊结构组织起来的，由task文件和支持task的相关项组成的集合
+7. template
+8. template
+9. template
+10. import_role模块
+11. import_role模块
+12. import_role模块
+13. defaults/main.yml
+14. defaults/main.yml
+15. defaults/main.yml
+16. roles
+17. roles
+18. roles
+19. /* A20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role: role1
+...
+20. /* B20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role: role2
+...
+21. /* C20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role: role3
+...
+22. 在inventory文件或者host_vars，group_vars文件夹下重写变量、在play中的vars关键字下重写变量、在play中的roles关键字下重写变量
+23. 在inventory文件或者host_vars，group_vars文件夹下重写变量、在play中的vars关键字下重写变量、在play中的roles关键字下重写变量
+24. 在inventory文件或者host_vars，group_vars文件夹下重写变量、在play中的vars关键字下重写变量、在play中的roles关键字下重写变量
+25. /* D20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    system_owner: someone@host.example.com
+  roles:
+    - role: role1
+...
+26. /* E20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role: role1
+      system_owner: aaa@bbb.com
+...
+27. /* F20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role2
+...
+/* /home/rhce/Ansible/roles/role2/tasks/main.yml */
+---
+# tasks file for role2
+- name: role2Task1
+  ansible.builtin.shell: /usr/bin/true
+  notify: role2Handler1
+...
+/* /home/rhce/Ansible/roles/role2/handlers/main.yml */
+---
+# handlers file for role2
+- name: role2Handler1
+  ansible.builtin.debug:
+    msg: This is role2Handler1
+...
+28. /* G20240603.yaml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role2
+...
+/* /home/rhce/Ansible/roles/role2/tasks/main.yml */
+---
+# tasks file for role2
+- name: role2Task1
+  ansible.builtin.shell: /usr/bin/true
+  notify: role2Handler1
+...
+/* /home/rhce/Ansible/roles/role2/handlers/main.yml */
+---
+# handlers file for role2
+- name: role2Handler1
+  ansible.builtin.debug:
+    msg: This is role2Handler1
+...
+29. 
+mkdir /home/rhce/Ansible/roles
+cd /home/rhce/Ansible/roles
+ansible-galaxy init role1
+cd role1/tasks
+vim main.yml
+/* /home/rhce/Ansible/roles/role1/tasks/main.yml */
+---
+- name: Task1
+  ansible.builtin.dnf:
+    name: httpd
+    state: latest
+- name: Task2
+  ansible.builtin.service:
+    name: httpd
+    state: started
+    enabled: true
+- name: Task3
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+- name: Task4
+  ansible.posix.firewalld:
+    service: http
+    immediate: yes
+    permanent: true
+    state: enabled
+- name: Task5
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+...
+/* /home/rhce/Ansible/roles/role1/tasks/main.yml */
+cd ../templates
+vim index.html.j2
+/* /home/rhce/Ansible/roles/role1/templates/index.html.j2 */
+Welcome to {{ ansible_facts.hostname }} on {{ ansible_facts.default_ipv4.address }}
+/* /home/rhce/Ansible/roles/role1/templates/index.html.j2 */
+cd /home/rhce/Ansible
+vim apache.yml
+/* /home/rhce/Ansible/apache.yml */
+---
+- name: Play1
+  hosts: all
+  roles:
+    - role1
+...
+/* /home/rhce/Ansible/apache.yml */
+ansible-playbook apache.yml

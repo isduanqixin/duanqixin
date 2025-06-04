@@ -1,0 +1,158 @@
+1. user: 在所有受控主机上，新建一个用户Hello_Kitty，用户shell是/bin/bash，并将这个用户加入组wheel；
+2. user: 在所有受控主机上，新建一个用户Kitty_bug，用户shell是/bin/bash，并将这个用户加入组wheel；
+3. user: 对于已有的用户Hello_Kitty，为其产生一个SSH密钥对；
+4. user: 对于已有的用户Kitty_bug，为其产生一个SSH密钥对；
+5. group: 在所有受控主机上，新增一个用户组Hello；
+6. group: 在所有受控主机上，新增一个用户组Bug；
+7. known_hosts: 在所有受控主机的/home/centos/.ssh/known_hosts文件中，确保有这样子的一行存在"rhel9.example.com,192.168.193.128 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMCPcDAp+tgk0FTgu/4AUIUXDuXOJR+cXpqtl5NpMVoi"
+8. known_hosts: 在所有受控主机的/home/centos/.ssh/known_hosts文件中，确保有这样子的一行存在"centos8.example.com,192.168.193.130 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0IQC5fqaLsxg08ctci7NW1t52iYs/82T35aOcCvDBz"
+9. known_hosts: 在控制主机上，有一个文件：
+/* /home/rhce/Ansible/pubkeys/centos7.example.com */
+centos7.example.com,192.168.193.129 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBmoV3wrl245kB7/zVAL+tY+khUAhimrmdtRTzJilDMf
+确保所有受控主机上的文件的/home/centos/.ssh/known_hosts文件中，都有上述文件中的内容；
+10. known_hosts: 在控制主机上，有一个文件：
+/* /home/rhce/Ansible/pubkeys/centos8.example.com */
+centos8.example.com,192.168.193.130 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0IQC5fqaLsxg08ctci7NW1t52iYs/82T35aOcCvDBz
+确保所有受控主机上的文件的/home/centos/.ssh/known_hosts文件中，都有上述文件中的内容；
+11. authorized_key: 在控制主机上，确保每台受控主机的/home/centos/.ssh/authorized_keys、/root/.ssh/authorized_keys文件中，都有内容：
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO6/GgOzF03xWI4sGhT0OpJmoKDDHgIrRXWGe7+HRJNr 35911@LAPTOP-OUR52V78
+12. lineinfile: 写一份playbook，确保受控主机上的/etc/sudoers文件中，有这样一行：%wheel  ALL=(ALL)       NOPASSWD: ALL；
+
+
+
+1. /* A20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: Hello_Kitty
+        shell: /bin/bash
+        groups: wheel
+        append: true
+...
+2. /* B20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: Kitty_bug
+        shell: /bin/bash
+        groups: wheel
+        append: true
+...
+3. /* C20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: Hello_Kitty
+        generate_ssh_key: true
+...
+4. /* D20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: Kitty_bug
+        generate_ssh_key: true
+...
+5. /* E20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.group:
+        name: Hello
+        state: present
+...
+6. /* F20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.group:
+        name: Bug
+        state: present
+...
+7. /* G20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.known_hosts:
+        name: rhel9.example.com
+        path: /home/centos/.ssh/known_hosts
+        key: rhel9.example.com,192.168.193.128 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMCPcDAp+tgk0FTgu/4AUIUXDuXOJR+cXpqtl5NpMVoi
+...
+8. /* H20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.known_hosts:
+        name: centos8.example.com
+        path: /home/centos/.ssh/known_hosts
+        key: centos8.example.com 192.168.193.130 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN0IQC5fqaLsxg08ctci7NW1t52iYs/82T35aOcCvDBz
+...
+9. /* I20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.known_hosts:
+        name: centos7.example.com
+        path: /home/centos/.ssh/known_hosts
+        key: "{{ lookup('ansible.builtin.file', 'pubkeys/centos7.example.com') }}"
+...
+10. /* J20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.known_hosts:
+        name: centos8.example.com
+        path: /home/centos/.ssh/known_hosts
+        key: "{{ lookup('ansible.builtin.file', 'pubkeys/centos8.example.com') }}"
+...
+11. /* K20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.authorized_key:
+        user: centos
+        state: present
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO6/GgOzF03xWI4sGhT0OpJmoKDDHgIrRXWGe7+HRJNr 35911@LAPTOP-OUR52V78
+    - name: Task2
+      ansible.builtin.authorized_key:
+        user: root
+        state: present
+        key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO6/GgOzF03xWI4sGhT0OpJmoKDDHgIrRXWGe7+HRJNr 35911@LAPTOP-OUR52V78
+...
+12. /* L20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel'
+        line: "%wheel  ALL=(ALL)       NOPASSWD: ALL"
+        validate: visudo -csf %s
+...

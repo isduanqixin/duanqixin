@@ -1,0 +1,47 @@
+1. 一些应用会将临时文件放在____________和____________这两个地方；
+2. 一些应用会将临时文件放在____________和____________这两个地方；
+3. 一些应用会将临时文件放在____________和____________这两个地方；
+4. ___________________单元会周期性的使用systemd-tmpfiles-clean.service服务，执行systemd-tmpfiles --clean命令，以清理临时文件；
+5. ___________________单元会周期性的使用systemd-tmpfiles-clean.service服务，执行systemd-tmpfiles --clean命令，以清理临时文件；
+6. ___________________单元会周期性的使用systemd-tmpfiles-clean.service服务，执行systemd-tmpfiles --clean命令，以清理临时文件；
+下面是命令systemctl cat systemd-tmpfiles-clean.timer的结果：
+# /usr/lib/systemd/system/systemd-tmpfiles-clean.timer
+#  SPDX-License-Identifier: LGPL-2.1-or-later
+#
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+[Unit]
+Description=Daily Cleanup of Temporary Directories
+Documentation=man:tmpfiles.d(5) man:systemd-tmpfiles(8)
+ConditionPathExists=!/etc/initrd-release
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=1d
+7. 请问当系统启动之后多久时，会清理一次临时文件呢？_____________________这之后每隔多久，就会清理一次临时文件呢？_______________________
+8. 请问当系统启动之后多久时，会清理一次临时文件呢？_____________________这之后每隔多久，就会清理一次临时文件呢？_______________________
+9. 请问当系统启动之后多久时，会清理一次临时文件呢？_____________________这之后每隔多久，就会清理一次临时文件呢？_______________________
+10. 如果改变了/etc/systemd/system/systemd-tmpfiles-clean.timer文件，为了让配置生效，下一步应该做什么呢？_______________________________________；
+11. 如果改变了/etc/systemd/system/systemd-tmpfiles-clean.timer文件，为了让配置生效，下一步应该做什么呢？_______________________________________；
+12. 如果改变了/etc/systemd/system/systemd-tmpfiles-clean.timer文件，为了让配置生效，下一步应该做什么呢？_______________________________________；
+
+
+
+
+1. /tmp /run
+2. /tmp /run
+3. /tmp /run
+4. systemd-tmpfiles-clean.timer
+5. systemd-tmpfiles-clean.timer
+6. systemd-tmpfiles-clean.timer
+7. 15min 1d
+8. 15min 1d
+9. 15min 1d
+10. systemctl daemon-reload然后systemctl enable --now systemd-tmpfiles-clean.timer
+11. systemctl daemon-reload然后systemctl enable --now systemd-tmpfiles-clean.timer
+12. systemctl daemon-reload然后systemctl enable --now systemd-tmpfiles-clean.timer

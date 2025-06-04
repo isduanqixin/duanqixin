@@ -1,0 +1,41 @@
+跟chronyd服务一样，autofs也是一个服务，所以要一直使用autofs，就必须将autofs设置为开机自启动
+跟chronyd服务一样，autofs也是一个服务，所以要一直使用autofs，就必须将autofs设置为开机自启动
+跟chronyd服务一样，autofs也是一个服务，所以要一直使用autofs，就必须将autofs设置为开机自启动
+1. 客户端想使用autofs服务，必须要下载相应的软件包，方法是_________________________________；
+2. 客户端想使用autofs服务，必须要下载相应的软件包，方法是_________________________________；
+3. 客户端想使用autofs服务，必须要下载相应的软件包，方法是_________________________________；
+4. 客户端需要配置autofs，可以在/etc/auto.master.d/文件夹下，新创建一个______________结尾的配置文件，或者直接编辑/etc/auto.master；
+5. 客户端需要配置autofs，可以在__________________文件夹下，新创建一个.autofs结尾的配置文件，或者直接编辑/etc/auto.master；
+6. 客户端需要配置autofs，可以在/etc/auto.master.d/文件夹下，新创建一个.autofs结尾的配置文件，或者直接编辑________________；
+7. 客户端选择/etc/auto.master作为autofs服务的配置文件，让/mnt/moutpoint3做基点，而挂载的细节则被保存在/etc/auto.3中，该如何编辑/etc/auto.master这个文件呢？______________________________；
+8. 客户端选择/etc/auto.master作为autofs服务的配置文件，让/public做基点，而挂载的细节则被保存在/etc/auto.public中，该如何编辑/etc/auto.master这个文件呢？______________________________；
+9. 客户端选择/etc/auto.master作为autofs服务的配置文件，让/auto做基点，而挂载的细节则被保存在/etc/auto.auto中，该如何编辑/etc/auto.master这个文件呢？______________________________；
+10. 客户端想要将rhel9.example.com的/public文件夹，以可读可写、同步的方法，自动在基点下，挂载成public，方法是_______________________________；
+11. 客户端想要将rhel9.example.com的/public文件夹，以可读可写、同步的方法，自动在基点下，挂载成public，方法是_______________________________；
+12. 客户端想要将rhel9.example.com的/public文件夹，以可读可写、同步的方法，自动在基点下，挂载成public，方法是_______________________________；
+13. 假如服务端rhel9.example.com导出了/home/rhce/Ansible，/home/rhce/Bash、/home/rhce/Desktop这三个文件夹。客户端想要将rhel9.example.com的这三个文件夹，以可读可写、同步的方法，自动在基点下，挂载成原本的名称，方法是_______________________________；
+14. 假如服务端rhel9.example.com导出了/home/rhce，/home/centos，/home/Kitty这三个文件夹。客户端想要将rhel9.example.com的这三个文件夹，以可读可写、同步的方法，自动在基点下，挂载成原本的名称，方法是_______________________________；
+
+
+1. sudo dnf install nfs-utils autofs
+2. sudo dnf install nfs-utils autofs
+3. sudo dnf install nfs-utils autofs
+4. .autofs
+5. /etc/auto.master.d/
+6. auto.master
+7. /* /etc/auto.master */
+/mnt/mountpoint3    /etc/auto.3
+8. /* /etc/auto.master */
+/public    /etc/auto.public
+9. /* /etc/auto.master */
+/auto    /auto.auto
+10. /* /etc/auto.基点名称 */
+public    -rw,sync    rhel9.example.com:/public
+11. /* /etc/auto.基点名称 */
+public    -rw,sync    rhel9.example.com:/public
+12. /* /etc/auto.基点名称 */
+public    -rw,sync    rhel9.example.com:/public
+13. /* /etc/auto.基点名称 */
+*    -rw,sync rhel9.example.com:/home/rhce/&
+14. /* /etc/auto.基点名称 */
+*    -rw,sync rhel9.example.com:/home/rhce/&

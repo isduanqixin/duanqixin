@@ -1,0 +1,9 @@
+1. 已知/sbin是一个软链接。现在要查看/sbin下面的所有文件、文件夹，方法是_____________________________________；
+2. 已知/bin是一个软链接。现在要查看/bin下面的所有文件、文件夹，方法是_____________________________________；
+3. 已知/lib是一个软链接。现在要查看/lib下面的所有文件、文件夹，方法是_____________________________________；
+
+
+
+1. ls -alh --dereference-command-line-symlink-to-dir /sbin （ls --help）
+2. ls -alh --dereference-command-line-symlink-to-dir /bin （ls --help）
+3. ls -alh --dereference-command-line-symlink-to-dir /lib （ls --help）

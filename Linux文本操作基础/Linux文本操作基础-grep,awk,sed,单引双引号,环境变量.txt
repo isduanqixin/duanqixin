@@ -1,0 +1,113 @@
+grep		$ 		''		整型环境变量，$tv
+awk				""		整型环境变量，\$tv
+sed						字符串环境变量，$tv
+						字符串环境变量，\$tv
+						无含义，$tv
+						无含义，\$tv
+						单独，$
+						单独，\$
+						前搭配，tv$
+						前搭配，tv\$
+						前搭配+整型环境变量，tv$tv
+						前搭配+整型环境变量，tv\$tv
+						前搭配+字符串环境变量，tv$tv
+						前搭配+字符串环境变量，tv\$tv
+						前搭配+无含义，tv$tv
+						前搭配+无含义，tv\$tv
+
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep '$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep '\$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep '$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep '\$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep '$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep '\$tv' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep '$' a.txt						所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep '\$' a.txt					$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep 'tv$' a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep 'tv\$' a.txt					tv$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep 'tv$tv' a.txt					tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep 'tv\$tv' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep 'tv$tv' a.txt					tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep 'tv\$tv' a.txt					tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep 'tv$tv' a.txt					tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep 'tv\$tv' a.txt					tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n '/$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n '/\$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n '/$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n '/\$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/\$tv/p' a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/$/p' a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/\$/p' a.txt				$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/tv$/p' a.txt				tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/tv\$/p' a.txt				tv$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n '/tv$tv/p' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n '/tv\$tv/p' a.txt			tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n '/tv$tv/p' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n '/tv\$tv/p' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/tv$tv/p' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n '/tv\$tv/p' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk '/$tv/' a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk '/\$tv/' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk '/$tv/' a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk '/\$tv/' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/$tv/' a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/\$tv/' a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/$/' a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/\$/' a.txt					$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/tv$/' a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/tv\$/' a.txt					tv$
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk '/tv$tv/' a.txt				?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk '/tv\$tv/' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk '/tv$tv/' a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk '/tv\$tv/' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/tv$tv/' a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk '/tv\$tv/' a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep "$tv" a.txt					52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep "\$tv" a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep "$tv" a.txt					hello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep "\$tv" a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "$tv" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "\$tv" a.txt					$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "$" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "\$" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "tv$" a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "tv\$" a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep "tv$tv" a.txt				tv52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && grep "tv\$tv" a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep "tv$tv" a.txt					tvhello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && grep "tv\$tv" a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "tv$tv" a.txt					tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && grep "tv\$tv" a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n "/$tv/p" a.txt				52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n "/\$tv/p" a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n "/$tv/p" a.txt				hello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n "/\$tv/p" a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/$tv/p" a.txt				!
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/\$tv/p" a.txt				$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/$/p" a.txt				所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/\$/p" a.txt				所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/tv$/p" a.txt				tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/tv\$/p" a.txt				tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n "/tv$tv/p" a.txt			tv52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && sed -n "/tv\$tv/p" a.txt			tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n "/tv$tv/p" a.txt				tvhello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && sed -n "/tv\$tv/p" a.txt			tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/tv$tv/p" a.txt				tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && sed -n "/tv\$tv/p" a.txt				tv$tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk "/$tv/" a.txt					52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk "/\$tv/" a.txt				?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk "/$tv/" a.txt					hello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk "/\$tv/" a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/$tv/" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/\$tv/" a.txt					?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/$/" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/\$/" a.txt					所有行
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/tv$/" a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/tv\$/" a.txt					tv结尾
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk "/tv$tv/" a.txt				tv52813
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=52813 && awk "/tv\$tv/" a.txt				?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk "/tv$tv/" a.txt				tvhello
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && tv=hello && awk "/tv\$tv/" a.txt				?
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/tv$tv/" a.txt				tv
+echo -e "tv\$tvtv\ntv52813tv\ntvhellotv\ntvhello" > a.txt && unset tv && awk "/tv\$tv/" a.txt				?

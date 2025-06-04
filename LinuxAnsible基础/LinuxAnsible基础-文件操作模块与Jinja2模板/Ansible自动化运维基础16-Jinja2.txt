@@ -1,0 +1,154 @@
+1. jinja2模板文件常用后缀名_________________；
+2. jinja2模板文件常用后缀名_________________；
+3. jinja2模板文件常用后缀名_________________；
+4. 使用ansible.builtin.template模块，写一份模板文件，并将这份模板文件分发到被控主机的/etc/motd文件中；
+5. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到for循环；
+6. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到复杂的for循环；
+7. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到for循环与if条件判断；
+8. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到for循环与if条件判断，同时使用到loop.index；
+9. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到if条件判断；
+10. 使用ansible.builtin.template模块，写一份模板文件，并在此模板文件中使用到filter；
+
+
+
+1. .j2
+2. .j2
+3. .j2
+4. /* motd.j2 */
+This is the system {{ ansible_facts.fqdn }}.
+This is a {{ ansible_facts.distribution }} version {{ ansible_facts.distribution_version }} system.
+Only use this system with permission.
+Please report issues to: {{ system_owner }}.
+/* A20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    system_owner: 3591178539@qq.com
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./motd.j2
+        dest: /etc/motd
+        owner: centos
+        group: centos
+        mode: '0644'
+...
+5. /* A20240601.j2 */
+{% for user in users %}
+{{ user }}
+{% endfor %}
+/* B20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    users:
+      - happy
+      - great
+      - pretty
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./A20240601.j2
+        dest: /home/centos/A20240601.txt
+...
+6. /* B20240601.j2 */
+{% for user in users %}
+{{ user.name }}, {{ user.id }}
+{% endfor %}
+/* C20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    users:
+      - name: suse
+        id: 13579
+      - name: open
+        id: 24680
+      - name: happy
+        id: 14567
+      - name: kathy
+        id: 90111
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./B20240601.j2
+        dest: /home/centos/B20240601.txt
+...
+7. /* C20240601.j2 */
+{% for user in users if user.id > 20000 %}
+{{ user.name }}, {{ user.id }}
+{% endfor %}
+/* D20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    users:
+      - name: suse
+        id: 13579
+      - name: open
+        id: 24680
+      - name: happy
+        id: 14567
+      - name: kathy
+        id: 90111
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./C20240601.j2
+        dest: /home/centos/C20240601.txt
+...
+8. /* D20240601.j2 */
+{% for user in users if user.id > 20000 %}
+{{ loop.index }}, {{ user.name }}, {{ user.id }}
+{% endfor %}
+/* E20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    users:
+      - name: suse
+        id: 13579
+      - name: open
+        id: 24680
+      - name: happy
+        id: 14567
+      - name: kathy
+        id: 90111
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./D20240601.j2
+        dest: /home/centos/D20240601.txt
+...
+9. /* E20240601.j2 */
+{% if ansible_facts.distribution == "CentOS" and ansible_facts.distribution_version == "8" %}Hello World!
+I am very good!
+Thank you very much!
+{% endif %}
+/* F20240601.j2 */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./E20240601.j2
+        dest: /home/centos/E20240601.txt
+...
+10. /* F20240601.j2 */
+{{ ansible_version | to_nice_yaml }}
+/* G20240601.j2 */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: ./F20240601.j2
+        dest: /home/centos/F20240601.txt
+...

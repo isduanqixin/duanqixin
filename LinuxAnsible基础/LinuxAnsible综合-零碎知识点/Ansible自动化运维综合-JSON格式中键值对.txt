@@ -1,0 +1,2 @@
+ansible_facts.mounts.mount是不对的
+ansible_facts.mounts.0.mount，ansible_facts.mounts.1.mount... ... 才对

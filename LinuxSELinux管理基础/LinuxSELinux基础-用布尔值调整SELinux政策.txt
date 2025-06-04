@@ -1,0 +1,38 @@
+1. 获取所有的布尔值SELinux政策的命令是_____________________________；
+2. 获取所有的布尔值SELinux政策的命令是_____________________________；
+3. 获取所有的布尔值SELinux政策的命令是_____________________________；
+4. 获取httpd_enable_homedirs这个布尔值SELinux政策状态的命令是__________________；
+5. 获取httpd_enable_homedirs这个布尔值SELinux政策状态的命令是__________________；
+6. 获取httpd_enable_homedirs这个布尔值SELinux政策状态的命令是__________________；
+7. 列出所有的布尔值SELinux政策的命令是______________________________；
+8. 列出所有的布尔值SELinux政策的命令是______________________________；
+9. 列出所有的布尔值SELinux政策的命令是______________________________；
+10. 将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+11. 将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+12. 将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+13. 列出所有更改后的布尔值SELinux政策的命令是__________________________；
+14. 列出所有更改后的布尔值SELinux政策的命令是__________________________；
+15. 列出所有更改后的布尔值SELinux政策的命令是__________________________；
+16. 永久地将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+17. 永久地将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+18. 永久地将httpd_enable_homedirs这个布尔值SELinux政策的状态调整为on的命令是_________________________；
+
+
+1. getsebool -a
+2. getsebool -a
+3. getsebool -a
+4. getsebool httpd_enable_homedirs
+5. getsebool httpd_enable_homedirs
+6. getsebool httpd_enable_homedirs
+7. semanage boolean -l
+8. semanage boolean -l
+9. semanage boolean -l
+10. setsebool httpd_enable_homedirs on
+11. setsebool httpd_enable_homedirs on
+12. setsebool httpd_enable_homedirs on
+13. semanage boolean -l -C
+14. semanage boolean -l -C
+15. semanage boolean -l -C
+16. setsebool -P httpd_enable_homedirs on
+17. setsebool -P httpd_enable_homedirs on
+18. setsebool -P httpd_enable_homedirs on

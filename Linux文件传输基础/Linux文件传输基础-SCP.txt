@@ -1,0 +1,26 @@
+1. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的/etc/yum.conf这个文件，命令是____________________________________________；
+2. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的/etc/yum.conf这个文件，命令是____________________________________________；
+3. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的/etc/yum.conf这个文件，命令是____________________________________________；
+4. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的Ansible这个文件夹，命令是____________________________________________；
+5. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的Ansible这个文件夹，命令是____________________________________________；
+6. 使用sftp命令，在rhce@192.168.197.131上，获取centos@192.168.197.128上的Ansible这个文件夹，命令是____________________________________________；
+7. 使用sftp命令，把rhce@192.168.197.131中的.qt-license文件，上传的centos@192.168.197.128上，命令是____________________________________________；
+8. 使用sftp命令，把rhce@192.168.197.131中的.qt-license文件，上传的centos@192.168.197.128上，命令是____________________________________________；
+9. 使用sftp命令，把rhce@192.168.197.131中的.qt-license文件，上传的centos@192.168.197.128上，命令是____________________________________________；
+10. 使用scp命令，把root@duanqixin.top中的/etc/yum.repos.d.tar.gz文件，下载到当前目录。
+11. 使用scp命令，把root@duanqixin.top中的/etc/yum.repos.d.tar.gz文件，下载到当前目录。
+
+
+
+
+1. sftp centos@192.168.197.128然后get /etc/yum.conf，或者sftp centos@192.168.197.128:/etc/yum.conf
+2. sftp centos@192.168.197.128然后get /etc/yum.conf，或者sftp centos@192.168.197.128:/etc/yum.conf
+3. sftp centos@192.168.197.128然后get /etc/yum.conf，或者sftp centos@192.168.197.128:/etc/yum.conf
+4. sftp centos@192.168.197.128然后get -r Ansible
+5. sftp centos@192.168.197.128然后get -r Ansible
+6. sftp centos@192.168.197.128然后get -r Ansible
+7. sftp centos@192.168.197.128然后put .qt-license
+8. sftp centos@192.168.197.128然后put .qt-license
+9. sftp centos@192.168.197.128然后put .qt-license
+10. scp root@duanqixin.top:/etc/yum.repos.d.tar.gz ./
+11. scp root@duanqixin.top:/etc/yum.repos.d.tar.gz ./

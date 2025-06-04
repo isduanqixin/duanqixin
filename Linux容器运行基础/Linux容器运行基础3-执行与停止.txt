@@ -1,0 +1,32 @@
+1. 每一个容器都有自己的______________，_________________和______________________；
+2. 每一个容器都有自己的______________，_________________和______________________；
+3. 每一个容器都有自己的______________，_________________和______________________；
+4. 在名为python36的容器上，运行命令python3 --version的方法是________________________；
+5. 在名为python36的容器上，运行命令ls -alh > a.txt的方法是________________________；
+6. 将文件/home/student/script.py拷贝到python36的/tmp/script.py，方法是_________________________；
+7. 将文件/home/student/script.py拷贝到python36的/tmp/script.py，方法是_________________________；
+8. 在名为python36的容器上，运行命令python3 /tmp/script.py，方法是_________________________；
+9. 在名为python36的容器上，运行命令python3 /tmp/script.py，方法是_________________________；
+10. 停止运行名为python36的容器的命令是______________________________；
+11. 停止运行名为python36-的容器的命令是_______________________________；
+12. 删除已经创建的容器python36的命令是______________________________；
+13. 删除已经创建的容器python36-的命令是______________________________；
+14. 删除容器镜像localhost/python36:1.0的命令是_______________________________；
+15. 删除容器镜像registry.lab.example.com/ubi8/python-38:latest的命令是_______________________________；
+
+
+1. 文件系统   网络   进程
+2. 文件系统   网络   进程
+3. 文件系统   网络   进程
+4. podman exec -it python36 sh -c 'python3 --version'
+5. podman exec -it python36 sh -c 'ls -alh > a.txt'
+6. podman cp /home/student/script.py python36:/tmp/script.py
+7. podman cp /home/student/script.py python36:/tmp/script.py
+8. podman exec -it python36 python3 /tmp/script.py
+9. podman exec -it python36 python3 /tmp/script.py
+10. podman stop python36
+11. podman stop python36-
+12. podman rm python36
+13. podman rm python36-
+14. podman rmi localhost/python36:1.0
+15. podman rmi registry.lab.example.com/ubi8/python-38:latest

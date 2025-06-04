@@ -1,0 +1,49 @@
+duanqixin.top维护的几条DNS解析记录分别是什么意思呢？
+1. 有一条SOA记录，其键为"duanqixin.top"，其值为"ns1.huaweicloud-dns.org. hwclouds\.cs.huawei.com. (1 7200 900 1209600 300)"，可以被删除嘛？是什么意思？
+1. 不可以被删除，因为这条记录默认内置在云解析服务当中。这条记录说明duanqixin.top的主权威域名服务器是ns1.huaweicloud-dns.org，管理员邮箱是hwclouds@cs.huawei.com，辅助权威域名服务器每隔2小时同步主权威域名服务器，若失败则15分钟后重试。若主权威域名服务器宕机则15天后辅助权威域名服务器不再解析，其它域名服务器至少缓存duanqixin.top的解析记录5分钟。
+2. SOA记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+2. SOA记录被保存在权威域名服务器上
+3. 何时会使用到上述的SOA记录呢？
+3. 主权威域名服务器和辅助域名服务器同步数据
+4. 有一条NS记录，其键为"duanqixin.top"，其值为"ns1.huaweicloud-dns.org. ns1.huaweicloud-dns.net. ns1.huaweicloud-dns.cn. ns1.huaweicloud-dns.com."，可以被删除嘛？是什么意思？
+4. 不可以被删除，因为这条记录默认内置在云解析服务当中。这条记录说明duanqixin.top的权威域名服务器有：ns1.huaweicloud-dns.org. ns1.huaweicloud-dns.net. ns1.huaweicloud-dns.cn. ns1.huaweicloud-dns.com.
+5. 这条NS记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+5. 这条NS记录被保存在顶级域名服务器上
+6. 何时会使用到上述的NS记录呢？
+6. 当本地域名服务器向顶级域名服务器查询负责某个具体域名的权威域名服务器时，顶级域名服务器就会向本地域名服务器返回这个NS记录，本地域名服务器就会去询问NS记录中的权威域名服务器，进行下一步的DNS查询。
+7. 有一条TXT记录，其键为"mail._domainkey.duanqixin.top"，其值为"v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5fXAmhpukYpHMyz3jqcni04D/w2ZOiI92DbkbAP0eyFot9ZBqntQ0ddvjY2VDyGt1XLzg6/hEd6SPD42qtRfcctNJNSW9w/iDkHC52CTKTufcCs5WdRnZ9zipvMRtPgFZ820xprTEx6NJTWPcMeStXZ28grc3hf+0eSe0xoH7LwIDAQAB"，可以被删除嘛？是什么意思？
+7. 不可以被删除，因为如果被删除了，那么别处的邮件服务器将无法对来自duanqixin.top的邮件进行DKIM认证。意思是：(1)DKIM的版本是DKIM1、(2)DKIM签名使用的算法是RSA、(3)用于验证签名的公钥是MIGfM... ...DAQAB
+8. 这条DKIM记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+8. 这条DKIM记录被保存在权威域名服务器上
+9. 何时会使用到上述的DKIM记录呢？
+9. 当别处的邮件服务器对来自duanqixin.top的邮件进行DKIM认证时，会通过DNS解析从权威域名服务器处获取到域名对应的DKIM记录，从中提取到公钥对邮件头部的DKIM签名进行验证
+10. 有一条TXT记录，其键为"_dmarc.duanqixin.top"，其值为"v=DMARC1; p=quarantine; fo=1; rua=mailto:duanqixin@duanqixin.top"，它可以被删除嘛？是什么意思？
+10. 不可以被删除，如果被删除了，那么别处的邮件服务器将不知道来自duanqixin.top的邮件未通过SPF或者DKIM验证之后，该怎么做。意思是：(1)DMARC版本是DMARC1、(2)如果邮件未通过SPF那么收件服务器应该将邮件隔离、(3)如果邮件未通过SPF那么收件服务器会发送报告、(4)如果收件服务器要发送报告那么应该发送到duanqixin@duanqixin.top
+11. 这条DMARC记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+11. 这条DMARC记录被保存在权威域名服务器上
+12. 何时会使用到上述的DMARC记录呢？
+12. 当别处的邮件服务器对来自duanqixin.top的邮件进行完SPF、DKIM认证之后，会通过DNS解析从权威域名服务器处获取到域名对应的DMARC记录，从中得知邮件未通过SPF或者DKIM认证之后的做法。
+13. 有一条TXT记录，其键为"duanqixin.top"，其值为""v=spf1 a -all""，它可以被删除嘛？是什么意思？
+13. 不可以被删除，如果被删除了，那么别处的邮件服务器将不知道来自duanqixin.top的邮件是不是从允许的IP中发来的。意思是：(1)SPF版本是spf1、(2)只有从A记录这条DNS解析记录中的IP发来的邮件才是可信的、(3)除了从A记录中的IP以外的IP发来的邮件都不可信。
+14. 这条SPF记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+14. 这条SPF记录被保存在权威域名服务器上
+15. 何时会使用到上述的SPF记录呢？
+15. 当别处的邮件服务器对来自duanqixin.top的邮件进行SPF认证时，会通过DNS解析从权威域名服务器处获取到域名对应的SPF记录，从中提取到有权代表duanqixin.top发送邮件的IP地址，看邮件的发信地址是否在这个IP地址之内。
+16. 有一条A记录，其键为"duanqixin.top"，其值为"123.60.164.201"，它可以被删除嘛？是什么意思？
+16. 不可以被删除，因为如果被删除了，那么本地域名服务器向权威域名服务器询问域名duanqixin.top的具体IP地址时，权威域名服务器将无法告知。它的意思时，duanqixin.top这个域名对应的IP地址是123.60.164.201
+17. 这条A记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+17. 这条A记录被保存在权威域名服务器上
+18. 何时会使用到上述的A记录呢？
+18. 当本地域名服务器向权威域名服务器询问域名duanqixin.top的具体IP地址时，权威域名服务器返回这条A记录，告知本地域名服务器，duanqixin.top的具体IP地址。
+19. 有一条CNAME记录，其键为"www.duanqixin.top"，其值为"duanqixin.top"，它可以被删除嘛？是什么意思？
+19. 不可以被删除，因为如果删除了，那么本地域名服务器向权威域名服务器询问域名www.duanqixin.top的具体IP时，权威域名服务器将无法告知www.duanqixin.top的别名，进而无法利用键为"duanqixin.top"的A记录
+20. 这条CNAME记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+20. 这条CNAME记录被保存在权威域名服务器上
+21. 何时会使用到上述的CNAME记录呢？
+21. 当本地域名服务器向权威域名服务器询问域名www.duanqixin.top的具体IP地址时，权威域名服务器返回这条CNAME记录，告知本地域名服务器www.duanqixin.top的规范名，进而本地域名服务器再向权威域名服务器询问www.duanqixin.top的规范名的IP地址
+22. 有一条MX记录，其键为"duanqixin.top"，其值为"1 duanqixin.top."，它可以被删除嘛？是什么意思？
+22. 不可以被删除，因为如果删除了，那么本地域名服务器向权威域名服务器询问发往域名duanqixin.top的邮件应该发往哪里时，权威域名服务器将无法告知。它的意思是，发往duanqixin.top这个域名的邮件应该被发送到duanqixin.top这个域名对应的邮件服务器上。
+23. 这条MX记录被保存在顶级域名服务器上，还是被保存在权威域名服务器上呢？
+23. 这条MX记录被保存在权威域名服务器上
+24. 何时会使用到上述的MX记录呢？
+24. 当本地域名服务器向权威域名服务器询问发往域名duanqixin.top的邮件应该发往哪里时，权威域名服务器将MX记录告知本地域名服务器，接着本地域名服务器再向权威域名服务器询问具体的邮件服务器的IP

@@ -1,0 +1,129 @@
+1. 写一个playbook，显示出收集到的Facts；
+2. ansible_facts.hostname这个变量表示什么？__________________________________；
+3. ansible_facts.fqdn这个变量表示什么？__________________________________；
+4. ansible_facts.default_ipv4.address这个变量表示什么？_____________________________________；
+5. ansible_facts.interfaces这个变量表示什么？__________________________________；
+6. ansible_facts.devices.nvme0n1.partitions.nvme0n1p2.size这个变量表示什么？_______________________________________；
+7. ansible_facts.dns.nameservers这个变量表示什么？___________________________________；
+8. ansible_facts.kernel这个变量表示什么？___________________________________；
+9. 写一个playbook，对于所有的受控主机，输出类似于这样的一段话“centos8.example.com的默认IPV4地址是192.168.197.128”_______________________________；
+10. ansible_hostname这个变量表示什么？___________________________________；
+11. ansible_fqdn这个变量表示什么？_________________________________；
+12. ansible_default_ipv4.address这个变量表示什么？_________________________________；
+13. ansible_interfaces这个变量表示什么？___________________________________；
+14. ansible_devices.nvme0n1.partitions.nvme0n1p2.size这个变量表示什么？__________________________________；
+15. ansible_dns.nameservers这个变量表示什么？___________________________________；
+16. ansible_kernel这个变量表示什么？_______________________________；
+17. 写一个playbook，预先不收集facts，只调用debug模块，输出1；
+18. 写一个playbook，预先不收集facts，只调用debug模块，输出2；
+19. 写一个playbook，预先不收集facts，只调用debug模块，输出3；
+20. 写一个playbook，预先不收集facts，调用setup模块，只收集interface部分的facts，接着输出它们；
+21. 写一个playbook，输出控制主机上的自定义facts；
+22. 写一个playbook，输出控制主机上的自定义facts；
+23. 写一个playbook，输出受控主机上的默认IPv4地址，以及自定义facts；
+
+
+
+
+1. /* A20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts
+...
+2. ansible_facts.hostname表示主机名称
+3. ansible_facts.fqdn表示主机域名
+4. ansible_facts.default_ipv4.address表示主要的IPv4地址
+5. ansible_facts.interfaces表示该主机上所有的网卡接口名称
+6. ansible_facts.devices.nvme0n1.partitions.nvme0n1p2.size表示该主机上/dev/nvme0n1p2这块磁盘分区的大小
+7. ansible_facts.dns.nameservers表示所有的DNS服务器的地址
+8. ansible_facts.kernel表示当前运行的系统内核的版本
+9. /* B20240528.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: '"{{ ansible_facts.fqdn }}" "{{ ansible_facts.default_ipv4.address }}"'
+...
+10. ansible_hostname在inject_facts_as_vars为true时，表示主机名称，是过时的写法
+11. ansible_fqdn在inject_facts_as_vars为true时，表示主机域名，是过时的写法
+12. ansible_default_ipv4.address在inject_facts_as_vars为true时，表示主要的IPv4地址，是过时的写法
+13. ansible_interfaces在inject_facts_as_vars为true时，表示主机上所有的网卡接口名称，是过时的写法
+14. ansible_devices.nvme0n1.partitions.nvme0n1p2.size在inject_facts_as_vars为true时，表示该主机上/dev/nvme0n1p2这块磁盘分区的大小，是过时的写法
+15. ansible_dns.nameservers在inject_facts_as_vars为true时，表示所有的DNS服务器的地址，是过时的写法
+16. ansible_kernel在inject_facts_as_vars为true时，表示当前运行的系统内核的版本，是过时的写法
+17. /* C20240528.yaml */
+---
+- name: Play1
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "1"
+...
+18. /* D20240528.yaml */
+---
+- name: Play1
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "2"
+...
+19. /* E20240528.yaml */
+---
+- name: Play1
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "3"
+...
+20. /* F20240528.yaml */
+---
+- name: Play1
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Task1
+      ansible.builtin.setup:
+        gather_subset: interfaces
+    - name: Task2
+      ansible.builtin.debug:
+        var: ansible_facts.interfaces
+...
+21. /* A20240529.yaml */
+---
+- name: Play1
+  hosts: workstation
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_local
+...
+22. /* B20240529.yaml */
+---
+- name: Play1
+  hosts: workstation
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_local
+...
+23. /* C20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.default_ipv4.address }} and {{ ansible_local }}"
+...

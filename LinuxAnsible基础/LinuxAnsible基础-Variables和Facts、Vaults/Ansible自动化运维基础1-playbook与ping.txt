@@ -1,0 +1,34 @@
+1. 有三台虚拟机，名称分别为servera.lab.example.com，serverb.lab.example.com，serverc.lab.example.com。在三台主机上，除了都有root用户外，都还有一个用户student。现在在servera.lab.example.com虚拟机上，安装了ansible，能够控制serverb.lab.example.com和serverc.lab.example.com。如果想要在servera.lab.example.com虚拟机上新建一个inventory文件，记录两台受控主机，则应该如何编写inventory文件？使用两种方法。
+2. 接题1，如果这两台受控主机都属于组production，并且serverb.lab.example.com属于Beijing，serverc.lab.example.com属于Shanghai，并且Beijing与Shanghai都属于China。要将这两台受控主机的组别信息也加入到inventory文件当中去，该如何写呢？
+3. 接题2，如果想列出此时的inventory信息，可以有哪几种方法？
+4. 缺省的存放受控主机的文件的位置是？__________________________动态指定使用哪个inventory文件的命令是？_________________________
+5. 检查控制主机是否能够ping通所有被控主机的命令是______________________________；
+6. 检查控制主机是否能够ping通所有被控主机的命令是______________________________；
+7. 检查控制主机是否能够ping通所有被控主机的命令是______________________________；
+
+
+1. /* inventory */
+serverb.lab.example.com
+serverc.lab.example.com
+或者
+/* inventory */
+server[b:c].lab.example.com
+2. /* inventory */
+[production]
+server[b:c].lab.example.com
+[beijing]
+serverb.lab.example.com
+[shanghai]
+serverc.lab.example.com
+[china:children]
+beijing
+shanghai
+3. ansible-inventory -i inventory --list
+或者ansible-inventory -i inventory --list --yaml
+或者ansible-inventory -i inventory --list --toml
+或者ansible-inventory -i inventory --graph
+或者ansible-inventory -i inventory --json
+4. /etc/ansible/hosts -i加inventory文件的路径 
+5. ansible all -m ping
+6. ansible all -m ping
+7. ansible all -m ping

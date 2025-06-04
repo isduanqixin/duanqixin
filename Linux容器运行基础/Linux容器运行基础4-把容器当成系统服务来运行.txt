@@ -1,0 +1,46 @@
+1. podman只能够在_______________中使用，无法通过su或者sudo来使用；
+2. podman只能够在_______________中使用，无法通过su或者sudo来使用；
+3. podman只能够在_______________中使用，无法通过su或者sudo来使用；
+4. 可以在____________________文件夹中手动定义systemd服务；
+5. 可以在____________________文件夹中手动定义systemd服务；
+6. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件；
+7. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件；
+8. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件，并且让这个容器随着服务启停而自动创建删除；
+9. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件，并且让这个容器随着服务启停而自动创建删除；
+10. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件，并且让这个容器随着服务启停而自动创建删除，并将其保存在相关文件当中；
+11. 在systemd服务中，为名为webapp的容器创建一个最简单的配置文件，并且让这个容器随着服务启停而自动创建删除，并将其保存在相关文件当中；
+12. 重新加载systemd服务配置文件的命令是___________________________________；
+13. 重新加载systemd服务配置文件的命令是___________________________________；
+14. 运行并且下次开机自启container-webapp.service的命令是_________________________________；
+15. 运行并且下次开机自启container-webapp.service的命令是_________________________________；
+16. 查看container-webapp.service状态的命令是__________________________________；
+17. 查看container-webapp.service状态的命令是__________________________________；
+18. 查看在退出SSH之后，systemd属于使用者的服务是否会持久存在的方法是_________________________________；
+19. 查看在退出SSH之后，systemd属于使用者的服务是否会持久存在的方法是_________________________________；
+20. 确保在退出SSH之后，systemd属于使用者的服务会持久存在的方法是__________________________；
+21. 确保在退出SSH之后，systemd属于使用者的服务会持久存在的方法是__________________________；
+
+
+
+
+1. 一个SSH session
+2. 一个SSH session
+3. 一个SSH session
+4. ~/.config/systemd/user
+5. ~/.config/systemd/user
+6. podman generate systemd --name webapp
+7. podman generate systemd --name webapp
+8. podman generate systemd --name webapp --new
+9. podman generate systemd --name webapp --new
+10. podman generate systemd --name webapp --new --files
+11. podman generate systemd --name webapp --new --files
+12. systemctl --user daemon-reload
+13. systemctl --user daemon-reload
+14. systemctl --user start container-webapp.service
+15. systemctl --user start container-webapp.service
+16. systemctl --user status container-webapp.service
+17. systemctl --user status container-webapp.service
+18. loginctl show-user contsvc | grep Linger
+19. loginctl show-user contsvc | grep Linger
+20. loginctl enable-linger contsvc
+21. loginctl enable-linger contsvc

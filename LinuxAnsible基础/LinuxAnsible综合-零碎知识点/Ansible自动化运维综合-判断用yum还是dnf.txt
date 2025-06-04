@@ -1,0 +1,25 @@
+问：写一个playbook文件，对于所有的受控主机，根据其ansible_facts.distribution，确定用ansible.builtin.dnf还是ansible.builtin.yum模块，来下载最新版的httpd软件包。
+答：
+/* A20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+      when: >
+        ansible_facts.distribution == "RedHat"
+        or
+        ( ansible_facts.distribution == "CentOS" and
+          ansible_facts.distribution_major_version == "8" )
+    - name: Task2
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+      when: >
+        ansible_facts.distribution == "CentOS"
+        and
+        ansible_facts.distribution_major_version == "7"
+...

@@ -1,0 +1,94 @@
+1. 写一份playbook，对于所有*.example.com的受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+2. 写一份playbook，对于所有centos*的受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+3. 写一份playbook，对于centos7.example.com，rhel9.example.com的受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+4. 写一份playbook，对于既属于centos组，又属于greatmariadb组的所有受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+5. 写一份playbook，对于既属于rhel组，又属于greatmariadb组的所有受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+6. 写一份playbook，对于属于centos组，但不属于greatmariadb组的所有受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+7. 写一份playbook，对于all组，但不属于centos组的所有受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+8. 写一份playbook，对于centos*，但不是centos7*的所有受控主机，在控制主机中输出信息"HellO World! Do you love me?"；
+
+
+
+
+1. /* A20240601.yaml */
+---
+- name: Play1
+  hosts: '*.example.com'
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+2. /* B20240601.yaml */
+---
+- name: Play1
+  hosts: 'centos*'
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+3. /* C20240601.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com, rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+或者
+/* D20240601.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com:rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+4. /* D20240601.yaml */
+---
+- name: Play1
+  hosts: centos, &greatmariadb
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+5. /* E20240601.yaml */
+---
+- name: Play1
+  hosts: rhel, &greatmariadb
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+6. /* F20240601.yaml */
+---
+- name: Play1
+  hosts: centos, !greatmariadb
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+7. /* G20240601.yaml */
+---
+- name: Play1
+  hosts: all, !centos
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...
+8. /* H20240601.yaml */
+---
+- name: Play1
+  hosts: 'centos*, !centos7*'
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: HellO World! Do you love me?
+...

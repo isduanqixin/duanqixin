@@ -1,0 +1,32 @@
+1. 在/dev/sdb这块磁盘中，已知已有两个分区，并且第二个分区在42MB处结尾。现在新创建一个大小为2G的分区，并将其格式化为交换分区，方法是__________________________；
+2. 在/dev/nvme0n2这块磁盘中，已知已有三个分区，并且第三个分区在25.2MB处结尾。现在新创建一个大小为2G的分区，并将其格式化为交换分区，方法是__________________________；
+3. 从/etc/fstab中查看所有列出的交换分区的命令是____________________________；
+4. 从/etc/fstab中查看所有列出的交换分区的命令是____________________________；
+5. 列出所有可用的交换分区的命令是_________________________；
+6. 列出所有可用的交换分区的命令是_________________________；
+7. 将/dev/dm-1这块交换分区卸下来的命令是__________________________；
+8. 将/dev/nvme0n2p4这块交换分区卸下来的命令是____________________________；
+9. 已知/dev/sdb3这块分区的UUID为1861e60e-37bf-4289-80bb-ebd68161d62d，将/dev/sdb3这块分区持久挂载为交换分区，并将其优先级设置为9的命令是_____________________________；
+10. 已知/dev/nvme0n2p4这块分区的UUID为0a51525b-4703-4427-84eb-1e93f9e2de2c，将/dev/nvme0n2p4这块分区持久挂载为交换分区，并将其优先级设置为10的命令是_____________________________；
+
+
+1. sudo parted /dev/sdb mkpart primary linux-swap 42MB 2000MB
+sudo mkswap /dev/sdb3
+2. sudo parted /dev/nvme0n2 mkpart primary linux-swap 25.2MB 2000MB
+sudo mkswap /dev/nvme0n2p4
+3. swapon -a
+4. swapon -a
+5. swapon --show 或者 free
+6. swapon --show 或者 free
+7. sudo swapoff /dev/dm-1
+8. sudo swapoff /dev/nvme0n2p4
+9. vim /etc/fstab
+/* /etc/fstab */
+UUID=1861e60e-37bf-4289-80bb-ebd68161d62d swap                    swap    pri=9        0 0   
+/* /etc/fstab */
+然后sudo findmnt --verify
+10. vim /etc/fstab
+/* /etc/fstab */
+UUID=0a51525b-4703-4427-84eb-1e93f9e2de2c swap                    swap    pri=10        0 0
+/* /etc/fstab */
+然后sudo findmnt --verify

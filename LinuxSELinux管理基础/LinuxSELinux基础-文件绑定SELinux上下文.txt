@@ -1,0 +1,57 @@
+1. 所有资源，比如进程、文件和________，都被打上了SELinux上下文；
+2. 所有资源，比如进程、文件和________，都被打上了SELinux上下文；
+3. 所有资源，比如进程、文件和________，都被打上了SELinux上下文；
+4. ______________文件夹保存了SELinux上下文与文件之间的关系；
+5. ______________文件夹保存了SELinux上下文与文件之间的关系；
+6. ______________文件夹保存了SELinux上下文与文件之间的关系；
+7. 新创建的文件会将文件名与SELinux上下文政策做匹配，自动获取一个SELinux上下文标签；而如果文件名与SELinux上下文政策不匹配，那么该新创建的文件会________________________________；
+8. 新创建的文件会将文件名与SELinux上下文政策做匹配，自动获取一个SELinux上下文标签；而如果文件名与SELinux上下文政策不匹配，那么该新创建的文件会________________________________；
+9. 新创建的文件会将文件名与SELinux上下文政策做匹配，自动获取一个SELinux上下文标签；而如果文件名与SELinux上下文政策不匹配，那么该新创建的文件会________________________________；
+10. 列出当前系统上的所有文件SELinux上下文，命令是__________________________；
+11. 列出当前系统上的所有文件SELinux上下文，命令是__________________________；
+12. 列出当前系统上的所有文件SELinux上下文，命令是__________________________；
+13. 给/var/www/html文件夹及其之下的所有文件重新打标签的命令是_________________________；
+14. 给/var/www/html文件夹及其之下的所有文件重新打标签的命令是_________________________；
+15. 给/var/www/html文件夹及其之下的所有文件重新打标签的命令是_________________________；
+16. 列出/var/www/html文件夹及其之下的文件和文件的SELinux上下文的命令是_________________________；
+17. 列出/var/www/html文件夹及其之下的文件和文件的SELinux上下文的命令是_________________________；
+18. 列出/var/www/html文件夹及其之下的文件和文件的SELinux上下文的命令是_________________________；
+19. 设置/add目录及其之下的所有文件的SELinux上下文为httpd_sys_content_t，命令是__________________________；
+20. 设置/add目录及其之下的所有文件的SELinux上下文为httpd_sys_content_t，命令是__________________________；
+21. 设置/add目录及其之下的所有文件的SELinux上下文为httpd_sys_content_t，命令是__________________________；
+22. 删除/add目录及其之下的所有文件的SELinux上下文，命令是__________________________；
+23. 删除/add目录及其之下的所有文件的SELinux上下文，命令是__________________________；
+24. 删除/add目录及其之下的所有文件的SELinux上下文，命令是__________________________；
+25. 列出有改动的文件的SELinux上下文，命令是_____________________________；
+26. 列出有改动的文件的SELinux上下文，命令是_____________________________；
+27. 列出有改动的文件的SELinux上下文，命令是_____________________________；
+
+
+
+1. 端口
+2. 端口
+3. 端口
+4. /etc/selinux/targeted/contexts/files
+5. /etc/selinux/targeted/contexts/files
+6. /etc/selinux/targeted/contexts/files
+7. 继承父目录的SELinux上下文
+8. 继承父目录的SELinux上下文
+9. 继承父目录的SELinux上下文
+10. semanage fcontext -l
+11. semanage fcontext -l
+12. semanage fcontext -l
+13. restorecon -Rv /var/www/html
+14. restorecon -Rv /var/www/html
+15. restorecon -Rv /var/www/html
+16. ls -alhZ /var/www/html
+17. ls -alhZ /var/www/html
+18. ls -alhZ /var/www/html
+19. semanage fcontext -a -t httpd_sys_content_t '/add(/.*)?'接着restorecon -Rv /add
+20. semanage fcontext -a -t httpd_sys_content_t '/add(/.*)?'接着restorecon -Rv /add
+21. semanage fcontext -a -t httpd_sys_content_t '/add(/.*)?'接着restorecon -Rv /add
+22. semanage fcontext -d '/add(/.*)?'接着restorecon -Rv /add
+23. semanage fcontext -d '/add(/.*)?'接着restorecon -Rv /add
+24. semanage fcontext -d '/add(/.*)?'接着restorecon -Rv /add
+25. semanage fcontext -l -C
+26. semanage fcontext -l -C
+27. semanage fcontext -l -C

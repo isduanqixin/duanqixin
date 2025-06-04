@@ -1,0 +1,22 @@
+1. 给如下文件nowcoder.txt，按照第二个字段排序：
+ESTABLISHED 22
+TIME_WAIT 9
+LISTEN 3
+2. 给如下文件nowcoder.txt，按照第二个字段的首字母排序：
+ESTABLISHED APPLE
+TIME_WAIT BANANA
+LISTEN PEAR
+3. 给如下文件nowcoder.txt，等号分割，按照第二个字段排序：
+ESTABLISHED=22
+TIME_WAIT=9
+LISTEN=3
+4. 给如下文件nowcoder.txt，等号分割，按照第二个字段的首字母排序：
+ESTABLISHED=APPLE
+TIME_WAIT=BANANA
+LISTEN=PEAR
+
+
+1. sort -k2 -rn
+2. sort -k2 -r
+3. sort -t "=" -k2 -rn
+4. sort -t "=" -k2 -r

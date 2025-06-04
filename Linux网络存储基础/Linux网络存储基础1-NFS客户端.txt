@@ -1,0 +1,40 @@
+NFS服务器_______________________，NFS客户端________________________________________；
+NFS服务器_______________________，NFS客户端________________________________________；
+NFS服务器_______________________，NFS客户端________________________________________；
+1. NFS客户端手动挂载一个被导出的文件夹的方法是______________________________________；
+2. NFS客户端手动挂载一个被导出的文件夹的方法是______________________________________；
+3. NFS客户端自动挂载一个被导出的文件夹的方法是______________________________________；
+4. NFS客户端自动挂载一个被导出的文件夹的方法是______________________________________；
+5. NFS客户端必须要安装的工具是________________________；
+6. NFS客户端必须要安装的工具是________________________；
+7. 在servera上，将serverb的/shares/public挂载到/public上，命令是___________________________；
+8. 在servera上，将serverb的/shares/public挂载到/public上，命令是___________________________；
+9. 查看nfs挂载详情的方法是___________________________；
+10. 查看nfs挂载详情的方法是___________________________；
+11. 将serverb:/shares/public持久性挂载到servera:/public上的方法是_________________________________；
+12. 将serverb:/shares/public持久性挂载到servera:/public上的方法是_________________________________；
+
+
+导出文件夹    把被导出的文件夹挂载到本地的一个挂载点目录上
+导出文件夹    把被导出的文件夹挂载到本地的一个挂载点目录上
+导出文件夹    把被导出的文件夹挂载到本地的一个挂载点目录上
+1. 使用mount命令手动挂载
+2. 使用mount命令手动挂载
+3. 编写/etc/fstab文件
+4. 编写/etc/fstab文件
+5. dnf install nfs-utils
+6. dnf install nfs-utils
+7. mount -t nfs -o rw,sync serverb:/shares/public /public
+8. mount -t nfs -o rw,sync serverb:/shares/public /public
+9. mount | grep 'nfs'
+10. mount | grep 'nfs'
+11. sudo vim /etc/fstab
+/* /etc/fstab */
+serverb:/shares/public    /public    nfs    rw,sync    0    0
+/* /etc/fstab */
+sudo findmnt --verify
+12. sudo vim /etc/fstab
+/* /etc/fstab */
+serverb:/shares/public    /public    nfs    rw,sync    0    0
+/* /etc/fstab */
+sudo findmnt --verify

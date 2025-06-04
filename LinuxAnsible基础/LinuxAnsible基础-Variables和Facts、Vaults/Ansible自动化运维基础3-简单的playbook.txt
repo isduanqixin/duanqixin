@@ -1,0 +1,337 @@
+1. 在所有主机上，新建一个uid为4000的用户newbie；
+2. 在所有主机上，新建一个uid为5000的用户hahaha；
+3. 在所有主机上，新建一个uid为6000的用户fafa；
+4. 在所有主机上，确保uid为4000的用户newbie不存在；
+5. 在所有主机上，确保uid为5000的用户hahaha不存在；
+6. 在所有主机上，确保uid为6000的用户fafa不存在；
+7. 如何确保所有主机上的root用户，都保管有控制主机的密钥呢？
+8. 如何确保所有主机上的centos用户，都保管有控制主机的密钥呢？
+9. 如何确保所有主机上的root用户，都保管有控制主机的密钥呢？
+10. 如何确保所有受控主机都能够ping通呢？
+11. 如何确保所有受控主机都能够ping通呢？
+12. 如何确保所有受控主机都能够ping通呢？
+13. 一份playbook文件的末尾通常是________________；
+14. 一份playbook文件的末尾通常是________________；
+15. 一份playbook文件的末尾通常是________________；
+16. 写一份playbook文件，使得httpd服务在开机时能够自动启动；
+17. 写一份playbook文件，使得chronyd服务在开机时能够自动启动；
+18. 写一份playbook文件，使得postfix服务在开机时能够自动启动；
+19. 当下载了ansible-core这个包之后，默认包含了_______________系列的模块；
+20. 当下载了ansible-core这个包之后，默认包含了_______________系列的模块；
+21. 当下载了ansible-core这个包之后，默认包含了_______________系列的模块；
+22. 从_______________________可以查询到ansible.builtin系列的模块都有哪些；
+23. 从_______________________可以查询到ansible.builtin系列的模块都有哪些；
+24. 从_______________________可以查询到ansible.builtin系列的模块都有哪些；
+25. 对于使用的模块的名字，推荐使用__________写法，比如ansible.builtin.copy推荐写成ansible.builtin.copy，而不推荐只写作copy；
+26. 对于使用的模块的名字，推荐使用__________写法，比如ansible.builtin.copy推荐写成ansible.builtin.copy，而不推荐只写作copy；
+27. 对于使用的模块的名字，推荐使用__________写法，比如ansible.builtin.copy推荐写成ansible.builtin.copy，而不推荐只写作copy；
+28. 写一份playbook文件，确保httpd服务已经安装到了主机上；
+29. 写一份playbook文件，确保chronyd服务已经安装到了主机上；
+30. 写一份playbook文件，确保postfix服务已经安装到了主机上；
+31. 如何在运行P20240525.yaml这个文件的同时，也显示出任务的结果呢？
+32. 如何在运行P20240525.yaml这个文件的同时，既显示出任务的结果，又显示出任务的配置呢？
+33. 如何在运行P20240525.yaml这个文件的同时，列出与受控结点之间的连接的额外信息呢？
+34. 如何在运行P20240525.yaml这个文件的同时，最大程度上列出最详细的信息呢？
+35. 如何在运行N20240525.yaml这个文件之前，先进行语法检查呢？
+36. 如何在运行O20240525.yaml这个文件之前，先进行语法检查呢？
+37. 如何在运行P20240525.yaml这个文件之前，先进行语法检查呢？
+38. 写一份playbook文件，确保httpd、chronyd、postfix服务开机自启，并且现在处于启动状态。
+39. 写一份playbook文件，确保httpd、chronyd、postfix服务开机自启，并且现在处于启动状态，对这份playbook文件进行语法检查。
+40. 写一份playbook文件，确保httpd、chronyd、postfix服务开机自启，并且现在处于启动状态，dry run这份playbook文件。
+41. 写一份playbook文件，将~/Ansible/files/example.txt文件拷贝到/home/centos/Desktop/这个目录中。
+42. 写一份playbook文件，将~/Ansible/files/example.txt文件拷贝到/home/centos/Desktop/这个目录中，对这份playbook文件进行语法检查。
+43. 写一份playbook文件，将~/Ansible/files/example.txt文件拷贝到/home/centos/Desktop/这个目录中，dry run这份playbook文件。
+44. 从_______________________可以查询到ansible.posix系列的模块都有哪些；
+45. 从_______________________可以查询到ansible.posix系列的模块都有哪些；
+46. 从_______________________可以查询到ansible.posix系列的模块都有哪些；
+
+
+
+
+1. /* A20240511.yaml */
+---
+- name: Configure important user consistently.
+  hosts: all
+  tasks:
+    - name: Newbie exists with UID 4000.
+      ansible.builtin.user:
+        name: newbie
+        uid: 4000
+        state: present
+...
+然后运行命令ansible-playbook A20240511.yaml，就可以了
+2. /* A20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: task1
+      ansible.builtin.user:
+        user: hahaha
+        uid: 5000
+        state: present
+...
+然后运行命令ansible-playbook A20240525.yaml，就可以了
+3. /* B20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: task1
+      ansible.builtin.user:
+        user: fafa
+        uid: 6000
+        state: present
+...
+然后运行命令ansible-playbook B20240525.yaml，就可以了
+4. /* C20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: task1
+      ansible.builtin.user:
+        name: newbie
+        uid: 4000
+        state: absent
+...
+然后运行命令ansible-playbook C20240525.yaml，就可以了
+5. /* D20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: task1
+      ansible.builtin.user:
+        name: hahaha
+        uid: 4000
+        state: absent
+...
+然后运行命令ansible-playbook D20240525.yaml，就可以了
+6. /* E20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: task1
+      ansible.builtin.user:
+        name: fafa
+        uid: 5000
+        state: absent
+...
+然后运行命令ansible-playbook E20240525.yaml，就可以了
+7. /* F20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.authorized_key:
+        user: root
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - ~/.ssh/id_rsa.pub
+...
+然后先运行命令ansible-playbook F20240525.yaml --ask-pass，接着再次运行ansible-playbook F20240525.yaml，就能够保证所有主机上的root用户，都保管有控制主机的密钥。
+8. /* G20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.authorized_key:
+        user: centos
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - ~/.ssh/id_rsa.pub
+...
+然后先运行命令ansible-playbook G20240525.yaml --ask-pass，接着再次运行ansible-playbook G20240525.yaml，就能够保证所有主机上的centos用户，都保管有控制主机的密钥。
+9. /* H20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.authorized_key:
+        user: root
+        state: present
+        key: '{{ item }}'
+      with_file:
+        - ~/.ssh/id_rsa.pub
+...
+然后先运行命令ansible-playbook H20240525.yaml --ask-pass，接着再次运行ansible-playbook H20240525.yaml，就能够保证所有主机上的root用户，都保管有控制主机的密钥。
+10. /* I20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.ping:
+...
+然后运行命令ansible-playbook I20240525.yaml，就可以了
+11. /* J20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.ping:
+...
+然后运行命令ansible-playbook J20240525.yaml，就可以了
+12. /* K20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.ping:
+...
+然后运行命令ansible-playbook K20240525.yaml，就可以了
+13. ...
+14. ...
+15. ...
+16. /* L20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+...
+然后运行命令ansible-playbook L20240525.yaml，就可以了
+17. /* M20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: chronyd
+        enabled: true
+...
+然后运行命令ansible-playbook M20240525.yaml，就可以了
+18. /* N20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: postfix
+        enabled: true
+...
+然后运行命令ansible-playbook N20240525.yaml，就可以了
+19. ansible.builtin
+20. ansible.builtin
+21. ansible.builtin
+22. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/
+23. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/
+24. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/
+25. FQCN
+26. FQCN
+27. FQCN
+28. /* O20240525.yaml */
+---
+- name: Play1
+  hosts: centos8
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+- name: Play2
+  hosts: centos7
+  tasks:
+    - name: Task1
+      ansible.builtin.yum:
+        name: httpd
+        state: latest
+...
+然后运行命令ansible-playbook O20240525.yaml，就可以了
+29. /* P20240525.yaml */
+---
+- name: Play1
+  hosts: centos8
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: chrony
+        state: latest
+- name: Play2
+  hosts: centos7
+  tasks:
+    - name: Task1
+      ansible.builtin.yum:
+        name: chrony
+        state: latest
+...
+然后运行命令ansible-playbook P20240525.yaml，就可以了
+30. /* Q20240525.yaml */
+---
+- name: Play1
+  hosts: centos8
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: postfix
+        state: latest
+- name: Play2
+  hosts: centos7
+  tasks:
+    - name: Task1
+      ansible.builtin.yum:
+        name: postfix
+        state: latest
+...
+然后运行命令ansible-playbook Q20240525.yaml，就可以了
+31. ansible-playbook P20240525.yaml -v
+32. ansible-playbook P20240525.yaml -vv
+33. ansible-playbook P20240525.yaml -vvv
+34. ansible-playbook P20240525.yaml -vvvv
+35. ansible-playbook N20240525.yaml --syntax-check
+36. ansible-playbook O20240525.yaml --syntax-check
+37. ansible-playbook P20240525.yaml --syntax-check
+38. /* R20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: Task2
+      ansible.builtin.service:
+        name: chronyd
+        state: started
+        enabled: true
+    - name: Task3
+      ansible.builtin.service:
+        name: postfix
+        state: started
+        enabled: true
+...
+然后运行命令ansible-playbook R20240525.yaml就可以了
+39. ansible-playbook R20240525.yaml --syntax-check
+40. ansible-playbook R20240525.yaml --check
+41. /* S20240525.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: ~/Ansible/files/example.txt
+        dest: /home/centos/Desktop/
+...
+然后运行命令ansible-playbook S20240525.yaml就可以了
+42. ansible-playbook S20240525.yaml --syntax-check
+43. ansible-playbook S20240525.yaml --check
+44. https://docs.ansible.com/ansible/latest/collections/ansible/posix/
+45. https://docs.ansible.com/ansible/latest/collections/ansible/posix/
+46. https://docs.ansible.com/ansible/latest/collections/ansible/posix/

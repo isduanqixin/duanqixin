@@ -1,0 +1,47 @@
+1. YAML文件中的注释如何写呢？
+2. YAML文件中的注释如何写呢？
+3. YAML文件中的注释如何写呢？
+4. 写一份yaml文件，确保httpd服务是最新版，并且开机自启且正在运行，接着确保所有受控主机/var/www/html/index.html文件的内容为"Welcome to the Winner Kingdom."；再确保firewalld服务是最新版，并且开机自启且正在运行，再默认zone放行httpd服务；
+
+
+
+1. 注释用#打头
+2. 注释用#打头
+3. 注释用#打头
+4. /* X20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+    - name: Task2
+      ansible.builtin.copy:
+        content: "Welcome to the Winner Kingdom."
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Task3
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: Task4
+      ansible.builtin.package:
+        name: firewalld
+        state: latest
+    - name: Task5
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+    - name: Task6
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+...

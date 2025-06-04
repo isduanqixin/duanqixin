@@ -1,0 +1,207 @@
+1. 写一个含有循环的playbook文件，确保httpd、firewalld、sshd服务都是开机自启动，并且正在运行当中的；
+2. 写一个含有循环的playbook文件，使用变量，确保httpd、firewalld、sshd服务都是开机自启动，并且正在运行当中的；
+3. 写一个含有循环的playbook文件，确保httpd、openssh、tree软件的最新版都已被安装；
+4. 写一个含有循环的playbook文件，使用变量，确保httpd、openssh、tree软件的最新版都已被安装；
+5. 写一个含有循环的playbook文件，对于所有的受控主机，确保用户centos在wheel组中，并确保用户rhel也在wheel组当中；
+6. 写一个含有循环的playbook文件，使用变量，对于所有的受控主机，确保用户centos在wheel组中，并确保用户rhel也在wheel组当中；
+7. 写一个含有循环的playbook文件，对于所有的受控主机，确保httpd软件的最新版、openssh软件的最新版、tree软件的最新版都已被安装；
+8. 写一个含有循环的playbook文件，使用变量，对于所有的受控主机，确保httpd软件的最新版、openssh软件的最新版、tree软件的最新版都已被安装；
+9. 写一个含有循环的playbook文件，不用循环关键字loop，而用循环关键字with_items，对于所有的受控主机，确保httpd、firewalld、sshd服务都是开机自启动，并且正在运行当中的；
+10. 写一个含有循环的playbook文件，不用循环关键字loop，而用循环关键字with_items，对于所有的受控主机，确保httpd、openssh、tree软件的最新版都已被安装；
+11. 写一个含有循环的playbook文件，在ansible.builtin.shell模块中使用循环，并将循环的结果返回到控制主机；
+12. 写一个含有循环的playbook文件，在ansible.builtin.shell模块中使用循环，并将循环的关键结果返回到控制主机；
+
+
+
+
+
+1. /* A20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop:
+        - httpd
+        - firewalld
+        - sshd
+...
+2. /* B20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    services:
+      - httpd
+      - firewalld
+      - sshd
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ services }}"
+...
+3. /* C20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - httpd
+        - openssh
+        - tree
+...
+4. /* D20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    pkg:
+      - httpd
+      - openssh
+      - tree
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ pkg }}"
+...
+5. /* E20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: "{{ item.user }}"
+        state: present
+        group: "{{ item.group }}"
+      loop:
+        - user: centos
+          group: wheel
+        - user: rhel
+          group: wheel
+...
+6. /* F20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    ug:
+      - user: centos
+        group: wheel
+      - user: rhel
+        group: wheel
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: "{{ item.user }}"
+        state: present
+        group: "{{ item.group }}"
+      loop: "{{ ug }}"
+...
+7. /* G20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ item.pkgname }}"
+        state: "{{ item.pkgstate }}"
+      loop:
+        - pkgname: httpd
+          pkgstate: latest
+        - pkgname: openssh
+          pkgstate: latest
+        - pkgname: tree
+          pkgstate: latest
+...
+8. /* H20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    iitteemm:
+      - pkgname: httpd
+        pkgstate: latest
+      - pkgname: openssh
+        pkgstate: latest
+      - pkgname: tree
+        pkgstate: latest
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ item.pkgname }}"
+        state: "{{ item.pkgstate }}"
+      loop: "{{ iitteemm }}"
+...
+9. /* I20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    iitteemm:
+      - servicename: httpd
+        servicestate: started
+        serviceenabled: true
+      - servicename: firewalld
+        servicestate: started
+        serviceenabled: true
+      - servicename: sshd
+        servicestate: started
+        serviceenabled: true
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: "{{ item.servicename }}"
+        state: "{{ item.servicestate }}"
+        enabled: "{{ item.serviceenabled }}"
+      with_items: "{{ iitteemm }}"
+...
+10. /* J20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    iitteemm:
+      - pkgname: httpd
+        pkgstate: latest
+      - pkgname: openssh
+        pkgstate: latest
+      - pkgname: tree
+        pkgstate: latest
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ item.pkgname }}"
+        state: "{{ item.pkgstate }}"
+      with_items: "{{ iitteemm }}"
+...
+11. /* K20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: "echo Hello World! {{ item }} love me or not?"
+      loop:
+        - You
+        - He
+        - She
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...

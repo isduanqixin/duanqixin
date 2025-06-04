@@ -1,0 +1,34 @@
+1. ansible-playbook后面加一个-v，表示什么意思？________________________________；
+2. ansible-playbook后面加一个-v，表示什么意思？________________________________；
+3. ansible-playbook后面加一个-v，表示什么意思？________________________________；
+4. ansible-playbook后面加一个-vv，表示什么意思？________________________________；
+5. ansible-playbook后面加一个-vv，表示什么意思？________________________________；
+6. ansible-playbook后面加一个-vv，表示什么意思？________________________________；
+7. ansible-playbook后面加一个-vvv，表示什么意思？________________________________；
+8. ansible-playbook后面加一个-vvv，表示什么意思？________________________________；
+9. ansible-playbook后面加一个-vvv，表示什么意思？________________________________；
+10. ansible-playbook后面加一个-vvvv，表示什么意思？________________________________；
+11. ansible-playbook后面加一个-vvvv，表示什么意思？________________________________；
+12. ansible-playbook后面加一个-vvvv，表示什么意思？________________________________；
+13. 如果想将每一次运行playbook的结果都放到/home/rhce/Ansible/logfile1中，该怎么做呢？___________________________；
+14. 如果想将每一次运行playbook的结果都放到/home/rhce/Ansible/logfile1中，该怎么做呢？___________________________；
+15. 如果想将每一次运行playbook的结果都放到/home/rhce/Ansible/logfile1中，该怎么做呢？___________________________；
+
+
+
+
+1. -v显示outputdata
+2. -v显示outputdata
+3. -v显示outputdata
+4. -vv显示outputdata，inputdata
+5. -vv显示outputdata，inputdata
+6. -vv显示outputdata，inputdata
+7. -vvv显示outputdata，inputdata，对每一台主机的连接情况
+8. -vvv显示outputdata，inputdata，对每一台主机的连接情况
+9. -vvv显示outputdata，inputdata，对每一台主机的连接情况
+10. -vvvv显示outputdata，inputdata，对每一台主机的连接情况，受控主机上被执行的脚本、执行每个脚本的用户
+11. -vvvv显示outputdata，inputdata，对每一台主机的连接情况，受控主机上被执行的脚本、执行每个脚本的用户
+12. -vvvv显示outputdata，inputdata，对每一台主机的连接情况，受控主机上被执行的脚本、执行每个脚本的用户
+13. ansible.cfg的default中，添加log_path=~/Ansible/logfile1
+14. ansible.cfg的default中，添加log_path=~/Ansible/logfile1
+15. ansible.cfg的default中，添加log_path=~/Ansible/logfile1

@@ -1,0 +1,26 @@
+1. 当/etc/fstab文件出现问题，系统无法启动时，可以在系统boot时，就进入到_____________模式，将根目录重新挂载为___________模式，接着再去编辑/etc/fstab文件；
+2. 当/etc/fstab文件出现问题，系统无法启动时，可以在系统boot时，就进入到_____________模式，将根目录重新挂载为___________模式，接着再去编辑/etc/fstab文件；
+3. 当/etc/fstab文件出现问题，系统无法启动时，可以在系统boot时，就进入到_____________模式，将根目录重新挂载为___________模式，接着再去编辑/etc/fstab文件；
+4. 不要忘记在编写完成/etc/fstab文件之后，再次__________________________；
+5. 不要忘记在编写完成/etc/fstab文件之后，再次__________________________；
+6. 不要忘记在编写完成/etc/fstab文件之后，再次__________________________；
+7. 为了能查看到上一次启动系统时的日志，应如何操作呢？________________________________；
+8. 为了能查看到上一次启动系统时的日志，应如何操作呢？________________________________；
+9. 为了能查看到上一次启动系统时的日志，应如何操作呢？________________________________；
+10. 列出上次启动时，所有被分级为error或者worse的信息，命令是_______________________________；
+11. 列出上次启动时，所有被分级为error或者worse的信息，命令是_______________________________；
+12. 列出上次启动时，所有被分级为error或者worse的信息，命令是_______________________________；
+
+
+1. emergency.target 可读可写
+2. emergency.target 可读可写
+3. emergency.target 可读可写
+4. systemctl daemon-reload
+5. systemctl daemon-reload
+6. systemctl daemon-reload
+7. 编辑/etc/systemd/journald.conf文件，将Storage选项的值设置为persistent，接着再重启systemd-journald.service服务
+8. 编辑/etc/systemd/journald.conf文件，将Storage选项的值设置为persistent，接着再重启systemd-journald.service服务
+9. 编辑/etc/systemd/journald.conf文件，将Storage选项的值设置为persistent，接着再重启systemd-journald.service服务
+10. journalctl -b -l -p err
+11. journalctl -b -l -p err
+12. journalctl -b -l -p err

@@ -1,0 +1,44 @@
+1. 创建一个名为/root/books.tar.gz的tar存档，其应该包含/usr/local的内容，并且该tar存档必须使用gzip进行压缩，则命令是________________________________；
+2. 创建一个名为/root/books.tar.gz的tar存档，其应该包含/usr/bin的内容，并且该tar存档必须使用gzip进行压缩，则命令是________________________________；
+3. 创建一个名为/root/books.tar.gz的tar存档，其应该包含/usr/sbin的内容，并且该tar存档必须使用gzip进行压缩，则命令是________________________________；
+4. 创建一个名为/root/books.tar.bz2的tar存档，其应该包含/usr/local的内容，并且该tar存档必须使用bzip2进行压缩，则命令是________________________________；
+5. 创建一个名为/root/books.tar.bz2的tar存档，其应该包含/usr/bin的内容，并且该tar存档必须使用bzip2进行压缩，则命令是________________________________；
+6. 创建一个名为/root/books.tar.bz2的tar存档，其应该包含/usr/sbin的内容，并且该tar存档必须使用bzip2进行压缩，则命令是________________________________；
+7. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了相关的ACL与SELinux设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+8. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了相关的ACL与SELinux设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+9. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了相关的ACL与SELinux设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+10. 现在有一个压缩文件ssh.tar.gz，如果想要查看这个压缩文件里面的内容，应使用命令___________________________________；
+11. 现在有一个压缩文件ssh.tar.gz，如果想要查看这个压缩文件里面的内容，应使用命令___________________________________；
+12. 现在有一个压缩文件ssh.tar.gz，如果想要查看这个压缩文件里面的内容，应使用命令___________________________________；
+13. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了各种权限设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+14. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了各种权限设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+15. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，还保存了各种权限设置，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+16. 创建一个名为/home/rhce/a.tar.gz的tar存档，其应该包含/home/rhce/Desktop的内容，并且该tar存档必须使用gzip进行压缩，则命令是_____________________________________；
+17. 创建一个名为/home/rhce/a.tar.bz2的tar存档，其应该包含/home/rhce/Desktop的内容，并且该tar存档必须使用bzip2进行压缩，则命令是_____________________________________；
+18. 创建一个名为/home/rhce/a.tar.xz的tar存档，其应该包含/home/rhce/Desktop的内容，并且该tar存档必须使用xz进行压缩，则命令是_____________________________________；
+19. 解压缩/home/rhce/a.tar.gz文件的命令是__________________________________________；
+20. 解压缩/home/rhce/a.tar.bz2文件的命令是___________________________________________；
+21. 解压缩/home/rhce/a.tar.xz文件的命令是__________________________________________；
+
+
+1. tar -czvf /root/books.tar.gz /usr/local
+2. tar -czvf /root/books.tar.gz /usr/bin
+3. tar -czvf /root/books.tar.gz /usr/sbin
+4. tar -cjvf /root/books.tar.bz2 /usr/local
+5. tar -cjvf /root/books.tar.bz2 /usr/bin
+6. tar -cjvf /root/books.tar.bz2 /usr/sbin
+7. tar -czvf --xattrs --selinux /home/rhce/a.tar.gz /home/rhce/Desktop
+8. tar -czvf --xattrs --selinux /home/rhce/a.tar.gz /home/rhce/Desktop
+9. tar -czvf --xattrs --selinux /home/rhce/a.tar.gz /home/rhce/Desktop
+10. tar -tf ssh.tar.gz
+11. tar -tf ssh.tar.gz
+12. tar -tf ssh.tar.gz
+13. tar -czvpf /home/rhce/a.tar.gz /home/rhce/Desktop
+14. tar -czvpf /home/rhce/a.tar.gz /home/rhce/Desktop
+15. tar -czvpf /home/rhce/a.tar.gz /home/rhce/Desktop
+16. tar -czvf /home/rhce/a.tar.gz /home/rhce/Desktop
+17. tar -cjvf /home/rhce/a.tar.bz2 /home/rhce/Desktop
+18. tar -cJvf /home/rhce/a.tar.xz /home/rhce/Desktop
+19. tar -xzvf /home/rhce/a.tar.gz
+20. tar -xjvf /home/rhce/a.tar.bz2
+21. tar -xJvf /home/rhce/a.tar.xz

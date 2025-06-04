@@ -1,0 +1,235 @@
+1. redhat.rhel_system_roles.network：使用redhat.rhel_system_roles.network这个role，确保在centos8.example.com中id为con160的连接处于up状态，rhel9.example.com中id为ens160的连接处于up状态，centos7.example.com中id为ens33的连接处于up状态；
+2. redhat.rhel_system_roles.network：已知rhel9.example.com，centos8.example.com这两台主机各新增了一个网卡设备ens224，centos7.example.com这台主机新增了一个网卡设备ens36。虽然三台受控主机上都有新增的网卡设备，但都缺少连接文件，所以请为三台受控主机新增的网卡设备添加连接文件；
+3. redhat.rhel_system_roles.network：已知rhel9.example.com，centos8.example.com这两台主机上，有一个针对网卡设备ens160的连接文件con160，请暂时停掉这个连接文件；
+4. network_connections.name指的是什么的名字？__________________，network_connections.interface_name指的是什么的名字？____________________；
+5. network_connections.name指的是什么的名字？__________________，network_connections.interface_name指的是什么的名字？____________________；
+6. network_connections.name指的是什么的名字？__________________，network_connections.interface_name指的是什么的名字？____________________；
+7. ansible.builtin.hostname：将rhel9.example.com主机的主机名改为r999，将centos8.example.com主机的主机名改为c888，将centos7.example.com主机的主机名改为c777；
+8. ansible.builtin.hostname：将rhel9.example.com主机的主机名改为a，将centos8.example.com主机的主机名改为b，将centos7.example.com主机的主机名改为c；
+9. ansible.posix.firewalld：确保在受控主机上，http服务永远都是放行状态；
+10. ansible.posix.firewalld：确保在受控主机上，sshd服务永远都是放行状态；
+11. ansible.posix.firewalld：在centos8和rhel9上，将ens160这块网卡永久移交到home这个zone当中；
+12. ansible.posix.firewalld：在centos8和rhel9上，将ens224这块网卡永久移交到home这个zone当中；
+13. ansible_facts.interfaces：列出所有受控主机的网络设备名称；
+14. ansible_facts.ens160：列出centos8与rhel9这两台受控主机的名为ens160的网卡设备的详细信息；
+15. ansible_facts.ens37：列出centos7这台受控主机的名为ens37的网卡设备的详细信息；
+16. 写一个playbook，包含几个任务：
+（1）获取受控主机所有的IPv4地址；
+（2）获取受控主机所有的IPv6地址；
+（3）获取受控主机所有的DNS服务器的IP地址，以及解析DNS时使用的域名；
+
+
+
+1. /* A20240606.yaml */
+---
+- name: Play1
+  hosts: "centos8*"
+  vars:
+    network_connections:
+      - name: con160
+        state: up
+  roles:
+    - redhat.rhel_system_roles.network
+- name: Play2
+  hosts: "rhel9*"
+  vars:
+    network_connections:
+      - name: ens160
+        state: up
+  roles:
+    - redhat.rhel_system_roles.network
+- name: Play3
+  hosts: "centos7*"
+  vars:
+    network_connections:
+      - name: ens33
+        state: up
+  roles:
+    - redhat.rhel_system_roles.network
+...
+2. /* B20240606.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com
+  vars:
+    network_connections:
+      - name: con224
+        state: up
+        type: ethernet
+        interface_name: ens224
+        ip:
+          address: 192.168.111.9/24
+          dns: 192.168.111.1
+  roles:
+    - redhat.rhel_system_roles.network
+- name: Play2
+  hosts: centos8.example.com
+  vars:
+    network_connections:
+      - name: con224
+        state: up
+        type: ethernet
+        interface_name: ens224
+        ip:
+          address: 192.168.111.8/24
+          dns: 192.168.111.1
+  roles:
+    - redhat.rhel_system_roles.network
+- name: Play3
+  hosts: centos7.example.com
+  vars:
+    network_connections:
+      - name: con36
+        state: up
+        type: ethernet
+        interface_name: ens36
+        ip:
+          address: 192.168.111.7/24
+          dns: 192.168.111.1
+  roles:
+    - redhat.rhel_system_roles.network
+...
+3. /* C20240606.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com,centos8.example.com
+  vars:
+    network_connections:
+      - name: con160
+        state: down
+  roles:
+    - redhat.rhel_system_roles.network
+...
+4. network_connections.name指的是连接文件的名字，network_connections.interface_name指的是网卡设备的名字
+5. network_connections.name指的是连接文件的名字，network_connections.interface_name指的是网卡设备的名字
+6. network_connections.name指的是连接文件的名字，network_connections.interface_name指的是网卡设备的名字
+7. /* D20240606.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: r999
+- name: Play2
+  hosts: centos8.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: c888
+- name: Play3
+  hosts: centos7.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: c777
+...
+8. /* E20240606.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: a
+- name: Play2
+  hosts: centos8.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: b
+- name: Play3
+  hosts: centos7.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.hostname:
+        name: c
+...
+9. /* F20240606.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+...
+10. /* G20240606.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        service: httpd
+        permanent: true
+        state: enabled
+...
+11. /* H20240606.yaml */
+---
+- name: Play1
+  hosts: centos8.example.com,rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        interface: ens160
+        zone: home
+        state: enabled
+        permanent: true
+...
+12. /* I20240606.yaml */
+---
+- name: Play1
+  hosts: centos8.example.com,rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        interface: ens224
+        zone: home
+        state: enabled
+        permanent: true
+...
+13. /* J20240606.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.interfaces
+...
+14. /* K20240606.yaml */
+---
+- name: Play1
+  hosts: centos8.example.com,rhel9.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.ens256
+...
+15. /* L20240606.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.ens37
+...
+16. /* M20240606.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.all_ipv4_addresses
+    - name: Task2
+      ansible.builtin.debug:
+        var: ansible_facts.all_ipv6_addresses
+    - name: Task3
+      ansible.builtin.debug:
+        var: ansible_facts.dns
+...

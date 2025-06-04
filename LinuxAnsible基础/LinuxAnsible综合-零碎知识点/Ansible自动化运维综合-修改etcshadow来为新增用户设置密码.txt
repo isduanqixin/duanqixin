@@ -1,0 +1,5 @@
+在RHEL9上，
+首先，sudo dnf install mkpasswd，
+接着，mkpasswd --method=sha-512 helloworld，
+得到了一个结果，
+接着将这个结果，放到/etc/shadow中对应的地方去，就可以了

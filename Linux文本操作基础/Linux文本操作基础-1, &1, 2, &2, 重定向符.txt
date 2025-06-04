@@ -1,0 +1,52 @@
+1	/dev/tty
+2	/dev/null
+	./a.txt
+	&1
+	&2
+
+11	python tmp.py 1>/dev/tty 2>/dev/tty
+	python tmp.py >/dev/tty 2>/dev/tty
+	python tmp.py 2>/dev/tty
+	python tmp.py
+	python tmp.py 2>/dev/tty 1>/dev/tty
+	python tmp.py 2>/dev/tty >/dev/tty
+	python tmp.py 2>/dev/tty
+	python tmp.py
+12	python tmp.py 1>/dev/tty 2>/dev/null
+	python tmp.py >/dev/tty 2>/dev/null
+	python tmp.py 2>/dev/null
+	python tmp.py 2>/dev/null 1>/dev/tty
+	python tmp.py 2>/dev/null >/dev/tty
+	python tmp.py 2>/dev/null
+13	python tmp.py 1>/dev/tty 2>a.txt
+	python tmp.py >/dev/tty 2>a.txt
+	python tmp.py 2>a.txt
+	python tmp.py 2>a.txt 1>/dev/tty
+	python tmp.py 2>a.txt >/dev/tty
+	python tmp.py 2>a.txt
+14	python tmp.py 1>/dev/tty 2>&1
+	python tmp.py >/dev/tty 2>&1
+	python tmp.py 2>&1
+	python tmp.py 2>&1 1>/dev/tty
+	python tmp.py 2>&1 >/dev/tty
+	python tmp.py 2>&1
+22	python tmp.py 1>/dev/null 2>/dev/null
+	python tmp.py >/dev/null 2>/dev/null
+	python tmp.py 2>/dev/null 1>/dev/null
+	python tmp.py 2>/dev/null >/dev/null
+23	python tmp.py 1>/dev/null 2>a.txt
+	python tmp.py >/dev/null 2>a.txt
+	python tmp.py 2>a.txt 1>/dev/null
+	python tmp.py 2>a.txt >/dev/null
+24	python tmp.py 1>/dev/null 2>&1
+	python tmp.py >/dev/null 2>&1
+	python tmp.py 2>&1 1>/dev/null
+	python tmp.py 2>&1 >/dev/null
+33	python tmp.py 1>a.txt 2>b.txt
+	python tmp.py >a.txt 2>b.txt
+	python tmp.py 2>b.txt 1>a.txt
+	python tmp.py 2>b.txt >a.txt
+34	python tmp.py 1>a.txt 2>&1
+	python tmp.py >a.txt 2>&1
+	python tmp.py 2>&1 1>a.txt
+	python tmp.py 2>&1 >a.txt

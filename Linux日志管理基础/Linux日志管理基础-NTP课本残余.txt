@@ -1,0 +1,38 @@
+1. 开启NTP同步的命令是_______________________________；
+2. 开启NTP同步的命令是_______________________________；
+3. 开启NTP同步的命令是_______________________________；
+4. 关闭NTP同步的命令是_______________________________；
+5. 关闭NTP同步的命令是_______________________________；
+6. 关闭NTP同步的命令是_______________________________；
+7. 重启chronyd服务的命令是_____________________________；
+8. 重启chronyd服务的命令是_____________________________；
+9. 重启chronyd服务的命令是_____________________________；
+10. 列出已有的NTP时间源的命令是____________________________；
+11. 列出已有的NTP时间源的命令是____________________________；
+12. 列出已有的NTP时间源的命令是____________________________；
+13. 将host.domain10.example.com作为NTP服务源的命令是___________________________；
+14. 将host.domain11.example.com作为NTP服务源的命令是___________________________；
+15. 将host.domain12.example.com作为NTP服务源的命令是___________________________；
+16. 为什么使用iburst选项呢？_____________________________；
+17. 为什么使用iburst选项呢？_____________________________；
+18. 为什么使用iburst选项呢？_____________________________；
+
+
+1. timedatectl set-ntp true
+2. timedatectl set-ntp true
+3. timedatectl set-ntp true
+4. timedatectl set-ntp false
+5. timedatectl set-ntp false
+6. timedatectl set-ntp false
+7. systemctl restart chronyd
+8. systemctl restart chronyd
+9. systemctl restart chronyd
+10. chronyc sources -v
+11. chronyc sources -v
+12. chronyc sources -v
+13. echo "server host.domain10.example.com iburst" >> /etc/chrony.conf
+14. echo "server host.domain11.example.com iburst" >> /etc/chrony.conf
+15. echo "server host.domain12.example.com iburst" >> /etc/chrony.conf
+16. 因为iburst选项能够在刚开始时，迅速更新时间
+17. 因为iburst选项能够在刚开始时，迅速更新时间
+18. 因为iburst选项能够在刚开始时，迅速更新时间

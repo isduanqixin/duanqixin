@@ -1,0 +1,86 @@
+1. 安装postfix
+2. 开机自启动，并且现在开启postfix
+3. 安装mutt
+4. 归postfix管的端口是？
+5. postfix和dovecot安装在duanqixin.top上，
+（1）没有邮件客户端，duanqixin@duanqixin.top使用mutt，给3591178539@qq.com发送电子邮件，使用到了postfix嘛？使用到了dovecot嘛？
+（2）没有邮件客户端，3591178539@qq.com给duanqixin@duanqixin.top发送电子邮件，duanqixin直接用命令行cat命令，查看收到的邮件，使用到了postfix嘛？使用到了dovecot嘛？
+6. 配置postfix
+7. 配置mutt
+8. mutt默认使用什么作为发件人显示名称header.from呢？
+9. 安装opendkim
+10. 配置opendkim
+11. 开机自启动，并且现在开启opendkim
+12. postfix的日志在哪儿？
+13. postfix的日志在哪儿？
+14. postfix的日志在哪儿？
+15. 除了看/var/log/maillog以外，还可以如何得知opendkim的情况呢？
+16. 除了看/var/log/maillog以外，还可以如何得知opendkim的情况呢？
+17. 除了看/var/log/maillog以外，还可以如何得知opendkim的情况呢？
+
+
+1. dnf install postfix
+2. systemctl enable postfix
+systemctl start postfix
+3. dnf install mutt
+4. 归postfix管的端口是：25（SMTP）
+5. 
+（1）duanqixin@duanqixin.top -> 3591178539@qq.com，用到了postfix，没用到dovecot
+（2）3591178539@qq.com -> duanqixin@duanqixin.top，用到了postfix，没用到dovecot
+6. 
+myhostname = duanqixin.top
+mydomain = duanqixin.top
+myorigin = $mydomain
+home_mailbox = Mail/
+inet_interfaces = all
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
+mynetworks = 127.0.0.0/8
+smtpd_use_tls = yes
+smtpd_tls_cert_file = /etc/pki/tls/certs/postfix.pem
+smtpd_tls_key_file = /etc/pki/tls/private/postfix.key
+smtpd_tls_security_level = encrypt
+smtp_tls_security_level = encrypt
+smtpd_tls_loglevel = 1
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+7. 
+set record = ~/Mail/sent
+set mbox_type = Maildir
+set folder=~/Mail
+set spoolfile=~/Mail
+在duanqixin底下新建配置文件~/.muttrc，内容是
+set from = "duanqixin@duanqixin.top"
+在fengqin底下新建配置文件~/.muttrc，内容是
+set from = "fengqin@duanqixin.top"
+8. mutt默认使用主机名(hostname命令的结果)作为发件人显示名称header.from
+9. dnf install opendkim
+dnf install opendkim-tools
+10. 
+（1）/etc/opendkim.conf中
+Mode    sv
+Selector        mail
+KeyFile /etc/opendkim/keys/duanqixin.top/mail.private
+KeyTable      /etc/opendkim/KeyTable
+SigningTable  refile:/etc/opendkim/SigningTable
+（2）在/etc/opendkim/KeyTable中
+mail._domainkey.duanqixin.top duanqixin.top:mail:/etc/opendkim/keys/duanqixin.top/mail.private
+（3）在/etc/opendkim/SigningTable中
+*@duanqixin.top mail._domainkey.duanqixin.top
+（4）在/etc/opendkim/keys/duanqixin.top中
+使用命令opendkim-genkey -s mail -d duanqixin.top
+使用命令chown opendkim:opendkim mail*
+（5）在/etc/postfix/main.cf中
+milter_default_action = accept
+milter_protocol = 6
+smtpd_milters = local:/run/opendkim/opendkim.sock
+non_smtpd_milters = local:/run/opendkim/opendkim.sock
+（6）将postfix加入到opendkim用户组，使得postfix能够访问/run/opendkim/opendkim.sock
+usermod -aG opendkim postfix
+11. systemctl enable opendkim
+systemctl start opendkim
+12. /var/log/maillog
+13. /var/log/maillog
+14. /var/log/maillog
+15. systemctl status opendkim
+16. systemctl status opendkim
+17. systemctl status opendkim

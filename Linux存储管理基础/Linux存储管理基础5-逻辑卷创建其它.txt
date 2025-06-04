@@ -1,0 +1,15 @@
+1. 创建一个名为npgroup的卷组，其只包括/dev/vdb3这个物理卷，同时指定物理块大小为20MiB，该怎么做呢？______________________________________；
+2. 创建一个名为npgroup的卷组，其只包括/dev/vdb3这个物理卷，同时指定物理块大小为30MiB，该怎么做呢？______________________________________；
+3. 创建一个名为npgroup的卷组，其只包括/dev/vdb3这个物理卷，同时指定物理块大小为40MiB，该怎么做呢？______________________________________；
+4. 在卷组npgroup当中，创建一个名为np的逻辑卷，大小为45个物理块，该怎么做呢？
+5. 在卷组npgroup当中，创建一个名为np2的逻辑卷，大小为55个物理块，该怎么做呢？
+6. 在卷组npgroup当中，创建一个名为np3的逻辑卷，大小为65个物理块，该怎么做呢？
+
+
+
+1. vgcreate npgroup /dev/vdb3 -s 20MiB
+2. vgcreate npgroup /dev/vdb3 -s 20MiB
+3. vgcreate npgroup /dev/vdb3 -s 20MiB
+4. lvcreate -n np -l 45 npgroup
+5. lvcreate -n np2 -l 55 npgroup
+6. lvcreate -n np3 -l 65 npgroup

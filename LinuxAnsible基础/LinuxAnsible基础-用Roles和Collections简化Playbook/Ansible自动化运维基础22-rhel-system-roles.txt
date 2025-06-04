@@ -1,0 +1,44 @@
+1. system_roles的官方文档的位置是___________________________________；
+2. system_roles的官方文档的位置是___________________________________；
+3. system_roles的官方文档的位置是___________________________________；
+4. 安装rhel-system-roles的命令是_____________________________；
+5. 安装rhel-system-roles的命令是_____________________________；
+6. 安装rhel-system-roles的命令是_____________________________；
+7. 对于ansible.cfg这个配置文件，建议的改动是______________________；
+8. 对于ansible.cfg这个配置文件，建议的改动是______________________；
+9. 对于ansible.cfg这个配置文件，建议的改动是______________________；
+10. rhel-system-roles：使用timesync这个系统role，使用的授时服务器是rhgls.domain10.example.com，并启用iburst参数；
+11. rhel-system-roles：使用selinux这个系统role，设置所有受控主机的selinux状态为enforcing；
+
+
+
+1. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html-single/automating_system_administration_by_using_rhel_system_roles/index
+2. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html-single/automating_system_administration_by_using_rhel_system_roles/index
+3. https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html-single/automating_system_administration_by_using_rhel_system_roles/index
+4. sudo dnf install rhel-system-roles
+5. sudo dnf install rhel-system-roles
+6. sudo dnf install rhel-system-roles
+7. roles_path=roles:/usr/share/ansible/roles
+8. roles_path=roles:/usr/share/ansible/roles
+9. roles_path=roles:/usr/share/ansible/roles
+10. /* A20240607.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    timesync_ntp_servers:
+      - hostname: rhgls.domain10.example.com
+        iburst: yes
+  roles:
+    - rhel-system-roles.timesync
+...
+11. /* B20240607.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    selinux_policy: targeted
+    selinux_state: enforcing
+  roles:
+    - rhel-system-roles.selinux
+...

@@ -1,0 +1,39 @@
+一. SPF记录
+1. SPF记录由谁负责维护呢？
+1. SPF记录由发件服务器负责维护，在这里由duanqixin.top维护。
+2. SPF记录这个DNS解析记录是什么呢？
+2. SPF记录这个DNS解析记录是一个TXT文本记录，在这里它的记录值是"v=spf1 a -all"。
+3. SPF记录"v=spf1 a -all"具体表示什么意思呢？
+3. SPF记录"v=spf1 a -all"具体表示：(1)SPF版本是spf1、(2)只有从A记录这条DNS解析记录中的IP发来的邮件才是可信的、(3)除了从A记录中的IP以外的IP发来的邮件都不可信。
+4. SPF记录将什么和什么关联在了一起呢？
+4. SPF记录将域名和一个文本关联在了一起，在这里它将duanqixin.top和"v=spf1 a -all"关联在了一起。
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器如何获取到SPF记录呢？
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器会通过DNS解析，获取到duanqixin.top这个域名的SPF记录。
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的SPF记录时，收件服务器如何使用SPF记录呢？
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的SPF记录时，收件服务器会查看记录的值，也就是查看"v=spf1 a -all"。查看完记录值之后，收件服务器将邮件的IP与A记录中的IP值对比，如果相同，则通过，反正不通过。
+二. DMARC记录
+1. DMARC记录由谁负责维护呢？
+1. DMARC记录由发件服务器负责维护，在这里由duanqixin.top维护。
+2. DMARC记录这个DNS解析记录是什么呢？
+2. DMARC记录这个DNS解析记录是一个TXT文本记录，在这里它的记录值是"v=DMARC1; p=quarantine; fo=1; rua=mailto:duanqixin@duanqixin.top"
+3. DMARC记录"v=DMARC1; p=quarantine; fo=1; rua=mailto:duanqixin@duanqixin.top"具体表示什么意思呢？
+3. DMARC记录"v=DMARC1; p=quarantine; fo=1; rua=mailto:duanqixin@duanqixin.top"具体表示：(1)DMARC版本是DMARC1、(2)如果邮件未通过SPF那么收件服务器应该将邮件隔离、(3)如果邮件未通过SPF那么收件服务器会发送报告、(4)如果收件服务器要发送报告那么应该发送到duanqixin@duanqixin.top
+4. DMARC记录将什么和什么关联在了一起呢？
+4. DMARC记录将域名和一个文本关联在了一起，在这里它将duanqixin.top和"v=DMARC1; p=quarantine; fo=1; rua=mailto:duanqixin@duanqixin.top"关联在了一起
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器如何获取到DMARC记录呢？
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器会通过DNS解析，获取到duanqixin.top这个域名的DMARC记录。
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的DMARC记录时，收件服务器如何使用DMARC记录呢？
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的DMARC记录时，收件服务器检查邮件是否通过SPF：如果通过了SPF，那么没事儿发生；如果没有通过SPF，那么决定是退回、隔离还是放行。此外还会定时将报告发回。
+三. DKIM记录
+1. DKIM记录由谁负责维护呢？
+1. DKIM记录由发件服务器负责维护，在这里由duanqixin.top维护
+2. DKIM记录这个DNS解析记录是什么呢？
+2. DKIM记录这个DNS解析记录是一个TXT文本记录，在这里它的记录值是"v=DKIM1; k=rsa; " "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5fXAmhpukYpHMyz3jqcni04D/w2ZOiI92DbkbAP0eyFot9ZBqntQ0ddvjY2VDyGt1XLzg6/hEd6SPD42qtRfcctNJNSW9w/iDkHC52CTKTufcCs5WdRnZ9zipvMRtPgFZ820xprTEx6NJTWPcMeStXZ28grc3hf+0eSe0xoH7LwIDAQAB"
+3. DKIM记录"v=DKIM1; k=rsa; " "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5fXAmhpukYpHMyz3jqcni04D/w2ZOiI92DbkbAP0eyFot9ZBqntQ0ddvjY2VDyGt1XLzg6/hEd6SPD42qtRfcctNJNSW9w/iDkHC52CTKTufcCs5WdRnZ9zipvMRtPgFZ820xprTEx6NJTWPcMeStXZ28grc3hf+0eSe0xoH7LwIDAQAB"具体表示什么意思呢？
+3. DKIM记录"v=DKIM1; k=rsa; " "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5fXAmhpukYpHMyz3jqcni04D/w2ZOiI92DbkbAP0eyFot9ZBqntQ0ddvjY2VDyGt1XLzg6/hEd6SPD42qtRfcctNJNSW9w/iDkHC52CTKTufcCs5WdRnZ9zipvMRtPgFZ820xprTEx6NJTWPcMeStXZ28grc3hf+0eSe0xoH7LwIDAQAB"具体表示：(1)DKIM的版本是DKIM1、(2)DKIM签名使用的算法是RSA、(3)用于验证签名的公钥是MIGfM... ...DAQAB
+4. DKIM记录将什么和什么关联在一起了呢？
+4. DKIM记录将域名和一个文本关联在一起，在这里DKIM记录将duanqixin.top和"v=DKIM1; k=rsa; " "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5fXAmhpukYpHMyz3jqcni04D/w2ZOiI92DbkbAP0eyFot9ZBqntQ0ddvjY2VDyGt1XLzg6/hEd6SPD42qtRfcctNJNSW9w/iDkHC52CTKTufcCs5WdRnZ9zipvMRtPgFZ820xprTEx6NJTWPcMeStXZ28grc3hf+0eSe0xoH7LwIDAQAB"关联在了一起
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器如何获取到DKIM记录呢？
+5. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件时，收件服务器会通过DNS解析，获取到duanqixin.top这个域名的DKIM记录。
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的DKIM记录时，收件服务器如何使用DKIM记录呢？
+6. 当收件服务器接收到来自duanqixin@duanqixin.top的邮件，并且获取到duanqixin.top对应的DKIM记录时，收件服务器会首先计算邮件内容的哈希值，接着使用DKIM记录中的公钥计算邮件中的DKIM签名得到哈希值，将这两个哈希值进行对比，如果相同，则通过，反之则不通过

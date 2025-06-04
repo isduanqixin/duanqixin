@@ -1,0 +1,284 @@
+1. ignore_errors: 编写一个playbook文件，使得受控主机上至少应该安装mysql或者mariadb中的一个，如果都没有安装，则默认安装mysql，不使用failed_when，而是使用ignore_errors关键字；
+2. ignore_errors: 编写一个playbook文件，使用ansible.builtin.shell模块，执行命令sudo -u centos test -w /etc/hosts，并且输出返回码；
+3. ignore_errors: 编写一个playbook文件，使用ansible.builtin.shell模块，执行命令test -f /home/centos，并且输出返回码；
+4. 在一份playbook文件当中，有两个play，分别是play1和play2。当play1失败之后，还会继续执行play2嘛？
+5. 在一份playbook文件当中，有三个play，分别是play1、play2和play3。当play2失败之后，play1执行了嘛？还会继续执行play3嘛？
+6. 在一份playbook文件当中，有一个play，名字是play1。play1中有两个task，分别是task1和task2，并且task1会通知handler1，handlers部分还有一个handler1。在执行过程中，task1成功执行了，但task2失败了，请问handler1会被执行嘛？
+7. 在一份playbook文件当中，有一个play，名字是play1（force_handlers的值为yes）。play1中有两个task，分别是task1和task2，并且task1会通知handler1，handlers部分还有一个handler1。在执行过程中，task1成功执行了，但task2失败了，请问handler1会被执行嘛？
+8. force_handlers: 写一份第7题的例子；
+9. 在一份playbook文件当中，有一个play，名字是play1，play1中有一个task，名字是task1，并且设置了ignore_errors为yes，如果执行状态是changed的话，会通知Handler1。此外play1还有一个handler，名字是Handler1。在执行过程中，task1失败了，接着这个失败的任务被忽略了。请问Handler1会执行嘛？
+10. 在一份playbook文件当中，有一个play，名字是play1，并且设置了force_handlers为yes。play1中有一个task，名字是task1，并且设置了ignore_errors为yes，如果执行状态是changed的话，会通知Handler1。此外play1还有一个handler，名字是Handler1。在执行过程中，task1失败了，接着这个失败的任务被忽略了。请问Handler1会执行嘛？
+11. 写一个第9题的例子
+12. 写一个第10题的例子
+13. failed_when: 写一份playbook，在受控主机上执行/usr/bin/false命令，只有当执行结果的rc值不为1时，才报告任务失败；
+14. failed_when: 写一份playbook，在受控主机上执行/home/centos/A20240531.sh脚本，只有当命令的输出结果中包含"abortion"时，才报告任务失败；
+15. 使用ansible.builtin.fail模块，重写第14题中的playbook；
+16. changed_when: 写一份playbook文件，在受控主机上执行httpd -t命令，并且设置该模块的执行结果永远不可能为changed；
+17. changed_when: 写一份playbook文件，在受控主机上执行/home/centos/B20240531.sh这个脚本，只有当这个脚本的输出结果中包含有Success关键字时，才报告changed，并且才会去notify Handler1去重启firewalld服务；
+18. block：写一份playbook文件，并且应用到block；
+19. block：再写一份playbook文件，并且应用到block；
+20. block、rescue与always：试写一份playbook文件，综合使用到block、rescue以及always；
+21. block、rescue与always：试着再写一份playbook文件，综合使用到block、rescue以及always；
+
+
+1. /* A20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: mysql-server
+        state: latest
+      ignore_errors: yes
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result.rc
+    - name: Task3
+      ansible.builtin.package:
+        name: mariadb-server
+        state: latest
+      when: Task1result.rc != 0
+...
+2. /* B20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: sudo -u centos test -w /etc/hosts
+      ignore_errors: yes
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result.rc
+...
+3. /* C20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: test -f /home/centos
+      ignore_errors: yes
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+4. 不会继续执行play2了
+5. play1已经执行了，不会继续执行play3了
+6. handler1不会被执行，因为force_handlers的值默认为no
+7. handler1会被执行，因为force_handlers的值默认为no
+8. /* D20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  force_handlers: yes
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /usr/bin/true
+      notify: Handler1
+    - name: Task2
+      ansible.builtin.shell: a
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "Great!"
+...
+9. 不会执行，只有模块的返回状态为ok或者changed时，才会notify
+10. 不会执行，只有模块的返回状态为ok或者changed时，才会notify
+11. /* E20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: a
+      ignore_errors: yes
+      notify: Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "Great!"
+...
+12. /* F20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  force_handlers: yes
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: a
+      ignore_errors: yes
+      notify: Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "Great!"
+...
+13. /* G20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /usr/bin/false
+      register: Task1result
+      failed_when: Task1result.rc != 1
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+14. /* H20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        content: echo Hello World!; exit 1
+        dest: /home/centos/A20240531.sh
+        owner: centos
+        group: centos
+        mode: '0744'
+    - name: Task2
+      ansible.builtin.shell: /bin/bash /home/centos/A20240531.sh
+      register: Task2result
+      failed_when: "'abortion' not in Task2result.stdout"
+...
+15. /* I20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /bin/bash /home/centos/A20240531.sh
+      register: Task1result
+      ignore_errors: yes
+    - name: Task2
+      ansible.builtin.fail:
+        msg: Task1 failed!
+      when: "'abortion' not in Task1result.stdout"
+...
+16. /* J20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: httpd -t
+      changed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result.stdout
+...
+17. /* K20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    tmp1: Hello
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        content: echo Hello World! How are you?
+        dest: /home/centos/B20240531.sh
+        owner: centos
+        group: centos
+        mode: '0744'
+    - name: Task2
+      ansible.builtin.shell: /bin/bash /home/centos/B20240531.sh
+      register: Task2result
+      changed_when: tmp1 in Task2result.stdout
+      notify: Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.service:
+        name: firewalld
+        state: restarted
+...
+18. /* L20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      block:
+        - name: Task1_1
+          ansible.builtin.shell: echo Hello World!
+          register: Task1_1_result
+        - name: Task1_2
+          ansible.builtin.debug:
+            var: Task1_1_result.stdout
+    - name: Task2
+      block:
+        - name: Task2_1
+          ansible.builtin.shell: echo What\'s the matter?
+          register: Task2_1_result
+        - name: Task2_2
+          ansible.builtin.debug:
+            var: Task2_1_result.stdout
+...
+19. /* M20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      block:
+        - name: Task1_1
+          ansible.builtin.package:
+            name: mariadb
+            state: latest
+          register: Task1_1_result
+        - name: Task1_2
+          ansible.builtin.debug:
+            var: Task1_1_result
+    - name: Task2
+      block:
+        - name: Task2_1
+          ansible.builtin.package:
+            name: tree
+            state: latest
+          register: Task2_1_result
+        - name: Task2_2
+          ansible.builtin.debug:
+            var: Task2_1_result
+...
+20. /* N20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      block:
+        - name: Task1_1
+          ansible.builtin.shell: /usr/bin/false
+      rescue:
+        - name: Task1_2
+          ansible.builtin.shell: /usr/bin/true
+      always:
+        - name: Task1_3
+          ansible.builtin.debug:
+            msg: "Great!"
+...
+21. /* O20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      block:
+        - name: Task1_1
+          ansible.builtin.shell: /usr/bin/true
+      rescue:
+        - name: Task1_2
+          ansible.builtin.shell: /usr/bin/true
+      always:
+        - name: Task1_3
+          ansible.builtin.debug:
+            msg: "Great!"
+...

@@ -1,0 +1,216 @@
+1. 写一个playbook文件，其中定义了一个变量run_my_task，当run_my_task的值为true时，才运行任务，否则不运行任务；
+2. 写一个playbook文件，其中定义了一个变量run_my_task，当run_my_task的值为1时，才运行任务，否则不运行任务；
+3. 写一个playbook文件，当变量pkgname被定义了时，才运行任务，否则不运行任务；
+4. 写一个playbook文件，当变量servicename没被定义时，才运行任务，否则不运行任务；
+5. 写一个playbook文件，当事实ansible_facts.machine的值等于x86_64时，才运行任务，否则不运行任务；
+6. 写一个playbook文件，当事实ansible_facts.machine的值不为x86_64时，才运行任务，否则不运行任务；
+7. 写一个playbook文件，当事实ansible_facts.memory_mb.real.free的值小于512时，运行任务，反之不运行；
+8. 写一个playbook文件，当事实ansible_facts.memory_mb.real.free的值大于512时，运行任务，反之不运行；
+9. 写一个playbook文件，当事实ansible_facts.memory_mb.real.free的值小于等于512时，运行任务，反之不运行；
+10. 写一个playbook文件，当事实ansible_facts.memory_mb.real.free的值大于等于512时，运行任务，反之不运行；
+11. 写一个playbook文件，当事实ansible_facts.distribution的值出现在supported_distros这个变量所表示的列表中时，运行任务，否则不运行；
+12. when语句是一个task中的一个key，所以when语句是跟任务名称、任务使用到的模块名同级的，习惯上将when语句放到____________________________；
+13. when语句是一个task中的一个key，所以when语句是跟任务名称、任务使用到的模块名同级的，习惯上将when语句放到____________________________；
+14. when语句是一个task中的一个key，所以when语句是跟任务名称、任务使用到的模块名同级的，习惯上将when语句放到____________________________；
+15. 写一个playbook文件，当事实ansible_facts.distribution的值是CentOS或者RedHat时，运行任务，反之不运行；
+16. 写一个playbook文件，当事实ansible_facts.distribution的值是CentOS，并且ansible_facts.memory_mb.real.free的值大于700时，运行任务，反之不运行；
+17. 写一个playbook文件，不使用and关键字，当事实ansible_facts.distribution的值是CentOS，并且ansible_facts.memory_mb.real.free的值大于700时，运行任务，反之不运行；
+18. 写一个playbook文件，当被控主机的版本是CentOS8或者RedHat9时，运行任务，反之不运行；
+
+
+
+
+
+1. /* A20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    run_my_task: false
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+      when:
+        run_my_task
+...
+2. /* B20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    run_my_task: 0
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: OK
+      when: run_my_task
+...
+3. /* C20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    pkgname: tree
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ pkgname }}"
+        state: latest
+      when: pkgname is defined
+...
+4. /* D20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    servicename: tuned
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: "{{ servicename }}"
+        state: started
+        enabled: true
+      when: servicename is not defined
+...
+5. /* E20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Great!"
+      when: ansible_facts.machine == "x86_64"
+...
+6. /* F20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Great!"
+      when: ansible_facts.machine != "x86_64"
+...
+7. /* G20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.memory_mb.real.free
+      when: ansible_facts.memory_mb.real.free < 512
+...
+8. /* H20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.memory_mb.real.free
+      when: ansible_facts.memory_mb.real.free > 512
+...
+9. /* I20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.memory_mb.real.free
+      when: ansible_facts.memory_mb.real.free <= 512
+...
+10. /* J20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ansible_facts.memory_mb.real.free
+      when: ansible_facts.memory_mb.real.free >= 512
+...
+11. /* K20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    supported_distros:
+      - RedHat
+      - CentOS
+      - Fedora
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Hello World!"
+      when: ansible_facts.distribution in supported_distros
+...
+12. 任务名称和任务使用到的模块的后面
+13. 任务名称和任务使用到的模块的后面
+14. 任务名称和任务使用到的模块的后面
+15. /* L20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: Hello World!
+      when: ansible_facts.distribution == "CentOS" or ansible_facts.distribution == "RedHat"
+...
+16. /* M20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Hello World!"
+      when: ansible_facts.distribution == "CentOS" and ansible_facts.memory_mb.real.free > 700
+...
+17. /* N20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Hello World!"
+      when:
+        - ansible_facts.distribution == "CentOS"
+        - ansible_facts.memory_mb.real.free > 700
+...
+18. /* O20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Hello World!"
+      when: >
+        ( ansible_facts.distribution == "RedHat" and
+          ansible_facts.distribution_major_version == "9" )
+        or
+        ( ansible_facts.distribution == "CentOS" and
+          ansible_facts.distribution_major_version == "8" )
+...
+或者
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Hello World!"
+      when: |
+        ( ansible_facts.distribution == "RedHat" and
+          ansible_facts.distribution_major_version == "9" )
+        or
+        ( ansible_facts.distribution == "CentOS" and
+          ansible_facts.distribution_major_version == "8" )
+...

@@ -1,0 +1,137 @@
+1. 已授权的用户运行的容器叫作___________________，未授权的用户运行的容器叫作__________________________；
+2. 已授权的用户运行的容器叫作___________________，未授权的用户运行的容器叫作__________________________；
+3. 已授权的用户运行的容器叫作___________________，未授权的用户运行的容器叫作__________________________；
+4. 要运行容器，必须要通过dnf进行的操作是______________________________；
+5. 要运行容器，必须要通过dnf进行的操作是______________________________；
+6. 要运行容器，必须要通过dnf进行的操作是______________________________；
+7. 要想知道podman能够从哪些登记库中下载容器镜像，方法是_______________________；
+8. 要想知道podman能够从哪些登记库中下载容器镜像，方法是_______________________；
+9. 搜索含有关键字python-38的容器镜像______________________________；
+10. 搜索含有关键字php的容器镜像____________________________；
+11. 获取容器镜像registry.lab.example.com/ubi8/python-38的基本信息的命令是_____________________________；
+12. 获取容器镜像registry.lab.example.com/rhel8/mariadb-105的基本信息的命令是_____________________________；
+13. 拉取容器镜像registry.lab.example.com/ubi8/python-38的命令是______________________________；
+14. 拉取容器镜像registry.lab.example.com/rhel8/mariadb-105的命令是____________________________；
+15. 拉取容器镜像quay.io/centos7/python-38-centos7的命令是________________________________；
+16. 列出已pull的容器镜像的命令是_______________________________；
+17. 列出已pull的容器镜像的命令是_______________________________；
+18. 列出已pull的容器镜像的命令是_______________________________；
+19. 列出关于容器的一些信息的命令是_______________________________；
+20. 列出关于容器的一些信息的命令是_______________________________；
+21. 容器仓库的默认配置文件是___________________________________；
+22. 容器仓库的默认配置文件是___________________________________；
+23. 因为红帽推荐使用一个非特权用户去管理容器，所以可以针对性地创建一个容器仓库配置文件_____________________________________________，以覆盖默认配置文件/etc/containers/registries.conf；
+24. 因为红帽推荐使用一个非特权用户去管理容器，所以可以针对性地创建一个容器仓库配置文件_____________________________________________，以覆盖默认配置文件/etc/containers/registries.conf；
+25. 如下是/home/student/.config/containers/registries.conf文件的内容：
+unqualified-search-registries = ['registry.lab.example.com']
+
+[[registry]]
+location = "registry.lab.example.com"
+insecure = true
+blocked = false
+（1）unqualified-search-registries = ['registry.lab.example.com']表示什么意思？
+（2）[[registry]]
+location = "registry.lab.example.com"这两行表示什么意思？
+（3）insecure = true表示什么意思？
+（4）blocked = false表示什么意思？
+（5）如果unqualified-search-registries中，不只有一个registry.lab.example.com，还有一个registry.redhat.io，但是这个registry是被禁用的，那么该如何写[[registry]]块呢？
+26. 登录到registry.lab.example.com的方法是_______________________________________；
+27. 登录到registry.lab.example.com的方法是_______________________________________；
+28. 如果podman login后面没有指定registry，那么默认将会使用哪个registry呢？___________________________；
+29. 如果podman login后面没有指定registry，那么默认将会使用哪个registry呢？___________________________；
+30. 为了验证成功登录到了默认registry，该如何做呢？_______________________________；
+31. 为了验证成功登录到了默认registry，该如何做呢？_______________________________；
+32. 列出registry.lab.example.com这个registry中的所有容器镜像，命令是________________________；
+33. 列出registry.lab.example.com这个registry中的所有容器镜像，命令是________________________；
+34. 启动容器python38的命令是_______________________________；
+35. 启动容器mariadb105的命令是_______________________________；
+36. podman命令中-d参数的意思是?______________；
+37. podman命令中-d参数的意思是?______________；
+38. 在registry.lab.example.com/ubi9-beta/ubi这个容器镜像基础之上，额外在镜像中再安装python36，将其重新打包为一个新的容器镜像，名称为python36:1.0，方法是________________________________；如果podman build -t python36 .，没有为其指定版本号，那么默认的版本号是________________________；
+39. 在registry.lab.example.com/ubi8/ubi这个容器镜像基础之上，额外在镜像中再安装tree，将其重新打包为一个新的容器镜像，名称为tree:1.0，方法是_______________________________________________；如果podman build -t .，既没有指定新的容器镜像名，又没有只当版本号，则生成的容器镜像名和默认的版本号是_____________________________；
+40. 只根据容器镜像localhost/python36:1.0创建名为python36的容器，不立即运行它，方法是___________________________________；
+41. 只根据容器镜像localhost/python36:1.0创建名为python36的容器，不立即运行它，方法是___________________________________；
+42. 根据容器镜像localhost/python36:1.0创建名为python36的容器，并且立即运行它，方法是___________________________________；
+43. 根据容器镜像localhost/python36:1.0创建名为python36的容器，并且立即运行它，方法是___________________________________；
+44. 已知一个名为python36的容器已被准备好，则运行它的方法是___________________________________；
+45. 已知一个名为python36的容器已被准备好，则运行它的方法是___________________________________；
+46. 如果根据容器镜像新建容器时，没有指定容器名，则容器名会是___________________________________；
+47. 如果根据容器镜像新建容器时，没有指定容器名，则容器名会是___________________________________；
+
+
+
+1. rootful container		rootless container
+2. rootful container		rootless container
+3. rootful container		rootless container
+4. sudo dnf install container-tools
+5. sudo dnf install container-tools
+6. sudo dnf install container-tools
+7. podman info | grep -A10 '^registries'
+8. podman info | grep -A10 '^registries'
+9. podman search python-38
+10. podman search php
+11. skopeo inspect docker://registry.lab.example.com/ubi8/python-38 或者 podman inspect registry.lab.example.com/ubi8/python-38:latest
+12. skopeo inspect docker://registry.lab.example.com/rhel8/mariadb-105 或者 podman inspect registry.lab.example.com/rhel8/mariadb-105:latest
+13. podman pull registry.lab.example.com/ubi8/python-38
+14. podman pull registry.lab.example.com/rhel8/mariadb-105
+15. podman pull quay.io/centos7/python-38-centos7
+16. podman images
+17. podman images
+18. podman images
+19. podman ps
+20. podman ps
+21. /etc/containers/registries.conf
+22. /etc/containers/registries.conf
+23. $HOME/.config/containers/registries.conf
+24. $HOME/.config/containers/registries.conf
+25. （1）unqualified-search-registries = ['registry.lab.example.com']表示，如果命令中没有给出完整的容器镜像名，那么将会从registry.lab.example.com搜索命令中给到的镜像；
+（2）这两行表示，这个[[registry]]块是专门给registry.lab.example.com这个registry的块；
+（3）insecure = true表示podman在与registry.lab.example.com通信时，不验证安全证书；
+（4）blocked = false表示这个registry是启用的；
+（5）
+/* /home/student/.config/containers/registries.conf */
+... ...
+[[registry]]
+location = "registry.redhat.io"
+blocked = true
+/* /home/student/.config/containers/registries.conf */
+26. podman login registry.lab.example.com
+27. podman login registry.lab.example.com
+28. 默认使用$HOME/.config/containers/registries.conf 或者 /etc/containers/registries.conf（如果前者不存在的话）
+29. 默认使用$HOME/.config/containers/registries.conf 或者 /etc/containers/registries.conf（如果前者不存在的话）
+30. podman login --get-login，看有没有返回想要的登录名
+31. podman login --get-login，看有没有返回想要的登录名
+32. podman search registry.lab.example.com/
+33. podman search registry.lab.example.com/
+34. podman run -d --name python38 registry.lab.example.com/ubi8/python-38 sleep infinity
+35. podman run -d --name mariadb105 registry.lab.example.com/rhel8/mariadb-105 sleep infinity
+36. -d参数的意思是，在后台运行；
+37. -d参数的意思是，在后台运行；
+38. mkdir -p ~/python36
+cd ~/python36
+vim Containerfile
+/* ~/python36/Containerfile */
+FROM registry.lab.example.com/ubi9-beta/ubi:latest
+RUN dnf install -y python36
+CMD ["/bin/bash", "-c", "sleep infinity"]
+/* ~/python36/Containerfile */
+podman build -t python36:1.0 .
+默认的版本号会是latest
+39. mkdir -p ~/tree
+cd ~/tree
+vim Containerfile
+/* ~/tree/Containerfile */
+FROM registry.lab.example.com/ubi8/ubi:latest
+RUN dnf install tree -y
+CMD ["/bin/bash", "-c", "sleep infinity"]
+/* ~/tree/Containerfile */
+podman build -t tree:1.0 .
+默认的新生成的容器镜像名是<none>，版本号是<none>
+40. podman create --name python36 localhost/python36:1.0
+41. podman create --name python36 localhost/python36:1.0
+42. podman run -d --name python36 localhost/python36:1.0
+43. podman run -d --name python36 localhost/python36:1.0
+44. podman start python36
+45. podman start python36
+46. 随机的容器名
+47. 随机的容器名

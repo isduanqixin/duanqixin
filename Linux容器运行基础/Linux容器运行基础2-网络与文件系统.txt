@@ -1,0 +1,100 @@
+因为可以将宿主机上的文件夹挂载到容器内的某个文件夹上，所以容器有自己的________________；因为宿主机上的uid为1000用户对应容器内uid为0的root用户，宿主机上uid为100000用户对应容器内uid为1的用户，所以容器有自己的_______________________；
+因为可以将宿主机上的文件夹挂载到容器内的某个文件夹上，所以容器有自己的________________；因为宿主机上的uid为1000用户对应容器内uid为0的root用户，宿主机上uid为100000用户对应容器内uid为1的用户，所以容器有自己的_______________________；
+1. 查看容器mariadb105的日志的命令是_____________________________________；
+2. 查看容器mariadb105的日志的命令是_____________________________________；
+3. 获取容器内部uid mapping情况的命令是_____________________________________；
+4. 获取容器内部uid mapping情况的命令是_____________________________________；
+5. 获取容器内部gid mapping情况的命令是_____________________________________；
+6. 获取容器内部gid mapping情况的命令是_____________________________________；
+7. 对于宿主机的/home/student/db_data目录，在用户命名空间内，将其所有人和所属组改为uid和gid为27，27的用户与用户组，命令是_________________________________；
+8. 对于宿主机的/home/student/db_data目录，在用户命名空间内，将其所有人和所属组改为uid和gid为27，27的用户与用户组，命令是_________________________________；
+9. Run一个容器时，为其设置环境变量，参数是______________；
+10. Run一个容器时，为其设置环境变量，参数是______________；
+11. Run一个容器时，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上的方法是________________________；
+12. Run一个容器时，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上的方法是________________________；
+13. Run一个名为mariadb105的容器，在后台运行，使用registry.lab.example.com/rhel8/mariadb-105:latest镜像，除了设置MYSQL_USER，MYSQL_PASSWORD，MYSQL_DATABASE，MYSQL_ROOT_PASSWORD四个环境变量外，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上，并且给宿主机的/home/student/db_data目录自动打上container_file_t标签的命令是____________________________________；
+14. Run一个名为mariadb105的容器，在后台运行，使用registry.lab.example.com/rhel8/mariadb-105:latest镜像，除了设置MYSQL_USER，MYSQL_PASSWORD，MYSQL_DATABASE，MYSQL_ROOT_PASSWORD四个环境变量外，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上，并且给宿主机的/home/student/db_data目录自动打上container_file_t标签的命令是____________________________________；
+15. Run一个名为mariadb105的容器，在后台运行，使用registry.lab.example.com/rhel8/mariadb-105:latest镜像，除了设置MYSQL_USER，MYSQL_PASSWORD，MYSQL_DATABASE，MYSQL_ROOT_PASSWORD四个环境变量外，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上，并且给宿主机的/home/student/db_data目录自动打上container_file_t标签，同时将宿主机的13306端口映射到容器的3306端口的命令是_______________________________________；
+16. Run一个名为mariadb105的容器，在后台运行，使用registry.lab.example.com/rhel8/mariadb-105:latest镜像，除了设置MYSQL_USER，MYSQL_PASSWORD，MYSQL_DATABASE，MYSQL_ROOT_PASSWORD四个环境变量外，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上，并且给宿主机的/home/student/db_data目录自动打上container_file_t标签，同时将宿主机的13306端口映射到容器的3306端口的命令是_______________________________________；
+17. 列出所有容器与宿主机之间的端口映射关系的命令是___________________________；
+18. 列出所有容器与宿主机之间的端口映射关系的命令是___________________________；
+19. 列出容器mariadb105与宿主机之间的端口映射关系的命令是______________________________；
+20. 列出容器mariadb105与宿主机之间的端口映射关系的命令是______________________________；
+21. rootless容器能使用宿主机上1024以下的端口嘛？________________；
+22. rootless容器能使用宿主机上1024及以上的端口嘛？________________；
+23. 获取podman为容器使用的网络后端的命令是_____________________________；
+24. 获取podman为容器使用的网络后端的命令是_____________________________；
+25. 获取podman为容器使用的搜索registry的命令是_______________________________；
+26. 在/usr/share/containers/containers.conf中"[network]"的下一行中，插入'network_backend = "netavark"'，以使得podman为容器使用的默认网络后端为netavark的方法是______________________________；
+27. 在/usr/share/containers/containers.conf中"[network]"的下一行中，插入'network_backend = "cni"'，以使得podman为容器使用的默认网络后端为cni的方法是______________________________；
+28. 创建一个名为db_net的容器网络，网段为10.87.0.0/16，并设置默认网关为10.87.0.1，命令是_______________________________；
+29. 创建一个名为db_net2的容器网络，网段为10.89.0.0/16，并设置默认网关为10.89.0.1，命令是________________________________；
+30. 创建一个名为db_net3的容器网络，网段为192.168.197.0/24，并设置默认网关为192.168.197.1，命令是_________________________；
+31. 查看db_net容器网络的详情的命令是____________________________；
+32. 查看db_net容器网络的详情的命令是____________________________；
+33. 查看db_net容器网络的详情的命令是____________________________；
+34. Run一个名为mariadb105的容器，将其运行在后台，使用registry.lab.example.com/rhel8/mariadb-105这个容器镜像，除了设置MYSQL_USER，MYSQL_PASSWORD，MYSQL_DATABASE，MYSQL_ROOT_PASSWORD四个环境变量外，将宿主机的/home/student/db_data目录，挂载到容器内的/var/lib/mysql上，并且给宿主机的/home/student/db_data目录自动打上container_file_t标签，同时将宿主机的13306端口映射到容器的3306端口，并将宿主机加入到网络db_net的命令是_______________________________________；
+35. Run一个名为nnnn的容器，将其运行在后台，使用registry.lab.example.com/ubi8/ubi这个容器镜像，将宿主机加入到网络db_net，命令是____________________________；
+36. 让容器nnnn能够使用ip a与ping命令，需要安装一些包，命令是_________________________________________；
+37. 让容器mariadb105能够使用ip a与ping命令，需要安装一些包，命令是_________________________________________；
+38. 让容器mariadb1005能够使用ip a与ping命令，需要安装一些包，命令是_________________________________________；
+39. 让容器mariadb105去ping nnnn的方法是___________________________________；
+40. 让容器nnnn去ping mariadb105的方法是___________________________________；
+41. 列出已有的容器网络的命令是______________________________；
+42. 列出已有的容器网络的命令是______________________________；
+43. 列出已有的容器网络的命令是______________________________；
+44. 让容器mariadb105也去连接上podman网段的命令是_________________________________；
+45. 让容器mariadb105也去连接上db_net2网段的命令是_________________________________；
+46. 让容器mariadb105也去连接上db_net3网段的命令是_________________________________；
+
+
+
+
+文件系统    用户用户组
+文件系统    用户用户组
+1. podman container logs mariadb105
+2. podman container logs mariadb105
+3. podman unshare cat /proc/self/uid_map
+4. podman unshare cat /proc/self/uid_map
+5. podman unshare cat /proc/self/gid_map
+6. podman unshare cat /proc/self/gid_map
+7. podman unshare chown 27:27 /home/student/db_data
+8. podman unshare chown 27:27 /home/student/db_data
+9. -e
+10. -e
+11. -v /home/student/db_data:/var/lib/mysql
+12. -v /home/student/db_data:/var/lib/mysql
+13. podman run -d --name mariadb105 -e MYSQL_USER=student -e MYSQL_PASSWORD=student -e MYSQL_DATABASE=dev_data -e MYSQL_ROOT_PASSWORD=redhat -v /home/student/db_data:/var/lib/mysql:Z registry.lab.example.com/rhel8/mariadb-105:latest
+14. podman run -d --name mariadb105 -e MYSQL_USER=student -e MYSQL_PASSWORD=student -e MYSQL_DATABASE=dev_data -e MYSQL_ROOT_PASSWORD=redhat -v /home/student/db_data:/var/lib/mysql:Z registry.lab.example.com/rhel8/mariadb-105:latest
+15. podman run -d --name mariadb105 -e MYSQL_USER=student -e MYSQL_PASSWORD=student -e MYSQL_DATABASE=dev_data -e MYSQL_ROOT_PASSWORD=redhat -v /home/student/db_data:/var/lib/mysql:Z -p 13306:3306 registry.lab.example.com/rhel8/mariadb-105:latest
+16. podman run -d --name mariadb105 -e MYSQL_USER=student -e MYSQL_PASSWORD=student -e MYSQL_DATABASE=dev_data -e MYSQL_ROOT_PASSWORD=redhat -v /home/student/db_data:/var/lib/mysql:Z -p 13306:3306 registry.lab.example.com/rhel8/mariadb-105:latest
+17. podman port -a
+18. podman port -a
+19. podman port mariadb105
+20. podman port mariadb105
+21. rootless容器不能用1024以下的端口
+22. rootless容器能用1024及以上的端口
+23. podman info --format {{.Host.NetworkBackend}}
+24. podman info --format {{.Host.NetworkBackend}}
+25. podman info --format {{.Registries.search}}
+26. sudo sed -i '/\[network\]/a\network_backend = "netavark"' /usr/share/containers/containers.conf
+27. sudo sed -i '/\[network\]/a\network_backend = "cni"' /usr/share/containers/containers.conf
+28. podman network create --gateway 10.87.0.1 --subnet 10.87.0.0/16 db_net
+29. podman network create --gateway 10.89.0.1 --subnet 10.89.0.0/16 db_net2
+30. podman network create --gateway 192.168.197.1 --subnet 192.168.197.0/24 db_net3
+31. podman network inspect db_net
+32. podman network inspect db_net2
+33. podman network inspect db_net3
+34. podman run -d --name mariadb105 -e MYSQL_USER=student -e MYSQL_PASSWORD=student -e MYSQL_DATABASE=dev_data -e MYSQL_ROOT_PASSWORD=redhat -v /home/student/db_data:/var/lib/mysql:Z -p 13306:3306 --network db_net registry.lab.example.com/rhel8/mariadb-105
+35. podman run -d --name nnnn --network db_net registry.lab.example.com/ubi8/ubi
+36. podman exec -it nnnn dnf install iputils iproute
+37. podman exec -it mariadb105 dnf install iputils iproute
+38. podman exec -it mariadb1005 dnf install iputils iproute
+39. podman exec -it mariadb105 ping -c3 nnnn
+40. podman exec -it nnnn ping -c3 mariadb105
+41. podman network ls
+42. podman network ls
+43. podman network ls
+44. podman network connect podman mariadb105
+45. podman network connect db_net2 mariadb105
+46. podman network connect db_net3 mariadb105

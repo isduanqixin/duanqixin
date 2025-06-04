@@ -1,0 +1,26 @@
+1. 当SELinux拒绝了一个行为之后，一条AVC信息就会被登记到____________________文件当中，同时也会被登记到______________________文件当中；
+2. 当SELinux拒绝了一个行为之后，一条AVC信息就会被登记到____________________文件当中，同时也会被登记到______________________文件当中；
+3. 当SELinux拒绝了一个行为之后，一条AVC信息就会被登记到____________________文件当中，同时也会被登记到______________________文件当中；
+4. 查看/var/log/messages中的内容________________________；
+5. 查看/var/log/messages中的内容________________________；
+6. 查看/var/log/messages中的内容________________________；
+7. 查看160be395-d28c-4f28-9186-ec8aa73b41d6这个报错的详细信息的命令是________________________；
+8. 查看160be395-d28c-4f28-9186-ec8aa73b41d6这个报错的详细信息的命令是________________________；
+9. 查看160be395-d28c-4f28-9186-ec8aa73b41d6这个报错的详细信息的命令是________________________；
+10. 查看所有SELinux报错的日志的命令是_______________________；
+11. 查看所有SELinux报错的日志的命令是_______________________；
+12. 查看所有SELinux报错的日志的命令是_______________________；
+
+
+1. /var/log/audit/audit.log  /var/log/messages
+2. /var/log/audit/audit.log  /var/log/messages
+3. /var/log/audit/audit.log  /var/log/messages
+4. tail /var/log/messages
+5. tail /var/log/messages
+6. tail /var/log/messages
+7. sealert -l 160be395-d28c-4f28-9186-ec8aa73b41d6
+8. sealert -l 160be395-d28c-4f28-9186-ec8aa73b41d6
+9. sealert -l 160be395-d28c-4f28-9186-ec8aa73b41d6
+10. sealert -a /var/log/audit/audit.log
+11. sealert -a /var/log/audit/audit.log
+12. sealert -a /var/log/audit/audit.log

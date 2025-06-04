@@ -1,0 +1,40 @@
+1. 除了crontab命令之外，_________命令也会运行每天、每周、每月的任务，并且这些任务都被写在了_______________这个配置文件当中；
+2. 除了crontab命令之外，_________命令也会运行每天、每周、每月的任务，并且这些任务都被写在了_______________这个配置文件当中；
+3. 除了crontab命令之外，_________命令也会运行每天、每周、每月的任务，并且这些任务都被写在了_______________这个配置文件当中；
+4. /etc/anacrontab这个配置文件最大的作用是________________________________；
+5. /etc/anacrontab这个配置文件最大的作用是________________________________；
+6. /etc/anacrontab这个配置文件最大的作用是________________________________；
+7. ____________文件夹保存了每天、每周、每月运行任务的时间戳；
+8. ____________文件夹保存了每天、每周、每月运行任务的时间戳；
+9. ____________文件夹保存了每天、每周、每月运行任务的时间戳；
+10. 在/etc/anacrontab文件中，START_HOURS_RANGE变量的作用是什么？_______________________；
+11. 在/etc/anacrontab文件中，START_HOURS_RANGE变量的作用是什么？_______________________；
+12. 在/etc/anacrontab文件中，START_HOURS_RANGE变量的作用是什么？_______________________；
+以下是/etc/anacrontab文件的部分内容：
+#period in days   delay in minutes   job-identifier   command
+1   5   cron.daily      nice run-parts /etc/cron.daily
+7   25  cron.weekly     nice run-parts /etc/cron.weekly
+@monthly 45 cron.monthly        nice run-parts /etc/cron.monthly
+13. 第一行period in days表示什么？第二行delay in minutes表示什么？第三行job-identifier表示什么？第四行command表示什么？
+14. 第一行period in days表示什么？第二行delay in minutes表示什么？第三行job-identifier表示什么？第四行command表示什么？
+15. 第一行period in days表示什么？第二行delay in minutes表示什么？第三行job-identifier表示什么？第四行command表示什么？
+
+
+
+
+
+1. run-parts /etc/anacrontab
+2. run-parts /etc/anacrontab
+3. run-parts /etc/anacrontab
+4. 确保定时任务总在运行，不会由于系统关机而错过
+5. 确保定时任务总在运行，不会由于系统关机而错过
+6. 确保定时任务总在运行，不会由于系统关机而错过
+7. /var/spool/anacron/
+8. /var/spool/anacron/
+9. /var/spool/anacron/
+10. 定时任务只会在这个变量表示的时间范围内启动
+11. 定时任务只会在这个变量表示的时间范围内启动
+12. 定时任务只会在这个变量表示的时间范围内启动
+13. 第一行表示运行的时间周期，第二行表示在执行前会等待的分钟数，第三行表示区分任务的标识，第四行表示待执行的命令
+14. 第一行表示运行的时间周期，第二行表示在执行前会等待的分钟数，第三行表示区分任务的标识，第四行表示待执行的命令
+15. 第一行表示运行的时间周期，第二行表示在执行前会等待的分钟数，第三行表示区分任务的标识，第四行表示待执行的命令

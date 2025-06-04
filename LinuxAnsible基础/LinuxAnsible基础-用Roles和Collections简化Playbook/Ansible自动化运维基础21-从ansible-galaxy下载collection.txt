@@ -1,0 +1,58 @@
+1. 社区管理的collections仓库：_____________________________；
+2. 社区管理的collections仓库：_____________________________；
+3. 社区管理的collections仓库：_____________________________；
+4. 列出当前的所有collections的命令是：_____________________________；
+5. 列出当前的所有collections的命令是：_____________________________；
+6. 列出当前的所有collections的命令是：_____________________________；
+7. 建议在ansible.cfg中设置的东西是____________________；
+8. 建议在ansible.cfg中设置的东西是____________________；
+9. 建议在ansible.cfg中设置的东西是____________________；
+10. 安装wttech.aem这个collection到项目目录中的collections目录的命令是_____________________________；
+11. 安装anugram.cm_pki这个collection到项目目录中的collections目录的命令是_____________________________；
+12. 安装republic.crypto这个collection到项目目录中的collections目录的命令是_____________________________；
+13. 从/home/rhce/Ansible/br35ba56-datapower-1.0.2.tar.gz安装br35ba56.datapower这个collections的命令是________________________；
+14. 从/home/rhce/Ansible/infra-aap_utilities-2.5.0.tar.gz安装infra.aap_utilities这个collections的命令是________________________；
+15. 使用collections/requirements.yml安装huaweidatacom.ac这个collections的命令是___________________________________；
+16. 使用collections/requirements.yml安装snagoor.aap_common这个collections的命令是___________________________________；
+17. 使用collections/requirements.yml安装abdfou01.abdfou01_mycollection的命令是___________________________________；
+18. 使用collections/requirements.yml安装/home/rhce/Ansible/br35ba56-datapower-1.0.2.tar.gz这个collection的方法是___________________________；
+
+
+
+1. https://galaxy.ansible.com
+2. https://galaxy.ansible.com
+3. https://galaxy.ansible.com
+4. ansible-galaxy collection list 或者 ansible-galaxy collection list -p collections
+5. ansible-galaxy collection list 或者 ansible-galaxy collection list -p collections
+6. ansible-galaxy collection list 或者 ansible-galaxy collection list -p collections
+7. default中collections_paths=~/.ansible/collections:/usr/share/ansible/collections:~/Ansible/collections
+8. default中collections_paths=~/.ansible/collections:/usr/share/ansible/collections:~/Ansible/collections
+9. default中collections_paths=~/.ansible/collections:/usr/share/ansible/collections:~/Ansible/collections
+10. ansible-galaxy collection install wttech.aem -p collections
+11. ansible-galaxy collection install anugram.cm_pki -p collections
+12. ansible-galaxy collection install republic.crypto -p collections
+13. ansible-galaxy collection install /home/rhce/Ansible/br35ba56-datapower-1.0.2.tar.gz -p collections
+14. ansible-galaxy collection install /home/rhce/Ansible/infra-aap_utilities-2.5.0.tar.gz -p collections
+15. /* /home/rhce/Ansible/collections/requirements.yml */
+---
+collections:
+  - name: huaweidatacom.ac
+然后ansible-galaxy collection install -r collections/requirements.yml -p collections
+16. /* /home/rhce/Ansible/collections/requirements.yml */
+---
+collections:
+  - name: huaweidatacom.ac
+  - name: snagoor.aap_common
+然后ansible-galaxy collection install -r collections/requirements.yml -p collections
+17. /* /home/rhce/Ansible/collections/requirements.yml */
+---
+collections:
+  - name: huaweidatacom.ac
+  - name: snagoor.aap_common
+  - name: abdfou01.abdfou01_mycollection
+然后ansible-galaxy collection install -r collections/requirements.yml -p collections
+18. /* /home/rhce/Ansible/collections/requirements.yml */
+---
+collections:
+  - name: /home/rhce/Ansible/br35ba56-datapower-1.0.2.tar.gz
+然后ansible-galaxy collection install -r collections/requirements.yml -p collections

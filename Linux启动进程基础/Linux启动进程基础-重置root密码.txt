@@ -1,0 +1,10 @@
+1. 重设root密码为redhat的方法是___________________________________；
+2. 重设root密码为redhat的方法是___________________________________；
+3. 重设root密码为redhat的方法是___________________________________；
+
+
+
+
+1. reboot重启，在rescue那一行按下e，在initrd之前输入rd.break，接着Ctrl+X保存，回车，然后mount -o remount,rw /sysroot，重新挂载上/sysroot这个文件系统，接着chroot /sysroot进入到文件系统里面去，接着passwd root，输两遍redhat，最终就能够把root密码重设为redhat，最后touch .autorelabel重打标签，最后exit，exit退出即可。
+2. reboot重启，在rescue那一行按下e，在initrd之前输入rd.break，接着Ctrl+X保存，回车，然后mount -o remount,rw /sysroot，重新挂载上/sysroot这个文件系统，接着chroot /sysroot进入到文件系统里面去，接着passwd root，输两遍redhat，最终就能够把root密码重设为redhat，最后touch .autorelabel重打标签，最后exit，exit退出即可。
+3. reboot重启，在rescue那一行按下e，在initrd之前输入rd.break，接着Ctrl+X保存，回车，然后mount -o remount,rw /sysroot，重新挂载上/sysroot这个文件系统，接着chroot /sysroot进入到文件系统里面去，接着passwd root，输两遍redhat，最终就能够把root密码重设为redhat，最后touch .autorelabel重打标签，最后exit，exit退出即可。

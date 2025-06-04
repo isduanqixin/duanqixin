@@ -1,0 +1,99 @@
+1. 写一个playbook，当postfix服务是正在运行中的状态时，就安装最新版的httpd服务；
+2. 写一个playbook，当httpd服务是正在运行中的状态时，就重新加载httpd服务；
+3. 写一个playbook，如果用户centos拥有对/etc/hosts文件的写权限，就输出"No!"；
+4. 写一个playbook，如果挂载到/的文件系统可用存储空间还大于300MB，就输出"Yes!"；
+5. 写一个playbook，判断宿主机上是否存在ens224这块网卡，如果存在则输出"Yes"；
+6. 写一个playbook，判断宿主机上是否存在ens256这块网卡，如果存在则输出"Yes"；
+7. 写一个playbook，判断宿主机上是否存在ens160这块网卡，如果存在则输出"Yes"；
+
+
+
+
+1. /* A20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /usr/bin/systemctl is-active postfix
+      failed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+      when: Task1result.rc == 0
+...
+2. /* B20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /usr/bin/systemctl is-active httpd
+      failed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.service:
+        name: httpd
+        state: reloaded
+      when: Task1result.rc == 0
+...
+3. /* C20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: sudo -u centos test -w /etc/hosts
+      failed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        msg: "No!"
+      when: Task1result.rc == 1
+...
+4. /* D20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Yes!"
+      when: item.mount == "/" and item.size_available > 300000000
+      loop: "{{ ansible_facts.mounts }}"
+...
+5. /* E20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Yes!"
+      when: item == "ens224"
+      loop: "{{ ansible_facts.interfaces }}"
+...
+6. /* F20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Yes!"
+      when: item == "ens256"
+      loop: "{{ ansible_facts.interfaces }}"
+...
+7. /* G20240529.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: "Yes!"
+      when: item == "ens160"
+      loop: "{{ ansible_facts.interfaces }}"
+...

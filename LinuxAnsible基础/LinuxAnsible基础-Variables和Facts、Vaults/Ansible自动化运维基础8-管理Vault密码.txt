@@ -1,0 +1,114 @@
+1. 先编写一份playbook文件，确保受控主机上存在uid为1000的用户centos，再用密码redhat加密这个文件；
+2. 先编写一份playbook文件，确保受控主机上存在uid为1000的用户centos，再用密码redhat加密这个文件，将加密后的文件保存为<原文件名_encrypted.yaml>
+3. 先编写一份playbook文件，确保受控主机上存在uid为1000的用户centos，再用vault密码文件secret.txt加密这个文件；
+4. 先编写一份playbook文件，确保受控主机上存在uid为1000的用户centos，再用vault密码文件secret.txt加密这个文件，将加密后的文件保存为<原文件名_encrypted.yaml>
+5. 在一开始编写playbook文件的时候，就确定下来密码redhat，接着向该playbook文件中填写内容，确保受控主机上存在uid为1000的用户centos；
+6. 在一开始编写playbook文件的时候，就确定下来使用到的密码文件是secret.txt，接着向该playbook文件中填写内容，确保受控主机上存在uid为1000的用户centos；
+7. 假如有一份加密后的playbook文件，密码是redhat，若要查看这份playbook文件的内容，命令是___________________________；
+8. 假如有一份加密后的playbook文件，vault密码文件是secret.txt，若要查看这份playbook文件的内容，命令是________________________________；
+9. 假如有一份加密后的playbook文件，密码是redhat，若要编辑这份playbook文件，命令是______________________________；
+10. 假如有一份加密后的playbook文件，vault密码文件是secret.txt，若要编辑这份playbook文件，命令是________________________________；
+11. 假如有一份playbook文件，密码是redhat，要想在原文件的基础上，将其解加密，命令是______________________________；
+12. 假如有一份playbook文件，密码是redhat，要想在原文件的基础上，将其解加密，并将解加密后的文件保存为<原文件名_decrypted.yaml>，命令是____________________________；
+13. 假如有一份playbook文件，vault密码文件是secret.txt，要想在原文件的基础上，将其解加密，命令是______________________________；
+14. 假如有一份playbook文件，vault密码文件是secret.txt，要想在原文件的基础上，将其解加密，并将解加密后的文件保存为<原文件名_decrypted.yaml>，命令是____________________________；
+15. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的密码为Redhat，则方法是_________________________________；
+16. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的密码为rEdhat，则方法是_________________________________；
+17. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的密码为reDhat，则方法是_________________________________；
+18. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的加密文件为secret1.txt，则方法是_________________________________；
+19. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的加密文件为secret2.txt，则方法是_________________________________；
+20. 假如有一份playbook文件，已经被加密，现在如果想重新设置这份playbook文件的加密文件为secret3.txt，则方法是_________________________________；
+21. 假如有一份playbook文件，已被加密，现在如果想交互式地输入密码，然后再运行这份playbook文件，则方法是_____________________________；
+22. 假如有一份playbook文件，已被加密，并且密码文件是secret.txt，现在如果想交互式地输入密码，然后再运行这份playbook文件，则方法是________________________________；
+23. 假如有一份playbook文件，使用到了./vars/Z20240528.yaml这个文件中定义的变量，但是这个文件被加密了，所以如果想要成功运行这份playbook文件，应该怎么做呢？_____________________________________；
+
+
+1. /* A20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+接着ansible-vault encrypt A20240528.yaml，两次输入vault密码redhat即可。
+2. /* B20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+接着ansible-vault encrypt B20240528.yaml --output B20240528_encrypted.yaml，两次输入vault密码redhat即可。
+3. /* C20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+接着ansible-vault encrypt C20240528.yaml --vault-password-file=secret.txt即可
+4. /* D20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+接着ansible-vault encrypt D20240528.yaml --vault-password-file=secret.txt --output=D20240528_encrypted.yaml即可
+5. 先ansible-vault create E20240528.yaml，接着向E20240528.yaml这个文件中填写内容：
+/* E20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+6. 先ansible-vault create F20240528.yaml --vault-password-file=secret.txt，接着向F20240528.yaml这个文件中填写内容：
+/* F20240528.yaml */
+---
+- name: Play1
+  hosts: centos
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: centos
+        uid: 1000
+        state: present
+...
+7. ansible-vault view G20240528.yaml，接着输入密码redhat就可以
+8. ansible-vault view H20240528.yaml --vault-password-file=secret.txt
+9. ansible-vault edit I20240528.yaml，接着输入密码redhat就可以
+10. ansible-vault edit J20240528.yaml --vault-password-file=secret.txt
+11. ansible-vault decrypt K20240528.yaml，接着输入密码redhat就可以
+12. ansible-vault decrypt L20240528.yaml --output=L20240528_decrypted.yaml，接着输入密码redhat就可以
+13. ansible-vault decrypt M20240528.yaml --vault-password-file=secret.txt
+14. ansible-vault decrypt N20240528.yaml --output=N20240528_decrypted.yaml --vault-password-file=secret.txt
+15. ansible-vault rekey O20240528.yaml，接着输入密码Redhat就可以
+16. ansible-vault rekey P20240528.yaml，接着输入密码rEdhat就可以
+17. ansible-vault rekey Q20240528.yaml，接着输入密码reDhat就可以
+18. ansible-vault rekey R20240528.yaml --new-vault-password-file=secret1.txt
+19. ansible-vault rekey S20240528.yaml --new-vault-password-file=secret2.txt
+20. ansible-vault rekey T20240528.yaml --new-vault-password-file=secret3.txt
+21. ansible-playbook U20240528.yaml --ask-vault-password
+22. ansible-playbook V20240528.yaml --vault-password-file=secret.txt
+23. ansible-playbook W20240528.yaml --ask-vault-password，然后输入密码redhat即可

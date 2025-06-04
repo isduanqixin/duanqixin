@@ -1,0 +1,39 @@
+1. ansible.builtin.command: 写一个playbook，如果/home/centos/index.html存在，那么不执行"echo 12345"，否则就执行"12345"；
+2. ansible.builtin.shell: 写一个playbook，如果/home/centos/1存在，就不执行"touch /home/centos/1"，否则就执行"touch /home/centos/1"；
+3. ansible.builtin.raw: 写一个playbook，执行命令touch "`date`"；
+
+
+
+
+
+1. /* R20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.command:
+        cmd: echo 12345
+        creates: /home/centos/index.html
+...
+然后运行命令ansible-playbook R20240526.yaml，就可以了
+2. /* S20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell:
+        cmd: touch /home/centos/1
+        creates: /home/centos/1
+...
+然后运行命令ansible-playbook S20240526.yaml，就可以了
+3. /* T20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.raw: touch "`date`"
+...
+然后运行命令ansible-playbook T20240526.yaml，就可以了

@@ -1,0 +1,209 @@
+1. ansible.builtin.lineinfile: 编写一个playbook，覆盖掉./ansible.cfg中的部分设置，不使用become，而是将remote_user设置为centos，确保受控主机/home/centos/example.txt文件中有"Hello World."这一行关键字；
+2. ansible.builtin.lineinfile: 编写一个playbook，覆盖掉./ansible.cfg中的部分设置，不使用become，而是将remote_user设置为root，确保受控主机/home/hhha/example.txt文件中有"Hello World! How are you?"这一行关键字；
+3. ansible.builtin.lineinfile: 编写一个playbook，覆盖掉./ansible.cfg中的部分设置，使用become，将remote_user设置为centos，确保受控主机/root/example.txt文件中有"Hello World!"这一行关键字；
+4. ansible.builtin.copy: 编写一个playbook，将本地的/etc/sudoers文件拷贝到受控主机的/home/centos/rhel9sudoers文件中，rhel9sudoers的所有人与所属组都是centos，文件权限是0644；
+5. ansible.builtin.file: 编写一个playbook，将受控主机的/home/centos/rhel9sudoers文件的所有人设置为root，所属组不变，文件权限设置为0640；
+6. ansible.posix.synchronize: 编写一个playbook，将本地的/etc/sudoers同步到受控主机的/home/centos/rhel9sudoers文件；
+7. ansible.builtin.package: 编写一个playbook，在受控主机上，确保httpd已安装；
+8. ansible.builtin.dnf: 编写一个playbook，在受控主机上，确保httpd已安装；
+9. ansible.builtin.pip: 编写一个playbook，在受控主机上，确保bottle已安装；
+10. ansible.posix.firewalld: 编写一个playbook，在受控主机上，确保https能够在默认zone中被放行；
+11. ansible.posix.firewalld: 编写一个playbook，在受控主机上，确保http能够在默认zone中被放行；
+12. ansible.builtin.reboot: 编写一个playbook，在受控主机上，重启一遍所有的受控主机；
+13. ansible.builtin.service: 编写一个playbook，在受控主机上，确保https能够在默认zone中被放行，同时重载firewalld服务；
+14. ansible.builtin.get_url: 编写一个playbook，在受控主机上，获取http://192.168.197.131/index.html这个文件，并将这个文件存放到/home/centos/get_url_module.html文件中；
+15. ansible.builtin.uri: 编写一个playbook，在受控主机上，确保能够连接到http://192.168.197.131；
+16. 常用的ansible模块的官方文档的位置是_____________________________________；
+17. 常用的ansible模块的官方文档的位置是_____________________________________；
+18. 常用的ansible模块的官方文档的位置是_____________________________________；
+
+
+
+
+1. /* A20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  remote_user: centos
+  become: false
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: ~/example.txt
+        line: 'Hello World.'
+        state: present
+...
+然后运行命令ansible-playbook A20240526.yaml，就可以了
+2. /* B20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  remote_user: root
+  become: false
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: /home/hhha/example.txt
+        line: 'Hello World! How are you?'
+        state: present
+...
+然后运行命令ansible-playbook B20240526.yaml，就可以了
+3. /* C20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  remote_user: centos
+  become: true
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: /root/example.txt
+        line: 'Hello World!'
+        state: present
+...
+然后运行命令ansible-playbook C20240526.yaml，就可以了
+4. /* D20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /etc/sudoers
+        dest: /home/centos/rhel9sudoers
+        owner: centos
+        group: centos
+        mode: '0644'
+...
+然后运行命令ansible-playbook D20240526.yaml，就可以了
+5. /* E20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        path: /home/centos/rhel9sudoers
+        owner: root
+        mode: 0640
+...
+然后运行命令ansible-playbook E20240526.yaml，就可以了
+6. /* F20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.synchronize:
+        src: /etc/sudoers
+        dest: /home/centos/rhel9sudoers
+...
+然后运行命令ansible-playbook F20240526.yaml，就可以了
+7. /* G20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: present
+...
+然后运行命令ansible-playbook G20240526.yaml，就可以了
+8. /* H20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: httpd
+        state: present
+...
+然后运行命令ansible-playbook H20240526.yaml，就可以了
+9. /* I20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.pip:
+        name: bottle
+        executable: pip3
+...
+然后运行命令ansible-playbook I20240526.yaml，就可以了
+10. /* J20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        service: https
+        permanent: true
+        state: enabled
+        immediate: yes
+...
+然后运行命令ansible-playbook J20240526.yaml，就可以了
+11. /* K20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+...
+然后运行命令ansible-playbook K20240526.yaml，就可以了
+12. /* L20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.reboot:
+...
+然后运行命令ansible-playbook L20240526.yaml，就可以了
+13. /* M20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.firewalld:
+        service: https
+        permanent: true
+        state: enabled
+    - name: Task2
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+...
+然后运行命令ansible-playbook M20240526.yaml，就可以了
+14. /* N20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.get_url:
+        url: http://192.168.197.131/index.html
+        dest: /home/centos/get_url_module.html
+... 
+然后运行命令ansible-playbook N20240526.yaml，就可以了
+15. /* O20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.uri:
+        url: http://192.168.197.131
+...
+然后运行命令ansible-playbook O20240526.yaml，就可以了
+16. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/与https://docs.ansible.com/ansible/latest/collections/ansible/posix/
+17. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/与https://docs.ansible.com/ansible/latest/collections/ansible/posix/
+18. https://docs.ansible.com/ansible/latest/collections/ansible/builtin/与https://docs.ansible.com/ansible/latest/collections/ansible/posix/

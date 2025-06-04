@@ -1,0 +1,21 @@
+1. sshd这个守护进程提供了OpenSSH服务，请问可以通过编辑哪些配置文件，来配置这个服务呢？________________________
+2. sshd这个守护进程提供了OpenSSH服务，请问可以通过编辑哪些配置文件，来配置这个服务呢？________________________
+3. sshd这个守护进程提供了OpenSSH服务，请问可以通过编辑哪些配置文件，来配置这个服务呢？________________________
+4. 在ssh服务端，如果想要禁止以root的身份远程登陆，则应该如何操作呢？
+5. 在ssh服务端，如果想要允许以root的身份远程登陆，则应该如何操作呢？
+6. 在ssh服务端，如果想要禁止以root的身份通过密码登陆，但允许以root的身份通过公私钥认证来登陆，则应该如何操作呢？
+7. 在ssh服务端，如果想要禁止通过密码的方式登陆，应该如何操作呢？
+8. 在ssh服务端，如果想要禁止通过密码的方式登陆，应该如何操作呢？
+9. 在ssh服务端，如果想要禁止通过密码的方式登陆，应该如何操作呢？
+
+
+
+1. /etc/ssh/sshd_config以及/etc/ssh/sshd_config.d这个目录下的配置文件
+2. /etc/ssh/sshd_config以及/etc/ssh/sshd_config.d这个目录下的配置文件
+3. /etc/ssh/sshd_config以及/etc/ssh/sshd_config.d这个目录下的配置文件
+4. 编辑/etc/ssh/sshd_config文件，把PermitRootLogin改为no
+5. 编辑/etc/ssh/sshd_config文件，把PermitRootLogin改为yes
+6. 编辑/etc/ssh/sshd_config文件，把PermitRootLogin改为without-password
+7. 编辑/etc/ssh/sshd_config文件，把PasswordAuthentication改为no
+8. 编辑/etc/ssh/sshd_config文件，把PasswordAuthentication改为no
+9. 编辑/etc/ssh/sshd_config文件，把PasswordAuthentication改为no

@@ -1,0 +1,237 @@
+1. include与import的区别：_______________________________；
+2. include与import的区别：_______________________________；
+3. include与import的区别：_______________________________；
+4. import_play：写一个playbook文件，它将import进来sub1.yaml，sub2.yaml这两个子playbook文件；
+5. import_tasks：写一个playbook文件，它将import进来sub1.yaml，sub2.yaml这两个子task文件；
+6. ansible-vault：现有一个playbook文件，它将import进来sub5.yaml这个子playbook文件，但sub5.yaml文件被加密了，并且密钥被保存在secret文件中。现在如果想运行那个playbook文件，该如何写命令呢？
+7. import_playbook能应用在play中，与tasks同等级嘛？________________；import_tasks呢？____________；
+8. import_playbook能应用在play中，与tasks同等级嘛？________________；import_tasks呢？____________；
+9. import_playbook能应用在play中，与tasks同等级嘛？________________；import_tasks呢？____________；
+10. import_tasks关键字与when条件判断：如果ansible_facts.distribution是"RedHat"，那么就导入执行sub6.yaml这个子task文件；
+11. 下面这样子写对不对？
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - include_tasks: "{{ item }}"
+      loop:
+        - sub6.yaml
+        - sub7.yaml
+...
+12. 下面这样子写对不对？
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - import_tasks: "{{ item }}"
+      loop:
+        - sub6.yaml
+        - sub7.yaml
+...
+13. 下面这样子写对不对？
+/* E20240602.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - import_tasks: "{{ var3 }}"
+...
+/* inventory */
+[all:vars]
+var1=Hello World! Do you love me? Hahahahaha
+var2=sub6.yaml
+var3=sub7.yaml
+[centos]
+centos8.example.com
+centos7.example.com
+[rhel]
+rhel9.example.com
+[greatmariadb]
+centos8.example.com
+rhel9.example.com
+14. 下面这样子写对不对？
+/* F20240602.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - import_tasks: "{{ var4 }}"
+...
+/* /home/rhce/Ansible/group_vars/centos/vars */
+uuuuuser: HelloWorld
+iiiiid: 1099
+var4: sub7.yaml
+15. 下面这样子写对不对？
+/* G20240602.yaml */
+---
+- name: Play1
+  hosts: rhel
+  tasks:
+    - import_tasks: "{{ var5 }}"
+...
+/* inventory */
+[all:vars]
+var1=Hello World! Do you love me? Hahahahaha
+var2=sub6.yaml
+var3=sub7.yaml
+[centos]
+centos8.example.com
+centos7.example.com
+[rhel]
+rhel9.example.com
+[greatmariadb]
+centos8.example.com
+rhel9.example.com
+/* ~/Ansible/host_vars/rhel9.example.com/vars */
+var5: sub6.yaml
+16. 下面这样子写对不对？
+/* H20240602.yaml */
+---
+- name: Play1
+  hosts: all
+  vars_files:
+    - G20240602.yaml
+  tasks:
+    - import_tasks: "{{ var11 }}"
+...
+/* ~/Ansible/vars/G20240602.yaml */
+user:
+  joe:
+    id: 101
+    content: Hello
+  jorge:
+    id: 102
+    content: World
+var11: sub6.yaml
+17. include_tasks与notify：
+/* I20240602.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.shell: /usr/bin/true
+      notify: Handler1
+  handlers:
+    - name: Handler1
+      include_tasks: sub9.yaml
+...
+/* sub9.yaml */
+- name: H
+  ansible.builtin.debug:
+    msg: H
+- name: Ha
+  ansible.builtin.debug:
+    msg: Ha
+- name: HaH
+  ansible.builtin.debug:
+    msg: HaH
+- name: HaHa
+  ansible.builtin.debug:
+    msg: HaHa
+18. include与import的区别，除了静态导入与动态导入之外，体现在when条件判断上，就是______________________________________；
+19. include与import的区别，除了静态导入与动态导入之外，体现在when条件判断上，就是______________________________________；
+20. 综合使用variables和import_playbook；
+
+
+
+1. include是在运行时动态导入，而import是在运行之前就已经提前导入了；
+2. include是在运行时动态导入，而import是在运行之前就已经提前导入了；
+3. include是在运行时动态导入，而import是在运行之前就已经提前导入了；
+4. /* A20240601.yaml */
+---
+- import_playbook: sub1.yaml
+- import_playbook: sub2.yaml
+- name: Play3
+  hosts: all
+  tasks:
+    - name: Play3Task1
+      ansible.builtin.debug:
+        msg: This is Play3Task1.
+...
+/* sub1.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Play1Task1
+      ansible.builtin.debug:
+        msg: This is in Play1Task1.
+...
+/* sub2.yaml */
+---
+- name: Play2
+  hosts: all
+  tasks:
+    - name: Play2Task1
+      ansible.builtin.debug:
+        msg: This is in Play2Task1.
+...
+5. /* B20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - import_tasks: sub1.yaml
+    - import_tasks: sub2.yaml
+...
+/* sub1.yaml */
+- name: Task1
+  ansible.builtin.debug:
+    msg: HellO World! How are you?
+/* sub2.yaml */
+- name: Task2
+  ansible.builtin.debug:
+    msg: HellO World! Do you love me? Again.
+6. ansible-playbook C20240601.yaml --vault-password-file=secret
+7. import_playbook不能用在play中，import_tasks可以用在play中，与tasks同级别；
+8. import_playbook不能用在play中，import_tasks可以用在play中，与tasks同级别；
+9. import_playbook不能用在play中，import_tasks可以用在play中，与tasks同级别；
+10. /* D20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - import_tasks: sub6.yaml
+      when: ansible_facts.distribution == "RedHat"
+...
+/* sub6.yaml */
+- name: sub6Task1
+  ansible.builtin.debug:
+    msg: HellO World! Do you love me?
+- name: sub6Task2
+  ansible.builtin.debug:
+    msg: HellO world! Do you love me again?
+11. 对，include_tasks可以用于循环
+12. 不对，因为import_tasks不能够用于循环
+13. 不对，因为当用变量名来表示被import的文件名时，变量名不可以是host或者group inventory variable name
+14. 不对，因为当用变量名来表示被import的文件名时，变量名不可以是host或者group inventory variable name
+15. 不对，因为当用变量名来表示被import的文件名时，变量名不可以是host或者group inventory variable name
+16. 对，因为当用变量名来表示被import的文件名时，变量可以是vars/vars_files中定义的变量之一
+17. Cannot use a 'notify' statement to trigger a handler name that is in an included task file. But you can trigger a handler in the main playbook that includes an entire task file, in which case all tasks in the included file run.
+18. when会对import中的每一个任务都做一次条件判断，但只会对include整体做一次判断；
+19. when会对import中的每一个任务都做一次条件判断，但只会对include整体做一次判断；
+20. 
+/* J20240602.yaml */
+---
+- name: Play1
+  vars:
+    pkg: mariadb-server
+    serv: mariadb
+  import_playbook: sub13.yaml
+...
+/* sub13.yaml */
+---
+- name: sub13Play1
+  hosts: all
+  tasks:
+    - name: sub13Play1Task1
+      ansible.builtin.package:
+        name: "{{ pkg }}"
+        state: latest
+    - name: sub13Play1Task2
+      ansible.builtin.service:
+        name: "{{ serv }}"
+        state: started
+        enabled: true
+...

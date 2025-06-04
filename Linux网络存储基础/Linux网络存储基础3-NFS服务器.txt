@@ -1,0 +1,30 @@
+1. 要想让一个服务器成为NFS服务器，就必须先安装一些软件包。方法是_________________________________；
+2. 要想让一个服务器成为NFS服务器，就必须先安装一些软件包。方法是_________________________________；
+3. 要想让一个服务器成为NFS服务器，就必须先安装一些软件包。方法是_________________________________；
+4. 安装好相应的软件包之后，编辑NFS的配置文件/etc/exports。如果想要将服务器的/public共享给192.168.193.0/24网段的所有主机，而且还是以可读可写、同步的方式，那么该如何写配置文件呢？
+5. 安装好相应的软件包之后，编辑NFS的配置文件/etc/exports。如果想要将服务器的/home/rhce共享给172.24.0.0/16网段的所有主机，而且还是以可读可写、同步的方式，那么该如何写配置文件呢？
+6. 安装好软件之后，让防火墙放行相关的端口，方法是_______________________________；
+7. 安装好软件之后，让防火墙放行相关的端口，方法是_______________________________；
+8. 最后启动并下次开机自启，方法是__________________________________；
+9. 最后启动并下次开机自启，方法是__________________________________；
+
+
+1. sudo dnf install rpcbind nfs-utils
+2. sudo dnf install rpcbind nfs-utils
+3. sudo dnf install rpcbind nfs-utils
+4. /* /etc/exports */
+/public 192.168.193.0/24(rw,sync)
+/* /etc/exports */
+5. /* /etc/exports */
+/home/rhce 172.24.0.0/16(rw,sync)
+/* /etc/exports */
+6. sudo firewall-cmd --add-port=2049/tcp
+sudo firewall-cmd --add-port=2049/udp
+sudo firewall-cmd --add-port=111/tcp
+sudo firewall-cmd --add-port=111/udp
+7. sudo firewall-cmd --add-port=2049/tcp
+sudo firewall-cmd --add-port=2049/udp
+sudo firewall-cmd --add-port=111/tcp
+sudo firewall-cmd --add-port=111/udp
+8. sudo systemctl enable --now rpcbind, sudo systemctl enable --now nfs-server
+9. sudo systemctl enable --now rpcbind, sudo systemctl enable --now nfs-server

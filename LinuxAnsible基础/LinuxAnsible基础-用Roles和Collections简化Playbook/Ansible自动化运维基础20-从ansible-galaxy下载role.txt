@@ -1,0 +1,69 @@
+1. 社区管理的role仓库：___________________________________；
+2. 社区管理的role仓库：___________________________________；
+3. 社区管理的role仓库：___________________________________；
+4. 在ansible galaxy中，寻找包含redis的role，命令是__________________________；
+5. 在ansible galaxy中，寻找包含redis的role，作者是geerlingguy，命令是__________________________；
+6. 在ansible galaxy中，寻找包含redis的role，作者是geerlingguy，适用于平台EL，命令是__________________________；
+7. 在ansible galaxy中，获取geerlingguy.redis这个role的详细信息的命令是___________________________；
+8. 在ansible galaxy中，获取geerlingguy.php-redis这个role的详细信息的命令是___________________________；
+9. 使用roles/requirements.yml文件安装geerlingguy.redis这个role的方法是____________________________；
+10. 使用roles/requirements.yml文件安装DavidWittman.redis这个role的方法是____________________________；
+11. 使用ansible-galaxy role install命令安装robertdebock.redis这个role的方法是____________________________；
+12. 列出当前的所有role的命令是__________________________；
+13. 列出当前的所有role的命令是__________________________；
+14. 列出当前的所有role的命令是__________________________；
+15. 从/home/rhce/Ansible/ansible-role-java-2.5.0.tar.gz下载这个role的方法是____________________________；
+16. 从/home/rhce/Ansible/role-ansible-master.zip下载这个role，并为其命名为small的方法是___________________________；
+
+
+
+
+1. https://galaxy.ansible.com
+2. https://galaxy.ansible.com
+3. https://galaxy.ansible.com
+4. ansible-galaxy search 'redis'
+5. ansible-galaxy search 'redis' --author geerlingguy
+6. ansible-galaxy search 'redis' --author geerlingguy --platform EL
+7. ansible-galaxy info 'geerlingguy.redis'
+8. ansible-galaxy info 'geerlingguy.php-redis'
+9. /* /home/rhce/Ansible/roles/requirements.yml */
+# From Ansible Galaxy, using the latest version.
+- src: geerlingguy.redis
+/* /home/rhce/Ansible/ansible.cfg */
+[defaults]
+inventory=./inventory
+remote_user=centos
+ask_pass=false
+roles_path=roles
+[privilege_escalation]
+become=true
+become_method=sudo
+become_user=root
+become_ask_pass=false
+然后ansible-galaxy role install -r ./roles/requirements.yml
+10. /* /home/rhce/Ansible/roles/requirements.yml */
+# From Ansible Galaxy, using the latest version.
+- src: DavidWittman.redis
+/* /home/rhce/Ansible/ansible.cfg */
+[defaults]
+inventory=./inventory
+remote_user=centos
+ask_pass=false
+roles_path=roles
+[privilege_escalation]
+become=true
+become_method=sudo
+become_user=root
+become_ask_pass=false
+然后ansible-galaxy role install -r ./roles/requirements.yml
+11. ansible-galaxy role install 'robertdebock.redis' -p /home/rhce/Ansible/roles
+12. ansible-galaxy role list 或者 ansible-galaxy role list -p /home/rhce/Ansible/roles（如果ansible.cfg中没有指定roles_path为/home/rhce/Ansible/roles）
+13. ansible-galaxy role list 或者 ansible-galaxy role list -p /home/rhce/Ansible/roles（如果ansible.cfg中没有指定roles_path为/home/rhce/Ansible/roles）
+14. ansible-galaxy role list 或者 ansible-galaxy role list -p /home/rhce/Ansible/roles（如果ansible.cfg中没有指定roles_path为/home/rhce/Ansible/roles）
+15. /* /home/rhce/Ansible/requirements.yml */
+- src: /home/rhce/Ansible/ansible-role-java-2.5.0.tar.gz
+然后ansible-galaxy role install -r /home/rhce/Ansible/requirements.yml
+16. /* /home/rhce/Ansible/requirements.yml */
+- src: /home/rhce/Ansible/role-ansible-master.zip
+  name: small
+然后ansible-galaxy role install -r /home/rhce/Ansible/requirements.yml

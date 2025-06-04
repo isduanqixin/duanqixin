@@ -1,0 +1,27 @@
+1. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，最常用的命令是__________________________________；
+2. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，最常用的命令是__________________________________；
+3. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，最常用的命令是__________________________________；
+4. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，同时也保存ACL与SELinux设置，命令是__________________________________；
+5. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，同时也保存ACL与SELinux设置，命令是__________________________________；
+6. 将/home/rhce/Ansible/中的内容同步到/home/rhce/Bash中，同时也保存ACL与SELinux设置，命令是__________________________________；
+7. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，命令是___________________________________；
+8. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，命令是___________________________________；
+9. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，命令是___________________________________；
+10. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，同时也保存ACL与SELinux设置，命令是___________________________________；
+11. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，同时也保存ACL与SELinux设置，命令是___________________________________；
+12. 在rhce@192.168.197.131这台主机上，将/home/rhce/Ansible/中的内容同步到centos@192.168.197.130这台主机上的/home/centos/文件夹中，同时也保存ACL与SELinux设置，命令是___________________________________；
+
+
+
+1. rsync -av /home/rhce/Ansible /home/rhce/Bash
+2. rsync -av /home/rhce/Ansible /home/rhce/Bash
+3. rsync -av /home/rhce/Ansible /home/rhce/Bash
+4. rsync -avAX /home/rhce/Ansible /home/rhce/Bash
+5. rsync -avAX /home/rhce/Ansible /home/rhce/Bash
+6. rsync -avAX /home/rhce/Ansible /home/rhce/Bash
+7. rsync -av /home/rhce/Ansible centos@192.168.197.130:/home/centos/
+8. rsync -av /home/rhce/Ansible centos@192.168.197.130:/home/centos/
+9. rsync -av /home/rhce/Ansible centos@192.168.197.130:/home/centos/
+10. rsync -avAX /home/rhce/Ansible centos@192.168.197.130:/home/centos/
+11. rsync -avAX /home/rhce/Ansible centos@192.168.197.130:/home/centos/
+12. rsync -avAX /home/rhce/Ansible centos@192.168.197.139:/home/centos/

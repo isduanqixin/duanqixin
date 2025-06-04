@@ -1,0 +1,80 @@
+1. Linux内核为网络传输提供了一个_____________框架；
+2. Linux的在netfilter框架之上的_________框架能够将防火墙规则应用到网络传输上，并且这个框架优于____________命令；
+3. 被推荐的基于nftables框架之上的系统服务是______________服务；
+4. firewalld服务通过____________________，简化了防火墙管理操作；
+5. firewalld服务将_________设为了默认区域（zone），同时来自于lo的数据包被对应到了_______区域（zone）；
+6. firewalld服务获取默认区域（zone）的命令是_______________________；
+7. firewalld服务获取所有区域的简单命令是________________________；
+8. firewalld服务获取当前正处于激活状态的区域的命令是_________________________；
+9. firewalld服务将默认区域（zone）设为work的命令是_________________________，这一步操作是永久性的嘛？___________________
+10. firewalld服务列出默认区域（zone）的所有接口、源、服务和端口信息的命令是________________________________；
+11. firewalld服务列出区域work的所有接口、源、服务和端口信息的命令是_________________________________；
+12. firewalld服务列出区域home的所有接口、源、服务和端口信息的命令是__________________________________；
+13. firewalld服务列出所有区域（zone）的所有接口、源、服务和端口信息的命令是___________________________________；
+14. firewalld服务，永久新增一个名为newzone1的区域（zone），则命令是_________________________________；
+15. firewalld服务，永久新增一个名为newzone2的区域（zone），则命令是_________________________________；
+16. firewalld服务，永久新增一个名为newzone3的区域（zone），则命令是_________________________________；
+17. firewalld服务，永久性的将网卡ens256分配到区域newzone1的命令是_________________________________；
+18. firewalld服务，永久性的将网卡ens256分配到区域newzone2的命令是_________________________________；
+19. firewalld服务，永久性的将网卡ens256分配到区域newzone3的命令是_________________________________；
+20. firewalld服务，在默认区域public上，永久允许http服务的命令是_________________________________；
+21. firewalld服务，在默认区域public上，永久允许https服务的命令是_________________________________；
+22. firewalld服务，在默认区域public上，永久允许samba服务的命令是_________________________________；
+23. 列出所有区域（zone）中的所有网卡的命令是_____________________________；
+24. 列出区域public中的所有网卡的命令是___________________________；
+25. 列出区域newzone1中的所有网卡的命令是_____________________________；
+26. 列出区域home中的所有网卡的命令是____________________________；
+27. 让网卡ens160永远不受防火墙的控制的命令是____________________________；
+28. 让网卡ens160永远受防火墙的控制，并将其加入默认区域的命令是____________________________；
+29. 将网卡ens160从区域public移动到区域home的命令是______________________________；
+30. 一块网卡只能被分配到一个区域（zone）当中嘛？___________；
+31. 只有当一个zone中有网卡时，它的状态才会是active，否则它的状态就还会是inactive，是这样的嘛?_______________；
+32. firewalld服务，在默认区域public上，永久去除http服务的命令是_________________________________；
+33. firewalld服务，在默认区域public上，永久去除https服务的命令是_________________________________；
+34. firewalld服务，在默认区域public上，永久去除samba服务的命令是_________________________________；
+35. firewalld服务，在默认区域public上，永久开放60001号tcp端口的命令是__________________________________；
+36. firewalld服务，在默认区域public上，永久开放60002号udp端口的命令是___________________________________；
+37. firewalld服务，在默认区域public上，永久关闭60003号tcp端口的命令是___________________________________；
+38. firewalld服务，在默认区域public上，永久关闭60004号udp端口的命令是___________________________________；
+
+
+
+
+1. netfilter
+2. nftables iptables
+3. firewalld
+4. 将网络传输流分为区域（zone）
+5. public trusted
+6. firewall-cmd --get-default-zone
+7. firewall-cmd --get-zones
+8. firewall-cmd --get-active-zones
+9. firewall-cmd --set-default-zone work 是永久性的
+10. firewall-cmd --list-all
+11. firewall-cmd --list-all --zone=work
+12. firewall-cmd --list-all --zone=home
+13. firewall-cmd --list-all-zones
+14. firewall-cmd --new-zone=newzone1 --permanent
+15. firewall-cmd --new-zone=newzone2 --permanent
+16. firewall-cmd --new-zone=newzone3 --permanent
+17. firewall-cmd --change-interface=ens256 --zone=newzone1 --permanent
+18. firewall-cmd --change-interface=ens256 --zone=newzone2 --permanent
+19. firewall-cmd --change-interface=ens256 --zone=newzone3 --permanent
+20. firewall-cmd --add-service=http --permanent
+21. firewall-cmd --add-service=https --permanent
+22. firewall-cmd --add-service=samba --permanent
+23. firewall-cmd --list-interfaces
+24. firewall-cmd --list-interfaces --zone=public
+25. firewall-cmd --list-interfaces --zone=newzone1
+26. firewall-cmd --list-interfaces --zone=home
+27. firewall-cmd --remove-interface=ens160 --permanent
+28. firewall-cmd --add-interface=ens160 --permanent
+29. firewall-cmd --change-interface=ens160 --zone=home --permanent
+30. 是的，一块网卡只能被分配到一个区域（zone）当中
+31. 是的，只有当一个zone中有网卡时，它的状态才会是active，否则就是inactive
+32. firewall-cmd --remove-service=http --permanent
+33. firewall-cmd --remove-service=https --permanent
+34. firewall-cmd --remove-service=samba --permanent
+35. firewall-cmd --add-port=60001/tcp --permanent
+36. firewall-cmd --add-port=60002/udp --permanent
+37. firewall-cmd --remove-port=60003/tcp --permanent
+38. firewall-cmd --remove-port=60004/udp --permanent

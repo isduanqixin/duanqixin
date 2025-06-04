@@ -1,0 +1,336 @@
+1. blockinfile：写一份playbook，确保受控主机上的/home/centos/A20240531.sh中，都有：
+A yo, hao diao hao diao
+bu de liao, bu de liao
+这两行；
+2. blockinfile：写一份playbook，确保受控主机上的/home/centos/A20240531.sh中，没有：
+A yo, hao diao hao diao
+bu de liao, bu de liao
+这两行；
+3. blockinfile：写一份playbook，确保受控主机上的/etc/hosts文件中，有这几行：
+192.168.197.2 dns.example.com
+192.168.197.2 gateway.example.com
+4. blockinfile：写一份playbook，确保受控主机上的/home/centos/example.txt文件中，有这几行：
+# Son of a bitch.
+# Who are you?
+5. blockinfile：写一份playbook，确保受控主机上的/home/centos/example.txt文件中，没有这几行：
+# Son of a bitch.
+# Who are you?
+6. blockinfile：写一份playbook，确保受控主机上的/home/centos/.bashrc文件的最后，有这一行：
+export PS1="[\u@\h \w]\\$ "
+7. copy：写一份playbook，将内容"Hello World"保存到受控主机上的/home/centos/example.txt文件中；
+8. copy：写一份playbook，将被控主机上的/home/centos/example.txt拷贝到受控主机上的/home/centos/inventory文件中
+9. copy：写一份playbook，将控制主机上的/etc/sudoers拷贝到受控主机上的/etc/sudoers文件中，并且启动备份，同时使用visudo命令检查/etc/sudoers文件的正确性；
+10. fetch：写一份playbook，将所有被控主机上的/etc/hosts文件，都放到控制主机上的/home/rhce/Ansible/fetch1/文件夹中；
+11. fetch：写一份playbook，将所有被控主机上的/etc/hosts文件，都放到控制主机上的/home/rhce/Ansible/fetch1-{{ inventory_hostname }}/文件夹中；
+12. fetch：写一份playbook，将所有被控主机上的/etc/hosts文件，都放到控制主机上的/home/rhce/Ansible/fetch1-{{ inventory_hostname }}文件中，并且不考虑原有的目录结构；
+13. fetch：写一份playbook，将所有被控主机上的/etc/hosts文件，都放到控制主机上的/home/rhce/Ansible/fetch1-{{ inventory_hostname }}/文件夹中，并且不考虑原有的目录结构；
+14. file：写一份playbook，将/home/centos/example.txt文件的所有人、所属组都改为root，将权限改为0644；
+15. file：写一份playbook，为/home/centos/example.txt文件创建一个符号链接/home/centos/symlink1，所有人、所属组为root，权限为0644；
+16. file：写一份playbook，分别为/home/centos/example.txt、/home/centos/A20240531.sh创建两个硬链接/home/centos/E、/home/centos/A；
+17. lineinfile：写一份playbook，确保受控主机上的selinux都是enforcing状态（/etc/selinux/config文件）；
+18. lineinfile：写一份playbook，确保受控主机上的/etc/sudoers文件中，有这样一行：%wheel  ALL=(ALL)       NOPASSWD: ALL；
+19. stat：写一份playbook，获取受控主机上的/etc/sudoers文件的详细信息；
+20. ansible.posix.patch：暂无；
+21. ansible.posix.synchronize：暂无；
+22. file：写一份playbook，在受控主机上的/home/centos中，新生成一份文件file，owner为root，group为centos，mode为0640；
+23. file：写一份playbook，确保受控主机上的/home/centos/file的setype为user_home_t；
+24. file：写一份playbook，确保受控主机上的/home/centos文件夹中，不存在file文件；
+25. stat：写一份playbook，计算受控主机上的/etc/sudoers文件的md5sum校验和；
+
+
+
+
+
+1. /* A20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    sentence1: "A yo, hao diao hao diao"
+    sentence2: "bu de liao, bu de liao"
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /home/centos/A20240531.sh
+        block: |
+          {{ sentence1 }}
+          {{ sentence2 }}
+...
+2. /* B20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /home/centos/A20240531.sh
+        block: "{{ item.content }}"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.num }}"
+        state: absent
+      loop:
+        - num: 1
+          content: A yo, hao diao hao diao
+        - num: 2
+          content: bu de liao, bu de liao
+...
+3. /* C20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        block: |
+          {{ item.ip }} {{ item.name }}
+        marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.name }}"
+        state: present
+      loop:
+        - ip: 192.168.193.2
+          name: dns.example.com
+        - ip: 192.168.193.2
+          name: gateway.example.com
+...
+4. /* D20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    sentence1: "# Son of a bitch."
+    sentence2: "# Who are you?"
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /home/centos/example.txt
+        block: |
+          {{ sentence1 }}
+          {{ sentence2 }}
+        state: present
+...
+5. /* E20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    sentence1: "# Son of a bitch."
+    sentence2: "# Who are you?"
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /home/centos/example.txt
+        block: |
+          {{ sentence1 }}
+          {{ sentence2 }}
+        state: absent
+...
+6. /* F20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.blockinfile:
+        path: /home/centos/.bashrc
+        block: 'export PS1="[\u@\h \w]\\$ "'
+        state: present
+...
+7. /* F20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        content: "Hello World"
+        dest: /home/centos/example.txt
+...
+8. /* G20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /home/centos/example.txt
+        dest: /home/centos/inventory
+        remote_src: yes
+...
+9. /* H20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /etc/sudoers
+        dest: /etc/sudoers
+        backup: yes
+        validate: visudo -csf %s
+...
+10. /* I20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fetch:
+        src: /etc/hosts
+        dest: /home/rhce/Ansible/fetch1
+...
+11. /* J20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fetch:
+        src: /etc/hosts
+        dest: /home/rhce/Ansible/fetch2-{{ inventory_hostname }}
+...
+12. /* K20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fetch:
+        src: /etc/hosts
+        dest: /home/rhce/Ansible/fetch4-{{ inventory_hostname }}/
+        flat: yes
+...
+13. /* L20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.fetch:
+        src: /etc/hosts
+        dest: /home/rhce/Ansible/fetch4-{{ inventory_hostname }}
+        flat: yes
+...
+14. /* M20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        name: /home/centos/example.txt
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+...
+15. /* N20240531.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        src: /home/centos/example.txt
+        dest: /home/centos/symlink1
+        owner: root
+        group: root
+        mode: '0644'
+        state: link
+...
+16. /* O20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: hard
+      loop:
+        - src: /home/centos/example.txt
+          dest: /home/centos/E
+        - src: /home/centos/A20240531.sh
+          dest: /home/centos/A
+...
+17. /* P20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: SELINUX=enforcing
+...
+18. /* Q20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel'
+        line: "%wheel  ALL=(ALL)       NOPASSWD: ALL"
+        validate: visudo -csf %s
+...
+19. /* R20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.stat:
+        path: /etc/sudoers
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+22. /* S20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        path: /home/centos/file
+        owner: root
+        group: centos
+        mode: '0640'
+        state: touch
+...
+23. /* T20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        path: /home/centos/file
+        setype: user_home_t
+...
+24. /* U20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.file:
+        path: /home/centos/file
+        state: absent
+...
+25. /* V20240601.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.stat:
+        path: /etc/sudoers
+        checksum_algorithm: md5
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result.stat.checksum
+...

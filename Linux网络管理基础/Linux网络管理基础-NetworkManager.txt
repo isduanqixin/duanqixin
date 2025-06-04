@@ -1,0 +1,22 @@
+1. 查看NetworkManager接管网卡状态的命令是_______________________________；
+2. 查看NetworkManager接管网卡状态的命令是_______________________________；
+3. 查看NetworkManager接管网卡状态的命令是_______________________________；
+4. 让NetworkManager接管网卡的命令是______________________________；
+5. 让NetworkManager接管网卡的命令是______________________________；
+6. 让NetworkManager接管网卡的命令是______________________________；
+7. 让NetworkManager取消接管网卡的命令是______________________________；
+8. 让NetworkManager取消接管网卡的命令是______________________________；
+9. 让NetworkManager取消接管网卡的命令是______________________________；
+10. 当nmcli dev的结果显示，网卡的状态是unmanaged时，虚拟机无法联网，应该如何操作呢？
+
+
+1. nmcli networking
+2. nmcli networking
+3. nmcli networking
+4. nmcli networking on
+5. nmcli networking on
+6. nmcli networking on
+7. nmcli networking off
+8. nmcli networking off
+9. nmcli networking off
+10. nmcli networking查看NetworkManager接管网卡的状态，接着nmcli networking on让NetworkManager去接管网卡

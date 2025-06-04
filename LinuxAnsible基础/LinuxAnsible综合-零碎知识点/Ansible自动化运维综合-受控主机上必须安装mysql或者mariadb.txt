@@ -1,0 +1,22 @@
+问：编写一个playbook文件，使得受控主机上至少应该安装mysql或者mariadb中的一个，如果都没有安装，则默认安装mariadb。
+答：
+/* A20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: mysql-server
+        state: latest
+      failed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result.rc
+    - name: Task3
+      ansible.builtin.package:
+        name: mariadb-server
+        state: latest
+      when: Task1result.rc != 0
+...

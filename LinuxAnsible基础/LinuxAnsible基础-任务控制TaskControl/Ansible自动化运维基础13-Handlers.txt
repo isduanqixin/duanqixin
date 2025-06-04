@@ -1,0 +1,193 @@
+1. handler一般被用于____________________和________________________；
+2. handler一般被用于____________________和________________________；
+3. handler一般被用于____________________和________________________；
+4. 写一份playbook文件，将/home/rhce/Ansible/A20240530secret文件复制到/etc/A20240530secret中，并且让/etc/A20240530secret文件的所有人是root、所属组是root，权限为0644。此外如果执行这个任务的模块的返回状态是changed的话，就再输出Notified!
+5. 写一份playbook文件，使用template模块，将/home/rhce/Ansible/A20240530secret文件复制到/etc/A20240530secret中，并且让/etc/A20240530secret文件的所有人是root、所属组是root，权限为0644。此外如果执行这个任务的模块的返回状态是changed的话，就再输出Notified!
+6. 写一份playbook文件，确保httpd服务状态是正在启动中的，如果发现之前未启动，就输出"ni gan shen me chi de?"
+7. 写一份playbook文件，确保firewalld服务状态是正在启动中的，如果发现之前未启动，就输出"ni gan shen me chi de?"
+8. 写一份playbook文件，先将受控主机上所有的httpd配置文件备份，接着将控制主机上的/home/rhce/Ansible/httpd.conf文件复制到所有的控制主机上，如果新复制的配置文件与原来的文件不同，则重启httpd服务；
+9. 写一份playbook文件，先将受控主机上所有的mysqld或者mariadb配置文件备份，接着将控制主机上的/home/rhce/Ansible/my.cnf文件复制到所有的控制主机上，如果新复制的配置文件与原来的文件不同，则重启mysqld或者mariadb服务；
+10. handler最大的特点：_____________________________________；
+11. handler最大的特点：_____________________________________；
+12. handler最大的特点：_____________________________________；
+
+
+
+
+
+1. 重启主机  重新启动服务
+2. 重启主机  重新启动服务
+3. 重启主机  重新启动服务
+4. /* A20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /home/rhce/Ansible/A20240530secret
+        dest: /etc/A20240530secret
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "Notified!"
+...
+5. /* B20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.template:
+        src: /home/rhce/Ansible/A20240530secret
+        dest: /etc/A20240530secret
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "Notified!"
+...
+6. /* C20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: httpd
+        state: started
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "ni gan shen me chi de"
+...
+7. /* D20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.debug:
+        msg: "ni gan shen me chi de"
+...
+8. /* E20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /etc/httpd/conf/httpd.conf
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+...
+或者
+---
+- name: Play1
+  hosts: all
+  vars:
+    - date: 20240530
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /etc/httpd/conf/httpd.conf
+        dest: "/etc/httpd/conf/httpd.conf.backup.{{ date }}"
+        remote_src: yes
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Task2
+      ansible.builtin.copy:
+        src: /home/rhce/Ansible/httpd.conf
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+...
+9. /* F20240530.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: mysql-server
+        state: latest
+      failed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.service:
+        name: mysqld
+        state: started
+        enabled: true
+      when: Task1result.rc == 0
+    - name: Task3
+      ansible.builtin.package:
+        name: mariadb-server
+        state: latest
+      when: Task1result.rc != 0
+    - name: Task4
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: true
+      when: Task1result.rc != 0
+- name: Play2
+  hosts:
+    - workstation
+    - centos8
+  tasks:
+    - name: Task1
+      ansible.builtin.copy:
+        src: /home/rhce/Ansible/my.cnf
+        dest: /etc/my.cnf
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      notify:
+        - Handler1
+  handlers:
+    - name: Handler1
+      ansible.builtin.service:
+        name: mysql
+        state: restarted
+...
+10. Handlers always run in the order specified by the handlers section of the play，Handlers总是按照play中handlers部分指定的顺序运行
+11. Handlers always run in the order specified by the handlers section of the play，Handlers总是按照play中handlers部分指定的顺序运行
+12. Handlers always run in the order specified by the handlers section of the play，Handlers总是按照play中handlers部分指定的顺序运行

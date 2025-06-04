@@ -1,0 +1,34 @@
+1. ansible.builtin.dnf：将rhel9.example.com,centos8.example.com上所有软件更新到最新版；
+2. ansible.builtin.yum：将centos7.example.com上所有软件更新到最新版；
+3. hosts: 'centos*'：对于所有centos打头的受控主机，输出Hello World；
+
+
+
+1. /* A20240606.yaml */
+---
+- name: Play1
+  hosts: rhel9.example.com,centos8.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+...
+2. /* B20240606.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+...
+3. /* C20240606.yaml */
+---
+- name: Play1
+  hosts: 'centos*'
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        msg: Hello World

@@ -1,0 +1,164 @@
+1. _____________守护进程管理着Linux的启动过程，包括一般意义上的服务启动和服务管理。
+2. _____________守护进程管理着Linux的启动过程，包括一般意义上的服务启动和服务管理。
+3. _____________守护进程管理着Linux的启动过程，包括一般意义上的服务启动和服务管理。
+4. 守护进程（daemon）是在后台运行着的进程，用字母______结尾来给守护进程明明是惯例。
+5. 守护进程（daemon）是在后台运行着的进程，用字母______结尾来给守护进程明明是惯例。
+6. 守护进程（daemon）是在后台运行着的进程，用字母______结尾来给守护进程明明是惯例。
+7. RHEL9启动的第一个进程，是_______________，其PID号为___________。
+8. RHEL9启动的第一个进程，是_______________，其PID号为___________。
+9. RHEL9启动的第一个进程，是_______________，其PID号为___________。
+10. systemd进程使用___________来管理不同类型的对象。
+11. 服务单元的名称的后缀是____________。
+12. 套接字单元的名称的后缀是_____________。
+13. 路径单元的名称的后缀是____________。
+14. systemctl列出所有已加载并且处于active状态的单元的命令是_______________________。
+15. systemctl列出所有已加载并且处于active状态的服务单元的命令是_______________________。
+16. systemctl列出所有已加载并且处于active状态的套接字单元的命令是_______________________。
+17. systemctl列出所有已加载并且处于active状态的路径单元的命令是_______________________。
+18. systemctl列出所有单元的命令是____________________________。
+19. systemctl列出所有服务单元的命令是_____________________________。
+20. systemctl列出所有套接字单元的命令是_______________________________。
+21. systemctl列出所有路径单元的命令是_____________________________。
+22. systemctl查看rsyslog.service状态的命令是________________________________。
+23. systemctl查看sshd.service状态的命令是________________________________。
+24. systemctl查看rpcbind.service状态的命令是________________________________。
+如下是systemctl status httpd的结果：
+[rhce@rhce Bash]$ systemctl status httpd
+● httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+    Drop-In: /usr/lib/systemd/system/httpd.service.d
+             └─php-fpm.conf
+     Active: active (running) since Sun 2024-05-19 19:17:46 CST; 19min ago
+       Docs: man:httpd.service(8)
+   Main PID: 1108 (httpd)
+     Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes served/sec:   0 B/sec"
+      Tasks: 177 (limit: 23268)
+     Memory: 40.8M
+        CPU: 976ms
+     CGroup: /system.slice/httpd.service
+             ├─1108 /usr/sbin/httpd -DFOREGROUND
+             ├─1547 /usr/sbin/httpd -DFOREGROUND
+             ├─1549 /usr/sbin/httpd -DFOREGROUND
+             ├─1550 /usr/sbin/httpd -DFOREGROUND
+             └─1551 /usr/sbin/httpd -DFOREGROUND
+
+May 19 19:17:31 rhce systemd[1]: Starting The Apache HTTP Server...
+May 19 19:17:41 rhce httpd[1108]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using fe80::20c:29ff:f>
+May 19 19:17:46 rhce systemd[1]: Started The Apache HTTP Server.
+May 19 19:17:46 rhce httpd[1108]: Server configured, listening on: port 80
+25. Loaded表示什么？_________________________________
+26. Active表示什么？_________________________________
+27. Docs表示什么？_________________________________
+28. Main PID表示什么？___________________________________
+29. Status表示什么？__________________________________
+30. CGroup表示什么？___________________________________
+31. 如何查看httpd.service这个服务单元是否正在运行呢？______________________________
+32. 如何查看rsyslog.service这个服务单元是否正在运行呢？_______________________________
+33. 如何查看rpcbind.service这个服务单元是否正在运行呢？________________________________
+34. 如何查看httpd.service这个服务单元是否设置了开机自启呢？_______________________________
+35. 如何查看rsyslog.service这个服务单元是否设置了开机自启呢？______________________________
+36. 如何查看rpcbind.service这个服务单元是否设置了开机自启呢？_______________________________
+37. 如何得知httpd.service这个服务单元是否在开机自启时有没有成功呢？_______________________________
+38. 如何得知rsyslog.service这个服务单元是否在开机自启时有没有成功呢？_______________________________
+39. 如何得知rpcbind.service这个服务单元是否在开机自启时有没有成功呢？_______________________________
+40. 列出所有开机自启时失败的所有服务单元的命令是________________________________
+41. 列出所有开机自启时失败的所有套接字单元的命令是_________________________________
+42. 列出所有开机自启时失败的所有路径单元的命令是__________________________________
+43. 启动httpd.service这个服务单元的命令是________________________________
+44. 关闭httpd.service这个服务单元的命令是________________________________
+45. 重启httpd.service这个服务单元的命令是________________________________
+46. 重新加载httpd.service这个服务单元的命令是_______________________________
+47. 如果不确定某项服务可不可以reload的话，最合适的方法是______________________________
+48. 列出来httpd.service所依赖的服务的命令是_____________________________
+49. 列出来rsyslog.service所依赖的服务的命令是______________________________
+50. 列出来rpcbind.service所依赖的服务的命令是_________________________________
+51. 列出来依赖httpd.service服务的服务的命令是_________________________________
+52. 列出来依赖rsyslog.service服务的服务的命令是_________________________________
+53. 列出来以来rpcbind.service服务的服务的命令是__________________________________
+54. 盖住sendmail.service服务的命令是_________________________________
+55. 盖住postfix.service服务的命令是__________________________________
+56. 盖住cups.service服务的命令是___________________________________
+57. 解盖sendmail.service服务的命令是________________________________
+58. 解盖postfix.service服务的命令是_________________________________
+59. 解盖cups.service服务的命令是___________________________________
+60. 让httpd.service服务开机自启的命令是_____________________________________
+61. 让rsyslog.service服务开机自启的命令是_____________________________________
+62. 让rpcbind.service服务开机自启的命令是______________________________________
+63. 让httpd.service服务开机不自启的命令是______________________________________
+64. 让rsyslog.service服务开机不自启的命令是______________________________________
+65. 让rpcbind.service服务开机不自启的命令是______________________________________
+66. ___________________命令等效于systemctl enable httpd.service && systemctl start httpd.service
+67. ___________________命令等效于systemctl enable rsyslog.service && systemctl start rsyslog.service
+68. ___________________命令等效于systemctl enable rpcbind.service && systemctl start rpcbind.service
+
+
+
+
+1. systemd
+2. systemd
+3. systemd
+4. d
+5. d
+6. d
+7. systemd PID号为1
+8. systemd PID号为1
+9. systemd PID号为1
+10. 单元（units）
+11. .service
+12. .socket
+13. .path
+14. systemctl list-units
+15. systemctl list-units --type=service
+16. systemctl list-units --type=socket
+17. systemctl list-units --type=path
+18. systemctl list-units --all
+19. systemctl list-units --type=service --all
+20. systemctl list-units --type=socket --all
+21. systemctl list-units --type=path --all
+22. systemctl status rsyslog.service
+23. systemctl status sshd.service
+24. systemctl status rpcbind.service
+25. Loaded表示这个服务是否已被加载到内存当中。上述内容中，Loaded：loaded就表示，已经被加载到了内存当中
+26. Active表示这个服务是否已启动，如果已启动的话，启动了多长时间。上述内容中，Active：active以及最后面的19min就表示，这个服务已启动，并且启动了19min
+27. Docs表示去哪儿能够找到有关这个服务更多的消息。上述内容中，Docs：man:httpd.service就表示，httpd.service这个文档能够提供有关这个服务更多的消息
+28. Main PID表示，这个服务的主进程ID是多少。上述内容中，Main PID：1108（httpd）就表示，httpd这个守护进程的主进程ID是1108
+29. Status表示，有关这个服务的更多信息
+30. CGroup表示相关控制组的更多信息
+31. systemctl is-active httpd.service
+32. systemctl is-active rsyslog.service
+33. systemctl is-active rpcbind.service
+34. systemctl is-enabled httpd.service
+35. systemctl is-enabled rsyslog.service
+36. systemctl is-enabled rpcbind.service
+37. systemctl is-failed httpd.service
+38. systemctl is-failed rsyslog.service
+39. systemctl is-failed rpcbind.service
+40. systemctl --failed --type=service
+41. systemctl --failed --type=socket
+42. systemctl --failed --type=path
+43. systemctl start httpd.service
+44. systemctl stop httpd.service
+45. systemctl restart httpd.service
+46. systemctl reload httpd.service
+47. systemctl reload-or-restart httpd.service
+48. systemctl list-dependencies httpd.service
+49. systemctl list-dependencies rsyslog.service
+50. systemctl list-dependencies rpcbind.service
+51. systemctl list-dependencies httpd.service --reverse
+52. systemctl list-dependencies rsyslog.service --reverse
+53. systemctl list-dependencies rpcbind.service --reverse
+54. systemctl mask sendmail.service
+55. systemctl mask postfix.service
+56. systemctl mask cups.service
+57. systemctl umask sendmail.service
+58. systemctl umask postfix.service
+59. systemctl umask cups.service
+60. systemctl enable httpd.service
+61. systemctl enable rsyslog.service
+62. systemctl enable rpcbind.service
+63. systemctl disable httpd.service
+64. systemctl disable rsyslog.service
+65. systemctl disable rpcbind.service
+66. systemctl enable --now httpd.service
+67. systemctl enable --now rsyslog.service
+68. systemctl enable --now rpcbind.service

@@ -1,0 +1,107 @@
+逻辑卷的核心：____________________________________________；
+逻辑卷的核心：____________________________________________；
+逻辑卷的核心：____________________________________________；
+1. 已知/dev/sda这块硬盘上的分区情况为：
+Number  Start   End     Size    File system  Name        Flags
+ 1      1049kB  1000MB  999MB                partition1
+ 2      1000MB  2500MB  1499MB               partition2
+ 3      2500MB  3000MB  500MB                partition3
+现在要给这三个分区打上lvm的分区类型，则方法是________________________；
+2. 将/dev/sda1，/dev/sda2，/dev/sda3这三个分区做成物理卷，方法是________________________；
+3. 列出当前所有被做成了pv的分区，命令是_________________________；
+4. 列出当前所有被做成了pv的分区，命令是_________________________；
+5. 将/dev/sda1，/dev/sda2这两个被做成了物理卷的分区放进卷组vg1，方法是______________________；
+6. 将/dev/sda3这个被做成了物理卷的分区放进卷组vg2，方法是________________________；
+7. 列出当前所有的vg，命令是_______________________；
+8. 列出当前所有的vg，命令是_______________________；
+9. 从vg1这个卷组中，新建一个大小为500M的逻辑卷lv1，方法是__________________________；
+10. 从vg1这个卷组中，新建一个大小为700M的逻辑卷lv2，方法是___________________________；
+11. 从vg2这个卷组中，新建一个大小为100M的逻辑卷lv3，方法是___________________________；
+12. 列出所有的lv，命令是_______________________；
+13. 列出所有的lv，命令是_______________________；
+14. 列出所有的pv的详细信息，命令是_____________________________；
+15. 列出所有的vg的详细信息，命令是_____________________________；
+16. 列出所有的lv的详细信息，命令是_____________________________；
+17. 假设有一个新的物理卷/dev/sda4，将这个物理卷加入到卷组vg2的方法是____________________________________；
+18. 假设有一个新的物理卷/dev/sdb5，将这个物理卷加入到卷组vg1的方法是____________________________________；
+19. 假设有一个新的物理卷/dev/sdb6，将这个物理卷加入到卷组vg1的方法是____________________________________；
+20. 将卷组vg1中的逻辑卷lv1扩容到800MB的方法是_______________________________；
+21. 为卷组vg1中的逻辑卷lv2扩容100MB的方法是________________________________；
+22. 将卷组vg2中的逻辑卷lv3扩容到500MB的方法是_______________________________；
+23. 将逻辑卷lv1格式化为ext4文件系统的方法是______________________________；
+24. 将逻辑卷lv2格式化为xfs文件系统的方法是______________________________；
+25. 将逻辑卷lv3格式化为ext3文件系统的方法是______________________________；
+26. 查看逻辑卷的UUID的命令是___________________________________；
+27. 查看逻辑卷的UUID的命令是___________________________________；
+28. 查看逻辑卷的UUID的命令是___________________________________；
+29. 已知逻辑卷/dev/vg1/lv1的UUID为8c731eee-3ce1-4bc3-9584-6eb7fd95bfa9，将其永久挂载到/mnt/lv1mnt的方法是___________________________________；
+30. 已知逻辑卷/dev/vg1/lv2的UUID为48523408-390b-4fe4-861b-5d023c9e6a7e，将其永久挂载到/mnt/lv2mnt的方法是___________________________________；
+31. 已知逻辑卷/dev/vg2/lv3的UUID为7af2494e-d248-4ed2-b1f9-7bfc076d6562，将其永久挂载到/mnt/lv3mnt的方法是___________________________________；
+32. 上面讲的都是在给逻辑卷格式化文件系统之前，给逻辑卷扩容。而在给逻辑卷格式化文件系统之后，再给逻辑卷扩容，此时的逻辑卷的大小并不会立即发生改变，只有当进行____________________操作之后，逻辑卷的大小才会发生改变；
+33. 上面讲的都是在给逻辑卷格式化文件系统之前，给逻辑卷扩容。而在给逻辑卷格式化文件系统之后，再给逻辑卷扩容，此时的逻辑卷的大小并不会立即发生改变，只有当进行____________________操作之后，逻辑卷的大小才会发生改变；
+34. 给挂载到/的文件系统所在的逻辑卷扩容，扩大9GB，给/dev/rhel/swap这个逻辑卷扩容，扩大2GB；
+
+
+
+
+sudo parted分区，sudo pvcreate创建物理卷，sudo vgcreate或者vgextend放到卷组里，sudo lvcreate创建逻辑卷，mkfs.xfs格式化
+sudo parted分区，sudo pvcreate创建物理卷，sudo vgcreate或者vgextend放到卷组里，sudo lvcreate创建逻辑卷，mkfs.xfs格式化
+sudo parted分区，sudo pvcreate创建物理卷，sudo vgcreate或者vgextend放到卷组里，sudo lvcreate创建逻辑卷，mkfs.ext4格式化
+1. set 1 lvm on
+set 2 lvm on
+set 3 lvm on
+2. sudo pvcreate /dev/sda1
+sudo pvcreate /dev/sda2
+sudo pvcreate /dev/sda3
+3. sudo pvs
+4. sudo pvs
+5. sudo vgcreate vg1 /dev/sda1 /dev/sda2
+6. sudo vgcreate vg2 /dev/sda3
+7. sudo vgs
+8. sudo vgs
+9. sudo lvcreate -n lv1 -L 500M vg1
+10. sudo lvcreate -n lv2 -L 700M vg1
+11. sudo lvcreate -n lv3 -L 100M vg2
+12. sudo lvs
+13. sudo lvs
+14. sudo pvdisplay
+15. sudo vgdisplay
+16. sudo lvdisplay
+17. vgextend vg2 /dev/sda4
+18. vgextend vg1 /dev/sdb5
+19. vgextend vg1 /dev/sdb6
+20. sudo lvextend -L 800MB /dev/vg1/lv1
+21. sudo lvextend -L +100MB /dev/vg1/lv2
+22. sudo lvextend -L 500MB /dev/vg2/lv3
+23. sudo mkfs.ext4 /dev/vg1/lv1
+24. sudo mkfs.xfs /dev/vg1/lv2
+25. sudo mkfs.ext3 /dev/vg2/lv3
+26. sudo blkid
+27. sudo blkid
+28. sudo blkid
+29. sudo vim /etc/fstab
+/* /etc/fstab */
+... ...
+UUID=8c731eee-3ce1-4bc3-9584-6eb7fd95bfa9 /mnt/lv1mnt           ext4    defaults        0 0
+/* /etc/fstab */
+sudo findmnt --verify
+30. sudo vim /etc/fstab
+/* /etc/fstab */
+UUID=48523408-390b-4fe4-861b-5d023c9e6a7e /mnt/lv2mnt           xfs     defaults        0 0
+/* /etc/fstab */
+sudo findmnt --verify
+31. sudo vim /etc/fstab
+/* /etc/fstab */
+UUID=7af2494e-d248-4ed2-b1f9-7bfc076d6562 /mnt/lv3mnt           ext3    defaults        0 0
+/* /etc/fstab */
+sudo findmnt --verify
+32. 对于xfs文件系统，只有"sudo xfs_growfs <逻辑卷的挂载点>"之后，才能使得逻辑卷的扩展生效；对于ext4文件系统，只有"sudo resize2fs <逻辑卷的路径>"之后，才能使得逻辑卷的扩展生效；
+33. 对于xfs文件系统，只有"sudo xfs_growfs <逻辑卷的挂载点>"之后，才能使得逻辑卷的扩展生效；对于ext4文件系统，只有"sudo resize2fs <逻辑卷的路径>"之后，才能使得逻辑卷的扩展生效；
+34. 
+sudo parted /dev/nvme0n3 mklabel gpt mkpart partition1 ext4 2048s 13G set 1 lvm on
+sudo pvcreate /dev/nvme0n3p1
+sudo vgextend /dev/rhel /dev/nvme0n3p1
+sudo lvextend -L +10G /dev/rhel/root
+sudo lvextend -L +2G /dev/rhel/swap
+sudo xfs_growfs /
+sudo swapoff /dev/rhel/swap && sudo mkswap /dev/rhel/swap && sudo swapon /dev/rhel/swap

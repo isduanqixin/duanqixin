@@ -1,0 +1,23 @@
+1. 使用一个echo命令，输出如下行：
+Hello World!
+Do you love me?
+Yes, I love you!
+2. 使用一个echo命令，输出如下行：
+This is a beautiful world.
+I like it very much!
+Don't you think so?
+3. 使用一个echo命令，输出如下行：
+Hello World!
+Don't you think so?
+Yes, I love you!
+4. 使用一个echo命令，输出如下行：
+tv$tv
+tv52813tv
+tvhellotv
+tvhello
+
+
+1. echo -e "Hello World!\nDo you love me?\nYes, I love you!"
+2. echo -e "This is a beautiful world.\nI like it very much!\nDon't you think so?"
+3. echo -e "Hello World!\nDon't you think so?\nYes, I love you!"
+4. echo -e "tv\$tv\ntv52813tv\ntvhellotv\ntvhello"

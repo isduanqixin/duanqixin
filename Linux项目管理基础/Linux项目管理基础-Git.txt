@@ -1,0 +1,78 @@
+1. 查看git版本
+2. 查看git版本
+3. git配置用户名
+4. git配置用户名
+5. git配置邮箱
+6. git配置邮箱
+7. 查看当前已有的git配置
+8. 查看当前已有的git配置
+9. git配置文件被存放在哪里呢？
+10. git配置文件被存放在哪里呢？
+11. 拉取github上的仓库到本地
+12. 拉取github上的仓库到本地
+13. 查看git状态
+14. 查看git状态
+15. 将当前git添加到暂存区
+16. 将当前git添加到暂存区
+17. git查看提交记录
+18. git查看提交记录
+19. 以简洁的形式查看提交记录
+20. 以简洁的形式查看提交记录
+21. git回退到之前的某一个版本
+22. git回退到之前的某一个版本
+23. git回退到之前的某一个版本，丢弃工作区内容
+24. git回退到之前的某一个版本，丢弃工作区内容
+25. git比较当前commit版本和之前commit版本的不同
+26. git比较当前commit版本和之前commit版本的不同
+27. git比较工作区与其他区域的不同
+28. git比较工作区与其他区域的不同
+29. git比较当前commit版本和上上个commit版本的不同
+30. git比较当前commit版本和上上个commit版本的不同
+31. git比较51cad6b和a1a2dc1这两个commit版本的不同
+32. git比较fe40e6e和60947aa这两个commit版本的不同
+33. git比较工作暂存区与本地仓库的不同
+34. git比较工作暂存区与本地仓库的不同
+35. git删除文件a.txt
+36. git删除文件b.txt
+37. git递归删除文件夹a
+38. git递归删除文件夹b
+
+
+1. git -v
+2. git -v
+3. git config --global user.name duanqixin
+4. git config --global user.name duanqixin
+5. git config --global user.email duanqixin@duanqixin.top
+6. git config --global user.email duanqixin@duanqixin.top
+7. git config --global --list
+8. git config --global --list
+9. ~/.gitconfig
+10. ~/.gitconfig
+11. git clone https://github.com/mainmatter/100-exercises-to-learn-rust.git
+12. git clone https://github.com/mainmatter/100-exercises-to-learn-rust.git
+13. git status
+14. git status
+15. git add .
+16. git add .
+17. git log
+18. git log
+19. git log --oneline
+20. git log --oneline
+21. git reset <ID>
+22. git reset <ID>
+23. git reset <ID> --hard
+24. git reset <ID> --hard
+25. git diff HEAD~ HEAD
+26. git diff HEAD~ HEAD
+27. git diff
+28. git diff
+29. git diff HEAD~2 HEAD
+30. git diff HEAD~2 HEAD
+31. git diff 51cad6b a1a2dc1
+32. git diff fe40e6e 60947aa
+33. git diff HEAD
+34. git diff HEAD
+35. git rm a.txt
+36. git rm b.txt
+37. git rm -r a
+38. git rm -r b

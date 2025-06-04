@@ -1,0 +1,56 @@
+1. 关闭系统的命令是______________________________；
+2. 关闭系统的命令是______________________________；
+3. 关闭系统的命令是______________________________；
+4. 重启系统的命令是______________________________；
+5. 重启系统的命令是______________________________；
+6. 重启系统的命令是______________________________；
+7. systemd服务中的一个target单元是____________________________________；
+8. systemd服务中的一个target单元是____________________________________；
+9. systemd服务中的一个target单元是____________________________________；
+10. 列出当前系统中所有可用的target的命令是_____________________________________；
+11. 列出当前系统中所有可用的target的命令是_____________________________________；
+12. 列出当前系统中所有可用的target的命令是_____________________________________；
+13. 列出graphical.target的所有依赖的命令是_____________________________________；
+14. 列出graphical.target的所有依赖的命令是_____________________________________；
+15. 列出graphical.target的所有依赖的命令是_____________________________________；
+16. 在运行中切换到graphical.target的命令是________________________________；
+17. 在运行中切换到multi-user.target的命令是_____________________________；
+18. 在运行中切换到rescue.target的命令是__________________________；
+19. 获取当前系统上的默认target的命令是_____________________________；
+20. 获取当前系统上的默认target的命令是_____________________________；
+21. 获取当前系统上的默认target的命令是_____________________________；
+22. 设置当前系统上的默认target为graphical.target的命令是_________________________；
+23. 设置当前系统上的默认target为multi-user.target的命令是_________________________；
+24. 设置当前系统上的默认target为rescue.target的命令是_________________________；
+25. 在系统启动之时，就进入到救援模式的方法是________________________；
+26. 在系统启动之时，就进入到救援模式的方法是________________________；
+27. 在系统启动之时，就进入到救援模式的方法是________________________；
+
+
+1. systemctl poweroff或者poweroff
+2. systemctl poweroff或者poweroff
+3. systemctl poweroff或者poweroff
+4. systemctl reboot或者reboot
+5. systemctl reboot或者reboot
+6. systemctl reboot或者reboot
+7. 为了达到特定目的的一组systemd单元的集合
+8. 为了达到特定目的的一组systemd单元的集合
+9. 为了达到特定目的的一组systemd单元的集合
+10. systemctl list-units --type=target --all
+11. systemctl list-units --type=target --all
+12. systemctl list-units --type=target --all
+13. systemctl list-dependencies graphical.target
+14. systemctl list-dependencies graphical.target
+15. systemctl list-dependencies graphical.target
+16. systemctl isolate graphical.target
+17. systemctl isolate multi-user.target
+18. systemctl isolate rescue.target
+19. systemctl get-default
+20. systemctl get-default
+21. systemctl get-default
+22. systemctl set-default graphical.target
+23. systemctl set-default multi-user.target
+24. systemctl set-default rescue.target
+25. 重启系统，按下e，接着在linux打头的那一行的末尾，输入systemd.unit=rescue.target，接着Ctrl+x保存即可
+26. 重启系统，按下e，接着在linux打头的那一行的末尾，输入systemd.unit=rescue.target，接着Ctrl+x保存即可
+27. 重启系统，按下e，接着在linux打头的那一行的末尾，输入systemd.unit=rescue.target，接着Ctrl+x保存即可

@@ -1,0 +1,86 @@
+1. 假如当前系统上ls -alh /dev | grep '^b'的结果如下所示，那么：
+[rhce@rhel9 ~]$ ls -alh /dev | grep '^b'
+brw-rw----.  1 root disk    253,   0 Jun  7 19:46 dm-0
+brw-rw----.  1 root disk    253,   1 Jun  7 19:46 dm-1
+brw-rw----.  1 root disk    259,   0 Jun  7 19:46 nvme0n1
+brw-rw----.  1 root disk    259,   1 Jun  7 19:46 nvme0n1p1
+brw-rw----.  1 root disk    259,   2 Jun  7 19:46 nvme0n1p2
+brw-rw----.  1 root disk    259,   3 Jun  7 19:46 nvme0n1p3
+brw-rw----.  1 root disk      8,   0 Jun  7 19:46 sda
+brw-rw----.  1 root cdrom    11,   0 Jun  7 19:46 sr0
+brw-rw----.  1 root cdrom    11,   1 Jun  7 19:46 sr1
+（1）关机之后再添加一块NVME硬盘，则这块NVME硬盘的名称为____________________；
+（2）关机之后再添加第二块NVME硬盘，则这块NVME硬盘的名称为_____________________；
+（3）关机之后在添加一块SATA硬盘，则这块SATA硬盘的名称为____________________；
+2. 列出nvme0n1这块硬盘的分区表的命令是______________________；
+3. 列出nvme0n2这块硬盘的分区表的命令是______________________；
+4. 列出nvme0n3这块硬盘的分区表的命令是______________________；
+5. 列出sda这块硬盘的分区表的命令是_______________________；
+6. 列出sdb这块硬盘的分区表的命令是_______________________；
+7. 列出nvme0n1这块硬盘的大小（单位为分区数）的命令是_____________________；
+8. 列出nvme0n1这块硬盘的大小（单位为字节数）的命令是_____________________；
+9. 列出nvme0n1这块硬盘的大小（单位为MiB）的命令是_____________________；
+10. 列出nvme0n1这块硬盘的大小（单位为MB）的命令是_____________________；
+11. 列出nvme0n1这块硬盘的大小（单位为GB）的命令是_____________________；
+12. 为nvme0n2这块硬盘打上MBR这个硬盘标签的命令是_______________________；
+13. 为nvme0n2这块硬盘打上GPT这个硬盘标签的命令是_______________________；
+14. 在nvme0n2这块硬盘上，分出来一个大小为2048s的primary分区，从2048s开始，文件系统为ext4，命令为________________；
+15. 在nvme0n2这块硬盘上，分出来一个大小为4095s的primary分区，从4096s开始，文件系统为xfs，命令为_________________；
+16. 在sda这块硬盘上，分出来一个大小为4096s的primary分区，从2048s开始，文件系统为ext4，命令为_________________；
+17. 在sda这块硬盘上，分出来一个大小为2048s的primary分区，从6144s开始，文件系统为xfs，命令为________________；
+18. 在sdb这块硬盘上，删掉第1个分区的命令是___________________________；
+19. 在sdb这块硬盘上，删掉第2个分区的命令是___________________________；
+20. 将/dev/nvme0n2p1这个分区做成ext4文件系统的命令是________________________；
+21. 将/dev/nvme0n2p2这个分区做成xfs文件系统的命令是________________________；
+22. 将/dev/sda1这个分区临时挂载到/mnt/sdamnt1的命令是_________________________；
+23. 将/dev/sda2这个分区临时挂载到/mnt/sdamnt2的命令是_________________________；
+24. 查看当前的挂载点、挂载分区的命令是______________________________；
+25. 查看当前的/dev/nvme0n1挂载分区的命令是______________________________；
+26. 查看当前的/dev/sda挂载分区的命令是______________________________；
+27. 获取各个磁盘分区的UUID的命令是_______________________________________；
+28. 获取各个磁盘分区的UUID的命令是_______________________________________；
+29. 已知/dev/sda1这个分区的UUID是4cf43ba4-914b-4b7e-aa07-43568941f95d，编辑/etc/fstab文件，将这个分区永久挂载到/mnt/sdamnt1的命令是__________________________________；
+30. 已知/dev/sda2这个分区的UUID是c7c2b021-e6c9-48c0-a0c1-6f458e502819，编辑/etc/fstab文件，将这个分区永久挂载到/mnt/sdamnt2的命令是__________________________________；
+
+
+1. 
+（1）这块NVME硬盘的名称为nvme0n2
+（2）这块NVME硬盘的名称为nvme0n3
+（3）这块SATA硬盘的名称为sdb
+2. sudo parted /dev/nvme0n1 print
+3. sudo parted /dev/nvme0n2 print
+4. sudo parted /dev/nvme0n3 print
+5. sudo parted /dev/sda print
+6. sudo parted /dev/sdb print
+7. sudo parted /dev/nvme0n1 unit s print
+8. sudo parted /dev/nvme0n1 unit B print
+9. sudo parted /dev/nvme0n1 unit MiB print
+10. sudo parted /dev/nvme0n1 unit MB print
+11. sudo parted /dev/nvme0n1 unit GB print
+12. sudo parted /dev/nvme0n2 mklabel msdos
+13. sudo parted /dev/nvme0n2 mklabel gpt
+14. sudo parted /dev/nvme0n2 mkpart primary ext4 2048s 4095s
+15. sudo parted /dev/nvme0n2 mkpart primary xfs 4096s 8191s
+16. sudo parted /dev/sda mkpart userdata1 ext4 2048s 6143s
+17. sudo parted /dev/sda mkpart userdata2 xfs 6144s 8191s
+18. sudo parted /dev/sdb rm 1
+19. sudo parted /dev/sdb rm 2
+20. sudo mkfs.ext4 /dev/nvme0n2p1
+21. sudo mkfs.xfs /dev/nvme0n2p2
+22. sudo mount /dev/sda1 /mnt/sdamnt1
+23. sudo mount /dev/sda2 /mnt/sdamnt2
+24. mount
+25. mount | grep '/dev/nvme0n1'
+26. mount | grep '/dev/sda'
+27. lsblk --fs
+28. lsblk --fs
+29. /* /etc/fstab */
+... ...
+UUID=4cf43ba4-914b-4b7e-aa07-43568941f95d /mnt/sdamnt1            ext3    defaults        0 0
+/* /etc/fstab */
+然后sudo findmnt --verify
+30. /* /etc/fstab */
+... ...
+UUID=c7c2b021-e6c9-48c0-a0c1-6f458e502819 /mnt/sdamnt2            xfs     defaults        0 0
+/* /etc/fstab */
+然后sudo findmnt --verify

@@ -1,0 +1,19 @@
+1. Rocky安装nginx。
+2. 开机自启动，并且现在启动nginx。
+3. nginx的配置文件的位置？
+4. 备份nginx之前的配置文件
+5. nginx使用的SSL私钥在哪儿？
+6. nginx使用的SSL公钥在哪儿？
+7. nginx为所有html都配置标题ico
+
+
+1. dnf install nginx
+2. systemctl enable nginx
+systemctl start nginx
+3. /etc/nginx/nginx.conf
+4. cp nginx.conf nginx.conf_bak_202505281034
+5. /etc/pki/nginx/private/server.key
+6. /etc/pki/nginx/server.crt
+7. location / {
+sub_filter '</head>' '<link rel="icon" href="/52813.ico">\n</head>';
+}

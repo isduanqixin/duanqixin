@@ -1,0 +1,75 @@
+1. 查看登录到当前系统上的所有用户的信息的命令是_____；
+2. 查看登录到当前系统上的所有用户的信息的命令是_____；
+3. 查看登录到当前系统上的所有用户的信息的命令是_____；
+4. 查看登录到当前系统上的用户rhce的信息的命令是______________；
+5. 查看登录到当前系统上的用户exa1的信息的命令是________________；
+6. 查看登录到当前系统上的用户exa2的信息的命令是________________；
+[rhce@rhce Bash]$ w
+ 10:43:57 up 4 min,  2 users,  load average: 0.01, 0.06, 0.03
+USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+rhce     pts/0     10:39    1.00s  0.03s  0.00s w
+rhce     tty1      10:43   20.00s  0.01s  0.01s -bash
+[rhce@rhce Bash]$
+7. 如果TTY的结果是pts，则说明远端用户是通过_____________方式登录到系统上的；
+8. 如果TTY的结果是pts，则说明远端用户是通过_____________方式登录到系统上的；
+9. 如果TTY的结果是pts，则说明远端用户是通过_____________方式登录到系统上的；
+10. 如果TTY的结果是tty，则说明远端用户是通过_____________方式登录到系统上的；
+11. 如果TTY的结果是tty，则说明远端用户是通过_____________方式登录到系统上的；
+12. 如果TTY的结果是tty，则说明远端用户是通过_____________方式登录到系统上的；
+13. 在主机上，哪些文件保存了其它主机的公钥呢？_____________________________________；
+14. 在主机上，哪些文件保存了其它主机的公钥呢？_____________________________________；
+15. 在主机上，哪些文件保存了其它主机的公钥呢？_____________________________________；
+16. 在主机A上ssh登陆到B，然后主机A的known_hosts文件中，有了主机B的公钥记录。请问此时如果想要确保这些公钥就是主机B的公钥，应该将主机A的known_hosts文件，和主机A的/etc/ssh/ssh_host_ecdsa_key.pub，/etc/ssh/ssh_host_ed25519_key.pub，/etc/ssh/ssh_host_rsa_key.pub，或者~/.ssh/id_ecdsa.pub，~/.ssh/id_ed25519.pub，~/.ssh/rsa.pub这些文件作对比，对不对？
+17. 在主机A上ssh登陆到B，然后主机A的known_hosts文件中，有了主机B的公钥记录。请问此时如果想要确保这些公钥就是主机B的公钥，应该将主机A的known_hosts文件，和主机B的/etc/ssh/ssh_host_ecdsa_key.pub，/etc/ssh/ssh_host_ed25519_key.pub，/etc/ssh/ssh_host_rsa_key.pub，或者~/.ssh/id_ecdsa.pub，~/.ssh/id_ed25519.pub，~/.ssh/rsa.pub这些文件作对比，对不对？
+18. 在主机A上ssh登陆到B，然后主机A的known_hosts文件中，有了主机B的公钥记录。请问此时如果想要确保这些公钥就是主机B的公钥，应该将主机A的known_hosts文件，和主机B的哪些文件做对比呢？
+19. 如何计算得到主机A ~/.ssh/id_rsa.pub这个文件的SHA256值呢？
+20. 如何计算得到主机A ~/.ssh/id_ed25519.pub这个文件的SHA256值呢？
+21. 如何计算得到主机A ~/.ssh/id_ecdsa.pub这个文件的SHA256值呢？
+22. 如何计算得到主机A /etc/ssh/ssh_host_rsa_key.pub这个文件的SHA256值呢？
+23. 如何计算得到主机A /etc/ssh/ssh_host_ed25519_key.pub这个文件的SHA256值呢？
+24. 如何计算得到主机A /etc/ssh/ssh_host_ecdsa_key.pub这个文件的SHA256值呢？
+25. 如何在主机A上，产生一对新的RSA公私钥呢？
+26. 如何在主机A上，产生一对新的ED25519公私钥呢？
+27. 如何在主机A上，产生一对新的ECDSA公私钥呢？
+28. 在主机A上，如果想要通过SSH连接到主机B，首先就要管主机B要到主机B的公钥，接着核查主机B的公钥是不是和自己的__________________中记录的主机B的公钥一样，如果不一样，大多数情况是主机B换用了另一套公私钥，极少情况是______________。对于核查不一样的情况，如果StrictHostKeyChecking是ask的话，主机A就会问说，主机B新换用的公钥是多少多少，看看跟你拿到的一不一样，这样子再上一层保险。可如果StrictHostKeyChecking是yes的话，主机A一旦核查不一样，会怎么样呢？________________________。
+29. 在主机A上，如果想要通过SSH连接到主机B，首先就要管主机B要到主机B的公钥，接着核查主机B的公钥是不是和自己的__________________中记录的主机B的公钥一样，如果不一样，大多数情况是主机B换用了另一套公私钥，极少情况是______________。对于核查不一样的情况，如果StrictHostKeyChecking是ask的话，主机A就会问说，主机B新换用的公钥是多少多少，看看跟你拿到的一不一样，这样子再上一层保险。可如果StrictHostKeyChecking是yes的话，主机A一旦核查不一样，会怎么样呢？________________________。
+30. 在主机A上，如果想要通过SSH连接到主机B，首先就要管主机B要到主机B的公钥，接着核查主机B的公钥是不是和自己的__________________中记录的主机B的公钥一样，如果不一样，大多数情况是主机B换用了另一套公私钥，极少情况是______________。对于核查不一样的情况，如果StrictHostKeyChecking是ask的话，主机A就会问说，主机B新换用的公钥是多少多少，看看跟你拿到的一不一样，这样子再上一层保险。可如果StrictHostKeyChecking是yes的话，主机A一旦核查不一样，会怎么样呢？________________________。
+31. StrictHostKeyChecking这个选项被保存在哪些文本中呢？__________________________________________？
+32. StrictHostKeyChecking这个选项被保存在哪些文本中呢？__________________________________________？
+33. StrictHostKeyChecking这个选项被保存在哪些文本中呢？__________________________________________？
+
+
+
+1. w
+2. w
+3. w
+4. w -u rhce
+5. w -u exa1
+6. w -u exa2
+7. SSH远程登陆
+8. SSH远程登陆
+9. SSH远程登陆
+10. 直接登陆到系统
+11. 直接登陆到系统
+12. 直接登陆到系统
+13. /etc/ssh/ssh_known_hosts文件以及~/.ssh/known_hosts文件
+14. /etc/ssh/ssh_known_hosts文件以及~/.ssh/known_hosts文件
+15. /etc/ssh/ssh_known_hosts文件以及~/.ssh/known_hosts文件
+16. 应该将主机A的known_hosts文件，和主机B的公钥文件作对比，而不是和自己的公钥文件作对比，这一点要搞清楚
+17. 应该将主机A的known_hosts文件，和主机B的公钥文件作对比，而不是和自己的公钥文件作对比，这一点要搞清楚
+18. 应该将主机A的known_hosts文件，和主机B的公钥文件作对比，而不是和自己的公钥文件作对比，这一点要搞清楚
+19. ssh-keygen -l -f ~/.ssh/id_rsa.pub
+20. ssh-keygen -l -f ~/.ssh/id_ed25519.pub
+21. ssh-keygen -l -f ~/.ssh/id_ecdsa.pub
+22. ssh-keygen -l -f /etc/ssh/ssh_host_rsa_key.pub
+23. ssh-keygen -l -f /etc/ssh/ssh_host_ed25519_key.pub
+24. ssh-keygen -l -f /etc/ssh/ssh_host_ecdsa_key.pub
+25. ssh-keygen 或者 ssh-keygen -t rsa
+26. ssh-keygen -t ed25519
+27. ssh-keygen -t ecdsa
+28. ~/.ssh/known_hosts 有人冒充了主机B 会立马拒绝掉连接
+29. ~/.ssh/known_hosts 有人冒充了主机B 会立马拒绝掉连接
+30. ~/.ssh/known_hosts 有人冒充了主机B 会立马拒绝掉连接
+31. ~/.ssh/config，/etc/ssh/ssh_config和/etc/ssh/ssh_config.d/下面的文件
+32. ~/.ssh/config，/etc/ssh/ssh_config和/etc/ssh/ssh_config.d/下面的文件
+33. ~/.ssh/config，/etc/ssh/ssh_config和/etc/ssh/ssh_config.d/下面的文件

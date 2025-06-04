@@ -1,0 +1,30 @@
+1. SELinux将一个_________与一个SELinux上下文相连接；
+2. SSH协议将22/tcp端口与__________SELinux上下文相联系；
+3. HTTP协议将80/tcp、443/tcp端口与____________SELinux上下文相联系；
+4. 列出所有端口的SELinux上下文信息的方法是____________________；
+5. 允许http协议在60001/tcp端口上监听的方法是_____________________；
+6. 允许gopher协议在60002/tcp端口上监听的方法是_____________________；
+7. 允许ssh协议在60003/tcp端口上监听的方法是_____________________；
+8. 禁止http协议在60001/tcp端口上监听的方法是_____________________；
+9. 禁止gopher协议在60002/tcp端口上监听的方法是_____________________；
+10. 禁止ssh协议在60003/tcp端口上监听的方法是____________________；
+11. 列出发生在局部SELinux调整的方法是_____________________；
+12. 将60001/tcp端口上的SELinux上下文由http_port_t调整为gopher_port_t的方法是______________________；
+13. 将60002/tcp端口上的SELinux上下文由gopher_port_t调整为ssh_port_t的方法是______________________；
+14. 将60003/tcp端口上的SELinux上下文由ssh_port_t调整为http_port_t的方法是_______________________；
+
+
+1. 端口
+2. ssh_port_t
+3. http_port_t
+4. semanage port -l
+5. semanage port -a -t http_port_t -p tcp 60001
+6. semanage port -a -t gopher_port_t -p tcp 60002
+7. semanage port -a -t ssh_port_t -p tcp 60003
+8. semanage port -d -t http_port_t -p tcp 60001
+9. semanage port -d -t gopher_port_t -p tcp 60002
+10. semanage port -d -t ssh_port_t -p tcp 60003
+11. semanage port -l -C
+12. semanage port -m -t gopher_port_t -p tcp 60001
+13. semanage port -m -t ssh_port_t -p tcp 60002
+14. semanage port -m -t http_port_t -p tcp 60003

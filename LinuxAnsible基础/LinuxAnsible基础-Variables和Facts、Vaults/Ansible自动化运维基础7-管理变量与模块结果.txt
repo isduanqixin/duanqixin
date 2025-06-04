@@ -1,0 +1,230 @@
+1. Ansible变量可以存储一些值，而这些值在一个Ansible项目中，是可以复用的；
+2. Ansible变量可以存储一些值，而这些值在一个Ansible项目中，是可以复用的；
+3. Ansible变量可以存储一些值，而这些值在一个Ansible项目中，是可以复用的；
+4. Ansible中变量的命名规则是：__________________________________________________；
+5. Ansible中变量的命名规则是：__________________________________________________；
+6. Ansible中变量的命名规则是：__________________________________________________；
+7. 在playbook当中使用变量时，应该____________________________________________；
+8. 在playbook当中使用变量时，应该____________________________________________；
+9. 在playbook当中使用变量时，应该____________________________________________；
+10. 在一个play中使用变量user=joe，创建一个uid为1010的新用户；
+11. 错误示范：inventory文件的内容为：
+192.168.197.128
+192.168.197.130
+[centos8]
+192.168.197.128
+[centos7]
+192.168.197.130
+[centos:children]
+centos8
+centos7
+[centos8:vars]
+user=Jorge Jorge
+而此时playbook的内容为：
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: "{{ user }}"
+        uid: 1013
+...
+请问，如果此时用ansible-playbook命令运行这个playbook文件，都会成功嘛？为什么？
+12. ansible中变量的优先级是什么？
+13. ansible中变量的优先级是什么？
+14. ansible中变量的优先级是什么？
+15. 写一个playbook，使用ansible.builtin.user模块，问如何得知这个模块的执行结果呢？
+16. 使用Ansible变量，写一个playbook，部署并启动Apache HTTPD服务。
+17. 写一个playbook，确保httpd服务已开启并且开机自启，并输出模块的执行结果；
+18. 写一个playbook，确保firewalld服务已开启并且开机自启，并输出模块的执行结果；
+19. 写一个playbook，确保tree软件的最新版已经被安装，并输出模块的执行结果；
+20. 写一个playbook，使用到./vars/AZ20240526.yaml与./vars/BY20240526.yaml这两份yaml文件中定义的变量；
+21. 写一个playbook，使用到./vars/CX20240526.yaml与./vars/DW20240526.yaml这两份yaml文件中定义的变量；
+22. 写一个playbook，使用到./vars/EV20240526.yaml与./vars/FU20240526.yaml这两份yaml文件中定义的变量；
+
+
+
+
+
+4. 必须以字母开头，并且只能包含字母、数字、下划线
+5. 必须以字母开头，并且只能包含字母、数字、下划线
+6. 必须以字母开头，并且只能包含字母、数字、下划线
+7. 用双大括号包裹起来，此外当一个变量被用来作为值的第一个元素起始时，使用引号是强制性的。
+8. 用双大括号包裹起来，此外当一个变量被用来作为值的第一个元素起始时，使用引号是强制性的。
+9. 用双大括号包裹起来，此外当一个变量被用来作为值的第一个元素起始时，使用引号是强制性的。
+10. /* Z20240526.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    user: joe
+  tasks:
+    - name: Task1
+      ansible.builtin.user:
+        name: "{{ user }}"
+        uid: 1010
+...
+11. 不是的，user变量仅针对centos8组生效，也就是仅针对192.168.197.128生效，不对centos7组生效，也就是不针对192.168.197.130生效，所以对于192.168.197.130会失效
+12. 命令行中指定的变量>playbook中vars和vars_files指定的playbook变量>host_vars目录中指定的playbook变量>inventory中为host指定的playbook变量>group_vars目录中指定的playbook变量>inventory中为group指定的playbook变量
+13. 命令行中指定的变量>playbook中vars和vars_files指定的playbook变量>host_vars目录中指定的playbook变量>inventory中为host指定的playbook变量>group_vars目录中指定的playbook变量>inventory中为group指定的playbook变量
+14. 命令行中指定的变量>playbook中vars和vars_files指定的playbook变量>host_vars目录中指定的playbook变量>inventory中为host指定的playbook变量>group_vars目录中指定的playbook变量>inventory中为group指定的playbook变量
+15. /* B20240527.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: httpd
+        state: latest
+      register: install_result
+    - name: Task2
+      ansible.builtin.debug:
+        var: install_result
+...
+16. /* C20240527.yaml */
+---
+- name: Play1
+  hosts: centos
+  vars:
+    web_pkg: httpd
+    web_service: httpd
+    firewall_pkg: firewalld
+    firewall_service: firewalld
+    rule: http
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: "{{ firewall_pkg }}"
+        state: latest
+    - name: Task2
+      ansible.builtin.service:
+        name: "{{ firewall_service }}"
+        state: started
+        enabled: true
+    - name: Task3
+      ansible.posix.firewalld:
+        service: "{{ rule }}"
+        permanent: true
+        immediate: yes
+        state: enabled
+    - name: Task4
+      ansible.builtin.package:
+        name: "{{ web_pkg }}"
+        state: latest
+    - name: Task5
+      ansible.builtin.service:
+        name: "{{ web_service }}"
+        state: started
+        enabled: true
+    - name: Task6
+      ansible.builtin.copy:
+        content: Welcome to the Winnder King!
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+- name: Play2
+  hosts: workstation
+  remote_user: rhce
+  become: false
+  tasks:
+    - name: Task1
+      ansible.builtin.uri:
+        url: http://192.168.197.128
+        status_code: 200
+    - name: Task2
+      ansible.builtin.uri:
+        url: http://192.168.197.130
+        status_code: 200
+...
+17. /* D20240527.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+18. /* E20240527.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+19. /* F20240527.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.package:
+        name: tree
+        state: latest
+      register: Task1result
+    - name: Task2
+      ansible.builtin.debug:
+        var: Task1result
+...
+20. 
+---
+- name: Play1
+  hosts: all
+  vars_files:
+    - AZ20240526.yaml
+    - BY20240526.yaml
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: az
+    - name: Task2
+      ansible.builtin.debug:
+        var: by
+...
+21. 
+---
+- name: Play1
+  hosts: all
+  vars_files:
+    - CX20240526.yaml
+    - DW20240526.yaml
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: cx
+    - name: Task2
+      ansible.builtin.debug:
+        var: dw
+...
+22. 
+---
+- name: Play1
+  hosts: all
+  vars_files:
+    - EV20240526.yaml
+    - FU20240526.yaml
+  tasks:
+    - name: Task1
+      ansible.builtin.debug:
+        var: ev
+    - name: Task2
+      ansible.builtin.debug:
+        var: fu
+...

@@ -1,0 +1,41 @@
+1. /dev/sda1这个物理卷属于卷组vg1，并且卷组vg1有足够的物理卷成员，来承接/dev/sda1中的数据。现在要想将/dev/sda1移出卷组vg1，应该如何操作呢？
+2. /dev/sda3这个物理卷属于卷组vg2，并且卷组vg2有足够的物理卷成员，来承接/dev/sda3中的数据。现在要想将/dev/sda3移除卷组vg2，应该如何操作呢？
+3. 如何强制删除一个卷组中不存在的物理卷（这个物理卷仍未被使用）呢？
+4. 如何强制删除一个卷组中不存在的物理卷（这个物理卷仍未被使用）呢？
+5. 已知/dev/vg1/lv1这个逻辑卷被挂载到了/mnt/lv1mnt这个挂载点上，现在想要移除/dev/vg1/lv1这个逻辑卷，该如何操作呢？
+6. 已知/dev/vg2/lv3这个逻辑卷被挂载到了/mnt/lv3mnt这个挂载点上，现在想要移除/dev/vg2/lv3这个逻辑卷，该如何操作呢？
+7. 已知卷组vg2上没有了任何的逻辑卷，现在想要移除/dev/vg2这个卷组，该如何操作呢？
+8. 已知卷组vg7上没有了任何的逻辑卷，现在想要移除/dev/vg7这个卷组，该如何操作呢？
+9. 移除物理卷/dev/sda1的命令是________________________________；
+10. 移除物理卷/dev/sda3的命令是________________________________；
+11. 移除物理卷/dev/sda4的命令是________________________________；
+
+
+
+1. sudo pvmove /dev/sda1 然后 sudo vgreduce vg1 /dev/sda1
+2. sudo pvmove /dev/sda3 然后 sudo vgreduce vg2 /dev/sda3
+3. sudo vgreduce rhel /dev/sdb6 --removemissing
+4. sudo vgreduce rhel /dev/sdb6 --removemissing
+5. 
+sudo umount /mnt/lv1mnt
+sudo vim /etc/fstab
+/* /etc/fstab */
+去掉下面行：
+UUID=8c731eee-3ce1-4bc3-9584-6eb7fd95bfa9 /mnt/lv1mnt           ext4    defaults        0 0
+/* /etc/fstab */
+sudo findmnt --verify
+sudo lvremove /dev/vg1/lv1
+6. 
+sudo umount /mnt/lv3mnt
+sudo vim /etc/fstab
+/* /etc/fstab */
+去掉下面行：
+UUID=7af2494e-d248-4ed2-b1f9-7bfc076d6562 /mnt/lv3mnt           ext3    defaults        0 0
+/* /etc/fstab */
+sudo findmnt --verify
+sudo lvremove /dev/vg2/lv3
+7. sudo vgremove vg2
+8. sudo vgremove vg7
+9. sudo pvremove /dev/sda1
+10. sudo pvremove /dev/sda3
+11. sudo pvremove /dev/sda4

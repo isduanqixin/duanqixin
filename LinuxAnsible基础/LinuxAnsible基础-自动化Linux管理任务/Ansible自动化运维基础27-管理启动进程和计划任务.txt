@@ -1,0 +1,119 @@
+1. ansible.posix.at：写一个playbook，让所有的受控主机在20分钟之后，执行命令ls -d / >/dev/null，确保这个任务是独一无二的；
+2. ansible.posix.at：写一个playbook，确保任务ls -d / >/dev/null不存在；
+3. ansible.posix.cron：写一个playbook，对于用户centos，每天的2点和5点都会运行任务ls -alh > /dev/null；
+4. ansible.posix.cron：写一个playbook，对于用户centos，每周五16点每隔两分钟，都会运行任务ls -alh > /dev/null；
+5. ansible.builtin.service：启动并开机自启httpd服务；
+6. ansible.builtin.systemd：启动并开机自启httpd服务；
+7. ansible.builtin.systemd：重新加载所有对于httpd配置的改动，然后重启httpd服务；
+8. ansible.builtin.command：写一个playbook，将默认target设置为multi-user.target；
+9. ansible.builtin.reboot：重启受控主机；
+
+
+
+1. /* A20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.at:
+        command: ls -d / >/dev/null
+        count: 20
+        units: minutes
+        unique: yes
+...
+2. /* B20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.posix.at:
+        command: ls -d / >/dev/null
+        state: absent
+...
+3. /* C20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.cron:
+        user: centos
+        name: job1
+        job: "ls -alh > /dev/null"
+        hour: "2,5"
+...
+4. /* D20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.cron:
+        user: centos
+        name: job2
+        job: "ls -alh > /dev/null"
+        weekday: "5"
+        hour: "16"
+        minute: "*/2"
+...
+5. /* E20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+...
+6. /* F20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: true
+...
+7. /* G20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  tasks:
+    - name: Task1
+      ansible.builtin.systemd:
+        name: httpd
+        state: reloaded
+        daemon_reload: yes
+...
+8. /* H20240605.yaml */
+---
+- name: Play1
+  hosts: all
+  vars:
+    - target: multi-user.target
+  tasks:
+    - name: Task1
+      ansible.builtin.command:
+        cmd: systemctl get-default
+      changed_when: false
+      register: Task1result
+    - name: Task2
+      ansible.builtin.command:
+        cmd: systemctl set-default {{ target }}
+      when: target not in Task1result.stdout
+...
+9. /* I20240605.yaml */
+---
+- name: Play1
+  hosts: centos7.example.com,centos8.example.com
+  tasks:
+    - name: Task1
+      ansible.builtin.reboot:
+        reboot_timeout: 180
+...

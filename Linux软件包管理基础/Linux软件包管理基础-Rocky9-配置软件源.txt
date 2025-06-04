@@ -1,0 +1,67 @@
+1. BaseOS是什么呢？
+2. 为Rocky配置阿里源的软件仓库BaseOS。
+3. AppStream是什么呢？
+4. 为Rocky配置阿里源的软件仓库AppStream。
+5. epel是什么呢？
+6. 为Rocky配置阿里源的软件仓库epel。
+7. Rocky 9.5，应该使用epel10、epel9还是epel8版本的软件仓库呢？
+8. CRB、HighAvailability、NFV、RT、ResilientStorage、SAPHANA、SAP、devel、extras，分别是干什么的软件仓库？如何为Rocky配置？
+9. 为Rocky已经配置好的阿里云epel9仓库配置GPG Key。
+10. 为Rocky已经配置好的阿里云BaseOS、AppStream等11个仓库配置GPG Key。
+
+
+1. BaseOS是系统的基础软件仓库
+2. dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/BaseOS/x86_64/os/'
+3. AppStream是应用软件仓库
+4. dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/AppStream/x86_64/os/'
+5. epel是额外软件仓库
+6. dnf config-manager --add-repo='https://mirrors.aliyun.com/epel/9/Everything/x86_64/'
+7. Rocky 9.5应该使用epel9版本的软件仓库
+8. 普通红帽基础源、高可用性、网络功能虚拟化、实时Linux、弹性存储、SAP HANA数据库、SAP企业规划、开发包、额外软件包
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/CRB/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/HighAvailability/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/NFV/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/RT/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/ResilientStorage/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/SAPHANA/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/SAP/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/devel/x86_64/os/'
+dnf config-manager --add-repo='https://mirrors.aliyun.com/rockylinux/9.5/extras/x86_64/os/'
+9. curl https://mirrors.aliyun.com/epel/RPM-GPG-KEY-EPEL-9 -o /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9
+在/etc/yum.repos.d/mirrors.aliyun.com_epel_9_Everything_x86_64_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9
+10. curl https://mirrors.aliyun.com/rockylinux/RPM-GPG-KEY-Rocky-9 -o /etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_AppStream_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_BaseOS_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_CRB_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_HighAvailability_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_NFV_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_RT_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_ResilientStorage_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_SAPHANA_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_SAP_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_devel_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9
+在/etc/yum.repos.d/mirrors.aliyun.com_rockylinux_9.5_extras_x86_64_os_.repo中，添加：
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-Rocky-9

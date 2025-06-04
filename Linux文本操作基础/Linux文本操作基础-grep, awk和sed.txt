@@ -1,0 +1,237 @@
+Linux文本操作基础
+
+一. grep
+1. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出包含有“root”的行，则命令为________________________________；
+2. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出以“nobody”开头的行，则命令为________________________________；
+3. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出包含“daemon”，并且以“sshd”开头的行，则命令为__________________________；
+4. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出以“nobody”或者“root”开头的行，则命令为_____________________________________；
+5. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出以“root”开头的行，并显示出行号，则命令为_______________________________________；
+6. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出包含“daemon”的行，并显示出行号，则命令为____________________________________；
+7. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出不包含“nologin”的行，并显示出行号，则命令为_________________________________；
+8. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出不包含“nologin”的行，则命令为_________________________________；
+9. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出既不以“root”开头，又不以“daemon”开头，且不包含“nologin”的行，则命令为_________________________________；
+10. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出既不以“root”开头，又不以“daemon”开头，且不包含“nologin”的行，但以“:”结尾的所有行，则命令为_________________________________；
+11. 假设/etc/为当前工作目录，其下有一份文件passwd，现如果想要使用grep命令，过滤出既不以“root”开头，又不以“daemon”开头，且不包含“nologin”的行的行号，则命令为_________________________________；
+12. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用grep命令，过滤出包含有“opensuse”的所有行，则命令为_______________________________________；
+13. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用grep命令，过滤出包含有“opensuse”的所有行，统计出这三份文件中，包含“opensuse”的行的行数，则命令为________________________；
+14. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用两个grep命令，过滤出包含有“opensuse”，并且不包含有“$”的所有行，则命令为_____________________________________；
+15. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用两个grep命令，过滤出包含有“opensuse”，并且不包含有“$”以及“^”的所有行，则命令为_____________________________________；
+在使用grep过滤时，模式字符串尽量使用单括号括起来；
+16. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用grep命令，过滤出包含有“root”的文件，则命令为_______________________________________；
+17. 假设/etc/为当前工作目录，其下有三份目标文件passwd，shadow以及group，现在如果想要使用grep命令，过滤出不以“nologin”结尾的所有文件，则命令为_______________________________________；
+18. 假设/etc/NetworkManager/为当前工作目录，其下有一份配置文件NetworkManager.conf，现在如果想要使用grep命令过滤得到该配置文件中的所有空行，则命令为______________________________________；
+19. 假设/etc/NetworkManager/为当前工作目录，现在如果想要使用grep命令，过滤并计算得到该目录下所有文件中空行的数量，则命令为______________________________________；
+20. 假设/etc/NetworkManager/为当前工作目录，其下有一份配置文件NetworkManager.conf，现在如果想要使用grep命令，过滤得到该配置文件中的所有空行，并带上行号，则命令为______________________________________；
+21. 假设当前系统中有两个新建的用户，分别是“open”以及“opensuse”，现如果过滤出/etc/passwd中包含有“open”的所有行，则命令为__________________________________；
+22. 假设当前系统中有两个新建的用户，分别是“open”以及“opensuse”，现如果过滤出/etc/passwd中包含有“open”这个完整单词的所有行，则命令为__________________________________；
+23. 假设当前系统中有两个新建的用户，分别是“OPen”以及“opensuse”，现如果过滤出/etc/passwd中包含有“open”这个完整单词的所有行，且无论大小写，则命令为__________________________________；
+24. 假设当前系统中有两个新建的用户组，分别是“Opensuse”以及“opensuse”，现如果过滤出/etc/group中包含有“opensuse”这个完整单词的所有行，且无论大小写，则命令为__________________________________；
+25. 假设当前系统的工作目录为/home/opensuse/Desktop/，新建一个名为a.txt的文件，内容有三行，第一行是“opensuse”，第二行是“root”，第三行是“mail”，则过滤出/etc/passwd文件中包含有“opensuse”，“root”，“mail”的所有行，并显示出行号的命令是__________________________________；
+26. 假设当前系统的工作目录为/home/opensuse/Desktop/，如果想打印出在/etc/passwd中，匹配到字符串“mail”的前三行，则命令为_______________________________；
+27. 假设当前系统的工作目录为/home/opensuse/Desktop/，如果想打印出在/etc/passwd中，匹配到字符串“mail”的后五行，则命令为_______________________________；
+28. 假设当前系统的工作目录为/home/opensuse/Desktop/，如果想打印出在/etc/passwd中，匹配到字符串“mail”的周围两行，则命令为_______________________________；
+29. 假设当前系统的工作目录为/etc/firewalld，如果想打印出在/etc/firewalld/firewalld.conf中，不包括字符“#”，且不是空行的所有行，则命令为___________________________________；
+30. 过滤出/etc/passwd中既不以nologin结尾，又不以bash结尾的所有行的命令为______________________________________；
+31. 过滤出/etc/passwd中既不以n结尾，又不以h结尾的所有行的命令为________________________________________；
+32. 查看static这个连接文件是否自动连接的命令是____________________________________；
+33. 查看default这个连接文件是否自动连接的命令是_____________________________________；
+34. 查看con0这个连接文件是否自动连接的命令是___________________________________；
+二. awk
+1. 使用awk命令，过滤出/etc/passwd文件中，包含有字符串“mail”的所有行，命令为_______________________________；
+2. 使用awk命令，过滤出/etc/passwd文件中，包含有字符串“opensuse”的所有行，命令为_____________________________；
+3. 使用awk命令，过滤出/etc/passwd文件中，包含有字符串“mail”或者“opensuse”的所有行，命令为__________________________；
+4. 使用awk命令，过滤出/etc/passwd文件中，字符串“mail”打头或者“opensuse”打头的所有行，命令为_______________________；
+5. 假设当前系统的工作目录为/etc/firewalld，如果想结合grep命令，打印出在/etc/firewalld/firewalld.conf中，不以字符“#”开头，且不是空行的所有行，并且用“=”来分割，输出第一和第二列，并且尽可能美观，则命令为___________________________________；
+6. 假设当前系统的工作目录为/etc，如果想打印出passwd中包含有字符串“mail”或者“opensuse”的所有行，用冒号分割，输出第一第四列，并且让结果尽可能美观，则命令为____________________________________；
+7. 假设当前系统的工作目录为/etc，如果想打印出group中包含有字符串“opensuse”的所有行，用冒号分割，输出第一第三列，并且让结果尽可能美观，则命令为_____________________________________；
+8. 假设当前系统的工作目录为/etc，如果想打印出shadow中包含有字符串“opensuse”或者“OPen”的所有行，用冒号分割，输出第一第二列，并且让结果尽可能美观，则命令为________________________________；
+9. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，筛选出第三列值大于500的行，并输出这些行的第一第三列值，并且让结果尽可能美观，则命令为___________________________________；
+10. 假设当前系统的工作目录为/etc，如果想打印出shadow中包含有字符串“opensuse”或者“OPen”的所有行，用冒号分割，输出行号、第一列和第二列，并且让结果尽可能美观，则命令为________________________________；
+11. 假设当前系统的工作目录为/etc，如果想打印出shadow中包含有字符串“opensuse”或者“OPen”的所有行，用冒号分割，输出行号、本行所有内容、第一列内容，并且让结果尽可能美观，则命令为_______________________________；
+12. 通过什么命令组合，可以求出passwd中以冒号分割时每一行字段的个数？________________________________；
+13. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出第七行及其之后的所有的行号以及第一列值，并且让结果尽可能美观，则命令为_________________________________________；
+14. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出第七行及其之后，第三十行及其之前的所有的行号以及第一列值，并且让结果尽可能美观，则命令为_________________________________________；
+15. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出第七行及其之后，第三十行及其之前，且第三列值大于475的所有的行号以及第一列值，并且让结果尽可能美观，则命令为_________________________________________；
+16. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出每行的行号、第一列内容及最后一列内容，并且让结果尽可能美观，则命令为_______________________________________；
+17. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出每行的行号、第一列内容及倒数第三列内容，并且让结果尽可能美观，则命令为_______________________________________；
+18. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，但不使用-F选项，输出每行的行号、第一列内容及倒数第三列内容，并且让结果尽可能美观，则命令为_____________________________________；
+19. 关于双引号与单引号的使用，在grep中，尽量全部都使用单引号，在awk中，当需要调整FS的值的时候，必须使用___________（你懂的）。
+20. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，但不使用-F选项，输出每行的行号、第一列内容及倒数第三列内容，用“+”隔开，则命令为_____________________________________；
+21. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，输出每行的第一第三列内容，同时添加一些自定义字符串，使得输出的结果大致如下所示：
+User root has id: 0
+User messagebus has id: 499
+User tftp has id: 498
+则命令为_____________________________________；
+22. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，过滤出包含“root”到包含“mail”字符串之间的所有行，并且输出每行的第一第三列内容，则命令为___________________________________；
+23. 假设当前系统的工作目录为/etc，将passwd中的内容用冒号分割，过滤出包含“root”到包含“mail”字符串之间的所有行，并且输出每行的第一第三列内容，格式要尽量美观，则命令可以为___________________________________；
+24. 如何获取环境变量的所有名字？
+25. 如何获取当前主机上的可用内存？
+三. sed
+1. 打印出/etc/passwd的第12行的命令为_______________________________________；
+2. 打印出/etc/passwd的第12到第18行的命令为________________________________________；
+3. 打印出/etc/passwd的总行数的命令为_______________________________________；
+4. 打印出/etc/passwd的第15到第16行的命令为_________________________________________;
+5. 在/etc/passwd文件中包含有字符串“OPen”的下一行输入字符串“123456”的命令为____________________________________；
+6. 在/etc/passwd文件中包含有字符串“opensuse”的下一行输入字符串“654321”的命令为____________________________________；
+7. 在/etc/passwd文件中第20行之前添加一个字符串“hahahahaha”的命令为________________________________________；
+8. 在/etc/passwd文件中包含有字符串“OPen”的上一行输入字符串“123456”的命令为____________________________________；
+9. 删除/etc/passwd文件的第5行的命令是_________________________________________；
+10. 删除/etc/passwd文件的第1到第5行的命令是___________________________________________；
+11. 打印/etc/passwd文件中包含有字符串“root”的行的命令是_________________________________________；
+12. 删除/etc/passwd文件中从第3行到最后一行的命令是________________________________________；
+13. 删除/etc/passwd文件中包含有字符串“root”的行的命令是_______________________________________；
+14. 在/etc/passwd文件的最后一行添加内容“1357924680”的命令是________________________________________；
+15. 在/etc/passwd文件的最后一行之前添加内容“1357924680”的命令是__________________________________________；
+16. 在/etc/passwd文件的包含有字符串“nologin”的所有行之前都插入字符串“1357924680”的命令是__________________________________；
+17. 在/etc/passwd文件中，将最后一行内容都替换为字符串“1357924680”的命令是__________________________________________；
+18. 在/etc/passwd文件中，将所有包含有字符串“nologin”的行都替换为字符串“1357924680”的命令是________________________________；
+19. 在/etc/passwd文件中，将所有包含有字符串“nologin”的行都删掉的命令是_________________________________________；
+20. 在/etc/passwd文件中，从第一行开始，每隔一行就删掉新的一行的命令是____________________________________________；
+21. 在/etc/passwd文件中，删除从第一行开始，到第三十四行结束的中间所有行的命令是____________________________________________；
+22. 在/etc/passwd文件中，删除除了第一第二行之外的所有行的命令是__________________________________________________；
+23. 在/etc/passwd文件中，只留下包含关键字符串“opensuse”的行，删掉剩余其它行的命令是_________________________________________；
+24. 在/etc/passwd文件中，删除包含关键字符串“opensuse”的行及其下一行的命令是____________________________________________；
+25. 在/etc/passwd文件中，只留下包含关键字符串“sshd”的行及其下一行，删掉剩余其它行的命令是_________________________________________；
+26. 在/etc/group文件中，只留下第5到第15行，删掉除此之外的其它所有行的命令是__________________________________；
+27. 在/etc/group文件中，删除包含关键字符串“tftp”的行开始，一直到结尾的所有行的命令是______________________________________；
+28. 删掉/etc/firewalld/firewalld.conf中所有空行的命令是_________________________________；
+29. 删掉/etc/firewalld/firewalld.conf中所有空行和“#”开头的所有行的命令是______________________________________；
+30. 删掉/etc/passwd中第1行到第30行中所有包含关键字“nologin”的行的命令是______________________________________；
+31. 删掉/etc/passwd中第5行到第25行中所有包含关键字“bash”的行的命令是______________________________________；
+32. 将/etc/passwd中，将每一行中第一个遇到的字符串“open”都替换为“bird”，并且只打印出这些被修改的行的命令是_________________________________________；
+33. 将/etc/passwd中，将每一行中所有遇到的字符串“open”都替换为“bird”，并且只打印出这些被修改的行的命令是_________________________________________；
+34. 假设当前工作目录为/home/opensuse/Desktop/，有两份文件a.txt与aa.txt，现如果想将a.txt中所有字符串“Shenzhen”都替换为“Nanshan”，并且将替换完成的行打印出来，再覆盖写到aa.txt文件中，则命令为________________________________________________；
+35. 假设变量line的值为abc123，那么去除掉变量line中的阿拉伯数字的命令是_________________________________________；
+36. 假设变量line的值为abc456，那么去除掉变量line中的英文字母的命令是__________________________________________；
+37. 假设变量line的值为aaa111，那么去除掉变量line中的阿拉伯数字的命令是__________________________________________；
+38. 将tmp.sh文件中，第2行中的2替换为3，第3行中的3替换为2的命令是______________________；
+39. 编译运行main.rs文件，产生了一些报错，如何只选出其中的，"error"打头的行到空行之间的所有行呢？
+40. 有一份a.txt文件，如何选出其中的，以英文字母打头的行，到空行之间的所有行呢？
+41. 有一份b.txt文件，如何选出其中的，以数字打头的行，到空行之间的所有行呢？
+42. 在Linux环境下编写的a.txt，如何匹配空行呢？在Windows环境下编写的b.txt，如何匹配空行呢？
+43. 将/etc/selinux/config文件中的"SELINUX=permissive"修改为"SELINUX=enforcing"的方法是__________________________________________；
+44. 将/etc/selinux/config文件中的"SELINUX=enforcing"试探性地修改为"SELINUX=permissive"的方法是__________________________________________；
+四. 单引号和双引号
+1. 在进行文本操作时，无论是使用grep，还是使用awk，亦或者是使用sed，虽然单双引号差别不大，但是对于你的习惯来讲，都是首选_______________（单引号/双引号）。只有当使用到环境变量时，才首选_______________（单引号/双引号）；
+2. grep启用ERE（extended regular experision）的方法是__________________，awk启用ERE的方法是___________________，sed启用ERE的方法是_________________________________；
+3. 对于grep以及sed来讲，在不开E的情况下就能生效的符号是. * ^ [ ] 以及____，而在开E的情况下才能生效的三个符号是 ( ) 以及____。
+4. 对于grep和sed来讲，在不开E的情况下就能生效的符号是. * ^ [ ] 以及__，而在开E的情况下才能生效的三个符号是 ( ) 以及____；
+5. 对于grep和sed来讲，在不开E的情况下就能生效的符号是__ * ^ [ ] $，而在开E的情况下才能生效的三个符号是 ( __ |；
+6. 对于grep和sed来讲，在不开E的情况下就能生效的符号是. * __ [ ] $，而在开E的情况下才能生效的三个符号是 __ ) |；
+
+
+一. grep
+1. grep 'root' /etc/passwd
+2. grep '^nobody' /etc/passwd
+3. grep '^sshd' /etc/passwd | grep 'daemon'
+4. grep '^\(nobody\|root\)' /etc/passwd 或者 grep -E '^nobody|^root' /etc/passwd 或者 grep -E '^(nobody|root)' /etc/passwd
+5. grep -n '^root' /etc/passwd
+6. grep -n 'daemon' /etc/passwd
+7. grep -nv 'nologin' /etc/passwd
+8. grep -v 'nologin' /etc/passwd
+9. grep -Ev '^root|^daemon|nologin' /etc/passwd
+10. grep -vE '^root|^daemon|nologin|[^$]' /etc/passwd
+11. grep -Evn '^root|^daemon|nologin' /etc/passwd
+12. grep 'opensuse' /etc/passwd /etc/shadow /etc/group
+13. grep -c 'opensuse' /etc/passwd /etc/shadow /etc/group
+14. grep 'opensuse' /etc/passwd /etc/shadow /etc/group | grep '\$'
+15. grep 'opensuse' /etc/passwd | grep -vE '\$|\^' 或者 grep 'opensuse' /etc/passwd | grep -v '\$\|\^' 或者 grep 'opensuse' at.txt | grep -v '\(\$\|\^\)'
+16. grep 'root' /etc/passwd /etc/shadow /etc/group
+17. grep -v 'nologin$' /etc/passwd /etc/shadow /etc/group
+18. grep -v '^$' ./NetworkManager.conf
+19. grep -cr '^$' ./NetworkManager.conf
+20. grep -n '^$' ./NetworkManager.conf
+21. grep 'open' /etc/passwd
+22. grep -w 'open' /etc/passwd
+23. grep -iw 'open' /etc/passwd
+24. grep -iw 'opensuse' /etc/group
+25. grep -nf a.txt /etc/passwd 或者 grep -nE 'opensuse|root|mail' /etc/passwd
+26. grep -B3 'mail' /etc/passwd
+27. grep -A5 'mail' /etc/passwd
+28. grep -C2 'mail' /etc/passwd
+29. grep -Ev '#|^$' firewalld.conf
+30. grep -vE 'nologin$|bash$' /etc/passwd 或者 grep -v 'nologin$\|bash$' /etc/passwd
+31. grep -v 'n$\|h$' /etc/passwd 或者 grep -vE 'n$|h$' /etc/passwd 或者 grep '[^nh]$' /etc/passwd
+32. nmcli con show static | grep 'connection\.autoconnect'
+33. nmcli con show default | grep 'connection\.autoconnect'
+34. nmcli con show con0 | grep 'connection\.autoconnect'
+二. awk
+1. awk '/mail/' /etc/passwd
+2. awk '/opensuse/' /etc/passwd
+3. awk '/mail|opensuse/' /etc/passwd
+4. awk '/^mail|^opensuse/' /etc/passwd
+5. grep -Ev '^#|^$' firewalld.conf | awk -F '=' '{print $1, $2}' | column -t
+6. awk -F ':' '/mail|opensuse/{print $1, $4}' /etc/passwd
+7. awk -F ':' '/opensuse/{print $1, $3}' /etc/group | column -t
+8. awk -F ':' '/opensuse|OPen/{print $1, $2}' /etc/shadow | column -t
+9. awk -F ':' '$3>500{print $1, $3}' /etc/passwd | column -t
+10. awk -F ':' '/opensuse|OPen/{print NR, $1, $2}' /etc/shadow | column -t
+11. awk -F ':' '/opensuse|OPen/{print NR, $0, $1}' /etc/shadow | column -t
+12. awk -F ':' '/root/{print NF}' /etc/shadow
+13. awk -F ':' 'NR>=7{print NR, $1}' /etc/passwd | column -t
+14. awk -F ':' 'NR>=7&&NR<=30{print NR, $1}' /etc/passwd | column -t
+15. awk -F ':' 'NR>=7&&NR<=30&&NF>475{print NR, $1}' /etc/passwd | column -t
+16. awk -F ':' '{print NR, $1, $NF}' /etc/passwd | column -t
+17. awk -F ':' '{print NR, $1, $(NF-2)}' /etc/passwd | column -t
+18. awk 'BEGIN{FS=":"}{print NR, $1, $(NF-2)}' /etc/passwd | column -t
+19. 双引号
+20. awk 'BEGIN{FS=":";OFS="+"}{print NR, $1, $(NF-2)}' /etc/passwd
+21. awk 'BEGIN{FS=":"}{print "User", $1, "has id:", $3}' /etc/passwd
+22. awk -F ':' '/root/, /mail/{print $1, $3}' /etc/passwd
+23. awk -F ':' '/root/, /mail/{printf "%-16s %-20s \n", $1, $3}' /etc/passwd
+24. export | awk -F'[ =]' '{print $3}'
+25. free -m | awk 'NR==2{print $7}'
+三. sed
+1. sed -n '12p' /etc/passwd
+2. sed -n '12, 18p' /etc/passwd
+3. sed -n '$=' /etc/passwd
+4. sed -n '15, 16p' /etc/passwd
+5. sed '/OPen/a\123456' /etc/passwd
+6. sed '/opensuse/a\654321' /etc/passwd
+7. sed '20 i\hahahahaha' /etc/passwd
+8. sed '/OPen/i\123456' /etc/passwd
+9. sed '5 d' /etc/passwd
+10. sed '1, 5 d' /etc/passwd
+11. sed -n '/root/p' /etc/passwd
+12. sed '3, $ d' /etc/passwd
+13. sed '/root/d' /etc/passwd
+14. sed '$a\1357924680' /etc/passwd
+15. sed '$i\1357924680' /etc/passwd
+16. sed '/nologin/i\1357924680' /etc/passwd
+17. sed '$c\1357924680' /etc/passwd
+18. sed '/nologin/c\1357924680' /etc/passwd
+19. sed '/nologin/d' /etc/passwd
+20. sed '1~2d' /etc/passwd
+21. sed '1, 34d' /etc/passwd
+22. sed '1, 2!d' /etc/passwd
+23. sed '/opensuse/!d' /etc/passwd
+24. sed '/opensuse/,+1d' /etc/passwd
+25. sed '/sshd/,+1!d' /etc/passwd
+26. sed '5, 15!d' /etc/group
+27. sed '/tftp/, $d' /etc/passwd
+28. sed '/^$/d' firewalld.conf
+29. sed '/^$\|^#/d' firewalld.conf
+30. sed '1, 30{/nologin/d}' /etc/passwd
+31. sed '5, 25{/bash/d}' /etc/passwd
+32. sed -n 's/open/bird/p' /etc/passwd
+33. sed -n 's/open/bird/gp' /etc/passwd
+34. sed -n 's/Shenzhen/Nanshan/gpw aa.txt' a.txt
+35. line=abc123; echo $line | sed 's/[0-9]//g'
+36. line=abc456; echo $line | sed 's/[[:alpha:]]//g'
+37. line=aaa111; echo $line | sed 's/[0-9]//g'
+38. sed -e '2s/2/3/' -e /3s/3/2/' tmp.sh
+39. cargo run 2>&1 >/dev/null | sed -n '/^error/, /^$/p'
+40. sed -n '/^[[:alpha:]]/, /^$\|^\r/p' a.txt
+41. sed -n '/^[[:digit:]]/, /^$\|\r/p' b.txt 或者
+sed -n '/^[0-9]/, /^$\|^\r/p' b.txt
+42. sed -n '/^$/p' a.txt
+sed -n '/^\r/p' b.txt
+43. sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config
+44. sed -n 's/^SELINUX=.*/SELINUX=permissive/p' /etc/selinux/config
+四. 单引号和双引号
+1. 单引号    双引号
+2. 加-E参数    默认就已经是ERE模式    加-E参数
+3. $    |
+4. $    |
+5. .    )
+6. ^    (

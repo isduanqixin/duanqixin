@@ -1,0 +1,34 @@
+1. ansible的配置文件是________________；
+2. 假如一份ansible.cfg文件的内容如下：
+[defaults]
+inventory=./inventory
+remote_user=user
+ask_pass=false
+[privilege_escalation]
+become=true
+become_method=sudo
+become_user=root
+become_ask_pass=false
+试着逐行分析每一个变量的作用；
+3. 如何查看配置的参数呢？
+4. 为Ansible命令使用配置文件的顺序排序：
+（1）当前的环境变量；
+（2）缺省的/etc/ansible/ansible.cfg文件；
+（3）家目录处的ansible.cfg文件；
+（4）当前文件夹下的ansible.cfg文件；
+5. 如何确保ansible.cfg文件的正确性呢？
+6. 如何查看刚刚配置的ansible.cfg文件的内容呢？
+
+
+1. ansible.cfg
+2. inventory=./inventory，指定了ansible命令所使用的inventory文件；
+remote_user=user，指定了使用哪一个用户登录受控主机；
+ask_pass=false，指定了是否需要提示输入SSH密码；
+become=true，指定了是否需要自动切换到什么用户；
+become_method=sudo，指定了自动切换到用户的方法；
+become_user=root，指定了切换到哪一个用户；
+become_ask_pass=false，指定了切换到某一个用户时，是否需要提示输入SSH密码；
+3. 使用ansible-config view命令；
+4. （1）（4）（3）（2）
+5. ansible all -m ping
+6. ansible-config view
