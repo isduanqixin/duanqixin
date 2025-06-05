@@ -36,6 +36,38 @@
 36. git删除文件b.txt
 37. git递归删除文件夹a
 38. git递归删除文件夹b
+39. git添加远程仓库git@gitee.com:isduanqixin/duanqixin.git，并将其命名为duanqixin
+40. git添加远程仓库git@gitee.com:isduanqixin/duanqixin.git，并将其命名为duanqixin
+41. git添加远程仓库git@github.com:isduanqixin/duanqixin.git，并将其命名为githubduan
+42. git添加远程仓库git@github.com:isduanqixin/duanqixin.git，并将其命名为githubduan
+43. git将本地仓库第一次推送到duanqixin这个远程仓库的main分支
+44. git将本地仓库第一次推送到duanqixin这个远程仓库的main分支
+45. git将本地仓库第一次推送到githubduan这个远程仓库的main分支
+46. git将本地仓库第一次推送到githubduan这个远程仓库的main分支
+47. git查看远程仓库
+48. git查看远程仓库
+49. git查看远程仓库的详细信息
+50. git查看远程仓库的详细信息
+51. git将远程仓库duanqixin的main分支拉取到本地
+52. git将远程仓库duanqixin的main分支拉取到本地
+53. git将远程仓库githubduan的main分支拉取到本地
+54. git将远程仓库githubduan的main分支拉取到本地
+55. git查看当前的所有分支
+56. git查看当前的所有分支
+57. git创建新分支dev
+58. git创建新分支dev
+59. git将当前分支切换到dev
+60. git将当前分支切换到dev
+61. git将当前分支切换到main
+62. git将当前分支切换到main
+63. git将dev分支合并到main
+64. git将dev分支合并到main
+65. git将main分支合并到dev
+66. git将main分支合并到dev
+67. git删除dev分支
+68. git删除dev分支
+69. git同时完成暂存和提交
+70. git同时完成暂存和提交
 
 
 1. git -v
@@ -76,3 +108,35 @@
 36. git rm b.txt
 37. git rm -r a
 38. git rm -r b
+39. git remote add duanqixin git@gitee.com:isduanqixin/duanqixin.git
+40. git remote add duanqixin git@gitee.com:isduanqixin/duanqixin.git
+41. git remote add githubduan git@github.com:isduanqixin/duanqixin.git
+42. git remote add githubduan git@github.com:isduanqixin/duanqixin.git
+43. git push -u --force duanqixin main
+44. git push -u --force duanqixin main
+45. git push -u --force githubduan main
+46. git push -u --force githubduan main
+47. git remote
+48. git remote
+49. git remote -v
+50. git remote -v
+51. git pull duanqixin main
+52. git pull duanqixin main
+53. git pull githubduan main
+54. git pull githubduan main
+55. git branch
+56. git branch
+57. git branch dev
+58. git branch dev
+59. git switch dev
+60. git switch dev
+61. git switch main
+62. git switch main
+63. 在main分支中，git merge dev
+64. 在main分支中，git merge dev
+65. 在dev分支中，git merge main
+66. 在dev分支中，git merge main
+67. git branch -d dev
+68. git branch -D dev
+69. git commit -am "xxx"
+70. git commit -am "xxx"
