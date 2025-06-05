@@ -1,0 +1,154 @@
+1. 对切片的引用在内存中如何？
+2. sv中的指针指向堆还是栈帧？sa中的指针指向堆还是栈帧？
+let v : Vec<f64> = vec![0.0, 0.707, 1.0, 0.707];
+let a :[f64; 4] = [0.0, -0.707, -1.0, -0.707];
+let sv : &[f64] = &v;
+let sa : &[f64] = &a;
+3. 同2，print函数中的参数n是一个可变引用还是共享引用呢？
+fn print(n : &[f64]) {
+for elt in n {
+println!("{}", elt);
+}
+}
+print(&a);
+print(&v);
+4. let a : [i32; 5] = [1, 2, 3, 4, 5];
+打印数组a的前3个元素、从a[3]开始的元素、打印a[1]和a[2]。
+5. Rust保存并输出："Get out!", he said.
+Rust保存并输出："'Get out!', he screamed and I don't know why.", She said.
+6. println!("Get out!, he said.
+	And I was scared.");输出结果是什么？
+7. println!("It was a bright, cold day in April, and \
+	there were four of us, \
+	more or less.");输出结果是什么？
+8. Rust中，一个字符串，单引号需要用反斜杠转义嘛？双引号需要用反斜杠转义嘛？回车和Tab需要用反斜杠转义嘛？
+9. Rust中，如何将一个字符串写到多个行呢？结尾有没有反斜杠会影响效果嘛？
+10. Rust中，如何方便保存Windows路径：D:\95871budmk5k3l,\hando呢？保存并输出。
+11. Rust中，如何方便保存正则表达式：\d+(\.\d+)*呢？
+12. Rust中，如何方便保存：This is a Windows path: "D:\95871budmk5k3l,\hando"呢？
+13. Rust中，保存字节串：Flying bird，并输出。
+14. Rust中，保存字节串："Flying" bird，并输出。
+15. let noodles = "noodles".to_string();
+let oodles = &noodles[1..];
+let poodles = "α_α";
+noodles在内存中情况？oodles在内存中情况？poodles在内存中情况？
+16. let mut s = "hello";
+s[0]='c';
+s.push('\n');
+为什么错误？
+17. 如何从一个字符串的引用生成一个String？
+18. 从字符串字面量"Hello World"生成一个String。
+19. 从字符串字面量"Hello World"的引用生成一个String。
+20. 为什么let tmp1 = "Hello World"; let tmp2 = tmp1;之后，tmp1还可以被使用呢？
+21. Rust中还有哪些实现了copy特性呢？
+22. Vec<T>可以自动释放缓冲区嘛？String可以自动释放缓冲区嘛？
+23. Vec<T>可增长嘛？String可增长嘛？
+24. Vec<T>、String有类型关联函数::new()和::with_capacity()嘛？
+25. Vec<T>、String有reserve和capacity方法嘛？
+26. Vec<T>、String有push和pop方法嘛？
+27. 对于Vec<T>和String而言，范围语法&v[1..4]什么意思呢？
+28. format!()宏的使用？
+29. format!()宏的使用？
+30. format!()宏的使用？
+31. 将多个字符串合成一个长字符串。
+32. 将多个字符串合成一个长字符串，空格隔开。
+33. 将多个字符串合成一个长字符串，逗号和空格隔开。
+
+
+1. 胖指针，一个直接指向堆或者栈帧中内存的指针，和一个当前数量
+2. sv: 堆 sa: 栈帧
+3. 共享引用
+4. let a : [i32; 5] = [1, 2, 3, 4, 5];
+println!("{:?} {:?} {:?}", &a[..3], &a[3..], &a[1..3]);
+5. let a = "\"Get out!\", he said.";
+println!("{}", a);
+let b = "\"'Get out!', he screamed and I don't know why.\", She said.";
+println!("{}", b);
+6. println!("Get out!, he said.
+	And I was scared.");
+7. println!("It was a bright, cold day in April, and \
+	there were four of us, \
+	more or less.");
+8. 单引号不需要，双引号需要，回车和Tab需要
+9. 直接换行，但会包括换行符和先导空格。有反斜杠就不会。
+10. let a = r"D:\95871budmk5k3l,\hando";
+println!("{}", a);
+11. let a = r"\d+(\.\d+)*";
+println!("{}", a);
+12. let a = r###"This is a Windows path: "D:\95871budmk5k3l,\hando""###;
+println!("{}", a);
+13. let a = b"Flying bird";
+println!("{:?}", a);
+14. let a = br"Flying bird";
+println!("{:?}", a);
+15. noodles在内存中，一个指针加一个容量加一个长度，指针指向堆
+oodles在内存中，一个指针加一个长度，指针指向堆
+poodles在内存中，一个指针加一个长度，指针指向预分配的只读内存
+16. s中指针指向预分配的只读内存，不能修改。
+17. to_string()或者to_owned()
+18. let a = "Hello World".to_string();
+println!("{:?}", a);
+或者
+let a = "Hello World".to_owned();
+println!("{:?}", a);
+19. let tmp1 = "Hello World";
+let tmp2 = tmp1;
+let a = tmp2.to_string();
+println!("{:?}", tmp2);
+println!("{:?}", tmp1);
+println!("{:?}", a);
+20. 因为&str实现了copy特性
+21. 整型、浮点型、字符型、布尔型、简单元组、简单数组
+22. Vec<T>和String都可以自动释放缓冲区
+23. Vec<T>和String都可以增长。
+let mut a : Vec<i32> = Vec::new();
+a.push(1); a.push(-1); a.push(2); a.push(-2);
+println!("{:?}", a);
+let mut b : String = String::new();
+b.push('a'); b.push('b'); .b.push('c');
+println!("{:?}", b);
+24. Vec<T>和String有::new()和::with_capacity()
+let mut a : Vec<i32> = Vec::new();
+a.push(-2); a.push(2); a.push(-3); a.push(3);
+let mut b : Vec<i32> = Vec::with_capacity(8);
+b.push(1); b.push(-1); b.push(0);
+println!("{:?} {} {}", b, b.len(), b.capacity());
+let mut c : String = String::new();
+c.push('H'); c.push('e'); c.push('l'); c.push('l'); c.push('o');
+println!("{:?} {} {}", c, c.len(), c.capacity());
+let mut d : String = String::with_capacity(8);
+d.push('H'); d.push('e'); d.push('l'); d.push('l'); d.push('o');
+println!("{:?} {} {}", d, d.len(), d.capacity());
+25. Vec<T>和String有reserve和capacity方法
+let mut a : Vec<i32> = Vec::new();
+a.reserve(10);
+a.push(1); a.push(2); a.push(3);
+println!("{:?}\n{}", a, a.capacity());
+let mut c : String = String::with_capacity(10);
+c.reserve(10);
+c.push('H'); c.push('e'); c.push('l'); c.push('l'); c.push('o');
+println!("{:?}\n{}", c, c.capacity());
+26. Vec<T>和String有push和pop方法
+let mut a : Vec<i32> = Vec::new();
+a.push(1); a.push(2); a.push(3);
+if let Some(res) = a.pop() { println!("{}", res); } else { println!("No"); }
+let mut b : String = String::new();
+b.push('H'); b.push('i');
+if let Some(res) = b.pop() { println!("{}", res); } else { println!("No"); }
+27. 取切片
+let mut a : Vec<u32> = Vec::new();
+a.push(2); a.push(1); a.push(0); a.push(2); a.push(1); a.push(0);
+let b : &[u32] = &a[1..4];
+let c : &[u32] = &a[2..3];
+println!("{:?}\n{:?}", b, c);
+28. let str1 = format!("{}, {}, {}", 1, 2, 3); println!("{:?}", str1);
+29. let str1 = "Hello World!".to_string(); let str2 = format!("{:?}, {:02}, {}", str1, 2, 121213); println!("{:?}", str2);
+30. let str1 = format!("{:01}, {:02}, {:03}", 12, 12, 12); println!("{:?}", str1);
+31. let tmp : Vec<&str> = vec!["hello", "world", "how", "are", "you"]; println!("{:?}", tmp.concat());
+32. let tmp2 : Vec<&str> = vec!["hello", "world", "yes"]; println!("{:?}", tmp2.join(" "));
+33. let tmp3 : Vec<&str> = vec!["do", "you", "like", "me"];
+let tmp4 : &[&str] = &tmp3[1..3];
+println!("{:?}", tmp4);
+let tmp5 : Vec<String> = vec!["do".to_string(), "you".to_string(), "like".to_string(), "me".to_string()];
+let tmp6 : &[String] = &tmp5[1..3];
+println!("{:?}", tmp6);

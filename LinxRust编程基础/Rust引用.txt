@@ -1,0 +1,359 @@
+1. Rust共享引用有copy trait嘛？可变引用有copy trait嘛？
+2. 为什么要么多共享，要么一可变对内存安全重要呢？
+3. 函数按共享引用、可变引用传参。
+4. for循环，for (k, v) in table，table是一个键为String，值为Vec<String>的哈希表，问k的类型？v的类型？
+5. 一个引用调用方法，为什么不写*解引用呢？
+6. 那么.运算符，要写对象，那么会不会有所有权转移呢？
+7. Rust没有.时，需要*解引用嘛？为什么？
+8. 纠错：
+let x : i32 = 23;
+let mut y : i32 = 29;
+let x1 : &i32 = &x;
+let x2 : &i32 = &mut x;
+let mut x3 : &i32 = &x;
+let mut x4 : &i32 = &mut x;
+let x5 : &mut i32 = &x;
+let x6 : &mut i32 = &mut x;
+let mut x7 : &mut i32 = &x;
+let mut x8 : &mut i32 = &mut x;
+let y1 : &i32 = &y;
+let y2 : &i32 = &mut y;
+let mut y3 : &i32 = &y;
+let mut y4 : &i32 = &mut y;
+let y5 : &mut i32 = &y;
+let y6 : &mut i32 = &mut y;
+let mut y7 : &mut i32 = &y;
+let mut y8 : &mut i32 = &mut y;
+9. 不可变变量，能不可变引用嘛？能可变引用嘛？
+可变变量，能不可变引用嘛？能可变引用嘛？
+10. 比较
+let x : i32 = 20;
+let y : i32 = 21;
+let mut z : &i32 = &x;
+z = &y;
+println!("{:?}, {:?}, {:?}", x, y, z);
+与
+int x = 20;
+int y = 21;
+int &z = x;
+z = y;
+cout << x << y << z << endl;
+return 0;
+11. 对引用进行引用
+12. 被引对象可不可变、引用形式、引用本身可不可变三者之间的关系
+13. 引用链中可不可以可变的引用与不可变的引用交替出现呢？
+14. 引用链中可变引用与不可变引用两种形式交替出现？
+15. 比较引用，会不会像.一样自动解引用呢？可不可以不同引用层级比较呢？
+16. 判断引用自身是否相同
+17. Rust的引用有可能为空嘛？
+18. fn tmp(t : i32) -> i32 { (1..t+1).product() }
+fn main() { let a : &i32 = &tmp(8); println!("{:?}", a); }
+问tmp(8)返回的i32的一个值被保存在哪儿？所有权属于谁？这个值的生命周期如何？a的生命周期如何？
+19. fn tmp(t : i32) -> i32 { (1..t+1).product() }
+fn main() { let a : &mut i32 = &mut tmp(8); *a = 212; println!("{:?}", a); }
+问tmp(8)返回的i32的一个值被保存在哪儿？所有权属于谁？这个值的生命周期如何？a的生命周期如何？可以编译通过嘛？
+20. 对切片的引用，Vec<T>的切片的引用，和[T, 13]的切片的引用，类型分别是什么？
+21. Rust的引用不能为空，进而说明什么？
+22. 可以编译通过嘛？
+let r : &i32; { let x : i32 = 0; r = &x; } println!("{:?}", r);
+23. 可以编译通过嘛？
+let r : Option<&i32>; { let x : i32 = 0; r = Some(&x); } println!("{:?}", r);
+24. 所有的引用类型&T实现了copy trait嘛？
+25. 有两个函数签名，f(p : &'static i32)和g(p : &i32)，通过函数签名，能够得知什么呢？
+26. 比较函数返回对象、函数返回引用
+fn f1() -> i32 { 13 }
+fn f2(i : &mut i32) -> &i32 { *i = 131; i }
+fn main() {
+let s : i32; { s = f1(); } println!("{:?}", s);
+let t : &i32; { let mut tmp : i32 = 17; t = f2(&mut tmp); } println!("{:?}", t);
+}
+27. 结构体中包含引用时，必须显式标明生命周期嘛？为什么？
+28. 以下正确吗？为什么？
+struct Node<'a> { sx : &'a i32 }
+fn main() {
+let node : Node;
+{ let i : i32 = 1; node = Node { sx : &i }; }
+println!("{:?}", node.sx);
+}
+29. 能编译通过嘛？为什么？
+struct S<'a> {
+	x : &'a i32,
+	y : &'a i32
+}
+fn main() {
+let x = 10;
+let r;
+{ 
+	let y = 20;
+	{
+		let s = S { x : &x, y : &y };
+		r = s.x;
+	}
+}
+println!("{:?}", r);
+}
+30. r = s.x，引用的x，它生命周期不应该是main()内嘛？为什么r引用的对象，被认为生命周期在} println!("{:?}", r);之前，跟y一样呢？
+31. 那该如何修改呢？
+32. Rust的核心是什么呢？
+33. let v : Vec<i32> = vec![4, 8, 19, 27, 34, 10];
+let r : &[i32] = &v;
+let aside : Vec<i32> = v;
+r[0];
+为什么无法编译通过呢？r胖指针中的指针不是指向了堆中内存嘛？
+34. 为什么Rust不允许引用比被引用对象存活得更久呢？
+35. 哪些函数不能被编译通过呢？哪些函数可以被编译通过呢？说明了什么？
+fn f1() {
+let mut x = 0; let rx = &x; let rx2 = &mut x;
+}
+fn f2() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?}", x);
+}
+fn f3() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?}", rx);
+}
+fn f4() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?}", rx2);
+}
+fn f5() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", x, rx);
+}
+fn f6() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", x, rx2);
+}
+fn f7() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", rx, rx2);
+}
+fn f8() {
+let mut x = 0; let rx = &x; let rx2 = &mut x; println!("{:?} {:?} {:?}", x, rx, rx2);
+}
+fn f11() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x;
+}
+fn f12() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?}", x);
+}
+fn f13() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?}", rx);
+}
+fn f14() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?}", rx2);
+}
+fn f15() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", x, rx);
+}
+fn f16() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", x, rx2);
+}
+fn f17() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?} {:?}", rx, rx2);
+}
+fn f18() {
+let mut x = "to".to_owned(); let rx = &x; let rx2 = &mut x; println!("{:?} {:?} {:?}", x, rx, rx2);
+}
+36. 一个对象存在引用，对于这个对象的所有权，可不可以被转移？
+37. 可以编译通过嘛？
+let x = "hello world".to_owned();
+let rx = &x;
+let y = x;
+38. 可以编译通过嘛？
+let x = "hello world".to_owned();
+let rx = &x;
+let y = x;
+println!("{:?}", y);
+39. 可以编译通过嘛？
+let x = "hello world".to_owned();
+let rx = &x;
+let y = x;
+println!("{:?}", rx);
+40. 可以从共享引用中借入共享引用嘛？可以从共享引用中借入可变引用嘛？
+41. 可以从可变引用中借入共享引用嘛？可以从可变引用中借入可变引用嘛？
+42. C++的其中一大类错误，是自赋值和使用无效迭代器，比如memcpy和strcpy中，源和目标重叠。Rust如何避免此类问题？
+43. 存在引用（多个共享引用，或者一个可变引用）时，可不可以通过原变量和=操作符，来修改变量值呢？
+
+
+1. 共享引用有，可变引用有，因为要么多共享，要么一可变
+2. 
+3. use std::collections::HashMap; type Table = HashMap<String, Vec<String>>;
+fn show(table : &Table) {
+for (key, value) in table 
+{ println!("{:?}", key);
+for i in value { println!("\n{:?}", i); }
+}
+}
+fn sort_v(table : &mut Table) {
+for (key, value) in table {
+value.sort();
+}
+}
+fn main() {
+let mut table = Table::new();
+table.insert("1".to_owned(), vec!["13".to_owned(), "12".to_owned(), "11".to_owned()]);
+table.insert("2".to_owned(), vec!["21".to_owned(), "22".to_owned(), "23".to_owned()]);
+table.insert("3".to_owned(), vec!["32".to_owned(), "31".to_owned(), "33".to_owned()]);
+show(&table);
+sort_v(&mut table);
+show(&table);
+}
+4. k是&String，v是&Vec<String>
+5. 因为.会隐式解引用
+6. 不会，隐式借用
+7. 需要，不像C++隐式解引用
+let mut i : i32 = 12;
+let t : &mut i32 = &mut i;
+*t = 14;
+println!("{:?}", t);
+8. 
+let x : i32 = 23;
+let mut y : i32 = 29;
+let x1 : &i32 = &x; // √
+let x2 : &i32 = &mut x; // ×，x不可变不能可变引用，且接收类型不对
+let mut x3 : &i32 = &x; // √
+let mut x4 : &i32 = &mut x; // ×，x不可变不能可变引用，且接收类型不对
+let x5 : &mut i32 = &x; // ×，接收类型不对
+let x6 : &mut i32 = &mut x; // ×，x不可变不能可变引用
+let mut x7 : &mut i32 = &x; // ×，接收类型不对
+let mut x8 : &mut i32 = &mut x; // ×，x不可变不能可变引用
+let y1 : &i32 = &y; // √
+let y2 : &i32 = &mut y; // ×，接收类型不对
+let mut y3 : &i32 = &y; // √
+let mut y4 : &i32 = &mut y; // ×，接收类型不对
+let y5 : &mut i32 = &y; // ×，接收类型不对
+let y6 : &mut i32 = &mut y; // √
+let mut y7 : &mut i32 = &y; // ×，接收类型不对
+let mut y8 : &mut i32 = &mut y; // √
+9. 不可变变量，能不可变引用，不能可变引用
+可变变量，能不可变引用，能可变引用
+10. 20 21 21
+21 21 21
+Rust引用声明为mut后可以另指，C++创建引用之后不可以另指
+11. struct Node { sx1 : String, sx2 : i32 }
+let node : Node = Node { sx1 : "thirty six".to_owned(), sx2 : 36 };
+let t : &Node = &node;
+let m : &&Node = &t;
+let p : &&&Node = &m;
+println!("{:?}", p.sx2);
+12. 被引对象可变，才能可变引用形式，否则没可变引用形式。引用本身可不可变独立。
+let e : i32 = 1;
+let f : i32 = 1;
+let g : i32 = 1;
+let h : i32 = 1;
+let mut i : i32 = 0;
+let mut j : i32 = 0;
+let mut k : i32 = 0;
+let mut l : i32 = 0;
+let ee : &i32 = &e;
+// let ff : &mut i32 = &mut f; // 不可变对象不能有可变引用
+let mut gg : &i32 = &g;
+// let mut hh : &mut i32 = &mut h; // 不可变对象不能有可变引用
+let ii : &i32 = &i;
+let jj : &mut i32 = &mut j;
+let mut kk : &i32 = &k;
+let mut ll : &mut i32 = &mut l;
+13. 可以，因为引用本身与被引对象、引用方式相独立
+let a : i32 = 1;
+let b : &i32 = &a;
+let mut c : &&i32 = &b;
+let d : &&&i32 = &c;
+let mut e : &&&&i32 = &d;
+14. 可以
+let mut a : i32 = 0;
+let b : &mut i32= &mut a;
+let mut c : &&mut i32 = &b;
+let d : &mut &&mut i32 = &mut c;
+15. 会 不可以不同引用层级比较
+let a : i32 = 1;
+let b : i32 = 0;
+let aa : &i32 = &a;
+let bb : &i32 = &b;
+let aaa : &&i32 = &aa;
+let bbb : &&i32 = &bb;
+println!("{:?}", aaa == bbb);
+println!("{:?}", aaa > bbb);
+println!("{:?}", aaa < bbb);
+16. use std::ptr::eq;
+let a : i32 = 1;
+let b : i32 = 1;
+let aa : &i32 = &a;
+let bb : &i32 = &b;
+let aaa : &&i32 = &aa;
+let bbb : &&i32 = &bb;
+println!("{:?} {:?} {:?}", a == b, aa == bb, aaa == bbb);
+println!("{:?}", eq(aa, bb));
+17. Rust的引用不可能为空
+18. 被保存在一个匿名变量中 所有权属于这个匿名变量 生命周期与其不可变引用a相同 a生命周期为main()内
+19. 被保存在一个匿名变量中 所有权属于这个匿名变量 生命周期与其不可变引用a相同 a生命周期为main()内 可以编译通过
+20. Vec<T>的切片的引用，类型是&[T]，[T, 13]的切片的引用，类型是&[T]。
+21. 说明引用生命域要小于被引对象的生命域
+22. 不可以编译通过，因为r引用x，x被销毁之后仍然用r访问x
+23. 不可以编译通过，Option<&T>只防止了被引为空，而例子中被引压根不存在
+24. 都实现了
+let d : i32 = 0;
+let rd : &i32 = &d;
+let rrd : &i32 = rd;
+println!("{:?} {:?}", rd, rrd);
+let e : f64 = 1.23;
+let re : &f64 = &e;
+let rre : &f64 = re;
+println!("{:?} {:?}", re, rre);
+let f : bool = true;
+let rf : &bool = &f;
+let rrf : &bool = rf;
+println!("{:?} {:?}", rf, rrf);
+let g : String = "jubuduoyun".to_owned();
+let rg : &str = &g;
+let rrg : &str = rg;
+println!("{:?} {:?}", rg, rrg);
+let h : Vec<&str> = vec!["ju", "bu", "duo", "yun"];
+let rh : &[&str] = &h;
+let rrh : &[&str] = rh;
+println!("{:?} {:?}", rh, rrh);
+25. 前者说明f会将传来的参数保存在生命周期超过f(...)以外的地方，后者不会
+26. 不能编译通过，因为f2返回引用给t，而t指向的对象在println!("{:?}", t);之前已被销毁，因此println!("{:?}", t);时，t会悬垂
+27. 必须显式标明 因为要确保结构体中引用不会比被引对象存活得更久
+struct Node<'a> { sx : &'a i32 }
+fn main() {
+let i : i32 = 1; 
+let node : Node;
+{ node = Node { sx : &i }; }
+println!("{:?}", node.sx);
+}
+28. 不正确 node.sx引用的生命周期比起引用的i大
+29. 不能 r获得生命周期在} println!("{:?}", r);中右括号之前的对象引用，println!("{:?}", r);无法解引用已死的对象
+30. struct En<'a>结构体中有引用，强制取这些引用的交集，也就最小
+31. struct S<'a, 'b> {
+	x : &'a i32,
+	y : &'b i32
+}
+fn main() {
+let x = 10;
+let r;
+{
+	let y = 20;
+	{
+		let s = S { x : &x, y : &y };
+		r = s.x;
+	}
+}
+println!("{:?}", r);
+}
+32. 引用不能比被引用对象存活得更久
+33. Rust不允许被引用对象发生所有权转移 借用检查器静态检查，无法确定所有权被转移后，那个人会不会释放内存。
+34. Rust不允许引用比被引用对象存活得更久，避免悬垂指针问题。
+35. f3、f5、f6、f7、f8、f13、f15、f16、f17、f18不能被编译通过，f1、f2、f4、f11、f12、f14可以被编译通过
+说明可以偶尔有多余但未使用的不可变引用
+36. 不可以
+37. 可以编译通过
+38. 可以编译通过
+39. 不可以编译通过，因为所有权被转移之后，原对象的引用不能再被用
+40. 可从共享引用中借入共享引用，但不可以借入可变引用
+let mut w = (17, 19);
+let r = &w;
+let r0 = &r.0;
+// let m1 = &mut r.1;
+41. 可从可变引用中借入共享引用，也可借入可变引用
+let mut w = (17, 19);
+let r = &mut w;
+let r0 = &r.0;
+let m1 = &mut r.1;
+42. 要么一个可变引用，要么多个共享引用
+43. 只要存在引用，就不可以通过原变量和=操作符，来修改变量值

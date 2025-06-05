@@ -1,0 +1,33 @@
+1. 将一个字符串字面量都转换为小写；
+2. 就一个字符串字面量都转换为大写；
+3. 判断一个字符串字面量与一个字符串引用是否相等；
+4. 判断一个字符串字面量与一个字符串是否相等；
+5. 字符串切片与字符串可以相等嘛？说明什么？
+6. 判断一个字符串是否包含一个字符串部分？
+7. 字符串的==, !=, to_lowercase(), to_uppercase(), contains()方法，可以是字符串嘛？可以是切片嘛？
+8. 字符串，将某个字符替换为另一个字符；
+9. 字符串，去掉首尾的空白；
+10. 字符串，分割字符串；
+11. 字符串，判断是否以某个部分打头；
+12. 字符串的方法的参数，必须是切片嘛？字符串可以嘛？
+
+
+1. let str1 : &str = "Hello WorLD"; println!("{:?}", str1.to_lowercase());
+let tmp : String = "Hello WorLD".to_owned(); println!("{:?}", tmp.to_lowercase());
+2. let str2 : &str = "One Plus TWO Equals three"; println!("{:?}", str2.to_uppercase());
+3. let str3 : &str = "eight"; let str4 : String = "eight".to_string(); let str5 : &str = &str4; println!("{:?}", str3 == str5);
+4. let str4 : &str = "eleven"; let str5 : String = "eleven".to_owned(); println!("{:?}", str4 == str5);
+let str6 : &str = "thirteen"; let str7 : String = "thirty one".to_owned(); println!("{:?}", str6 != str7);
+5. 可以相等 说明Rust字符串上的==宽松
+6. let str1 : &str = "fifty two"; let str2 : String = "y t".to_owned(); println!("{:?}", str1.contains(&str2));
+let str3 : String = "one hundred and twenty one".to_owned(); let str4 : &str = "twenty one"; println!("{:?}", str3.contains(str4));
+7. 都可以，但contains()方法中参数得是切片
+8. let str1 : &str = "α_α"; println!("{:?}", str1.replace("α", "a"));
+let str2 : String = "α_α".to_owned(); println!("{:?}", str2. replace("α", "b"));
+9. let str1 : &str = "\t\n    yunqi \t     \n \t		 \t"; println!("{:?}", str1.trim());
+let str2 : String = "\t\n    yunqi \t     \n \t		 \t".to_owned(); println!("{:?}", str2.trim());
+10. let str1 : &str = "zip, yak, xaics, wick, ops"; for tmp in str1.split(", ") { println!("{:?}", tmp); }
+let str2 : String = "zip, yak, xaics, wick, ops".to_string(); for tmp in str2.split(", ") { println!("{:?}", tmp); }
+11. let str1 : &str = "zip, yak, xaics, wick, ops"; println!("{}", str1.starts_with("z"));
+let str2 : String = "zip, yak, xaics, wick, ops".to_string(); println!("{}", str2.starts_with("zip, "));
+12. 参数必须是切片，不能是字符串

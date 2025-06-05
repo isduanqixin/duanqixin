@@ -1,0 +1,68 @@
+1. 31415.926e-4f64是合法的格式嘛？
+2. -1.5625是合法的格式嘛？
+3. 2.是合法的格式嘛？
+4. 1e4是合法的格式嘛？
+5. 40f32是合法的格式嘛？
+6. 9.109_383_56e-31f64是合法的格式嘛？
+7. (-1)/负无穷大的结果是负数嘛？
+8. 尝试打印f32::INFINITY、f32::NEG_INFINITY、f32::NAN、f32::MIN、f32::MAX
+9. 尝试打印f64::INFINITY、f64::NET_INFINITY、f64::NAN、f64::MIN、f64::MAX
+10. -f32::MIN等于f32::MAX嘛？
+11. -f64::MAX等于f64::MIN嘛？
+12. -2_i32.pow(4)和(-2_i32).pow(4)的结果相同嘛？
+13. 计算2_f32的平方根。
+14. 计算2_f32.sqrt()*2_f32.sqrt()。
+15. Rust会执行隐式类型转换嘛？
+16. Rust控制结构的条件必须是bool表达式嘛？可不可以是一个变量？
+17. Rust中bool类型的变量占据几个字节？
+18. char类型可表示字符的范围？
+19. u8类型的值可以通过as转换为char类型嘛？i8类型呢？i32、u32呢？
+20. 0xD7FF_u32对应char类型的什么值呢？
+21. 0xD912对应char类型的什么值呢？
+22. 'a', 'B'是字母嘛？
+23. '1', '.'是字母嘛？
+24. 'α'是字母嘛？'β'是字母嘛？（狭义上的英文字母）是广义上的字母嘛？
+25. 'a'在十进制下对应的数字？'g'在十七进制下对应的数字？
+26. 'a'占几个字节？'α'占几个字节？
+27. '1'占几个字节？'β'占几个字节？
+28. 17在18进制下的表示形式？
+29. 34在35进制下的表示形式？
+30. let a = 1i32; if a { println!("Hello World!"); } else { println!("No"); }合法嘛？
+
+
+1. 31415.926e-4f64合法
+2. -1.5625合法
+3. 2.合法
+4. 1e4合法
+5. 40f32合法
+6. 9.109_383_56e-31f64合法
+7. (-1)/负无穷大的结果是负数，assert_eq!((-1./f32::INFINITY).is_sign_negative(), true);
+8. println!("{} {} {} {} {}", f32::INFINITY, f32::NEG_INFINITY, f32::NAN, f32::MIN, f32::MAX);
+9. println!("{} {} {} {} {}", f64::INFINITY, f64::NEG_INFINITY, f64::NAN, f64::MIN, f64::MAX);
+10. assert_eq!(-f32::MIN, f32::MAX);
+11. assert_eq!(-f64::MIN, f64::MAX);
+12. assert_eq!(-2_i32.pow(4), (-2_i32).pow(4));
+或者println!("{}", -2_i32.pow(4)==(-2_i32).pow(4));
+或者if -2_i32.pow(4)==(-2_i32).pow(4) { println!("true"); } else { println!("false"); }
+13. println!("{}", 2_f32.sqrt());
+14. println!("{}", 2_f32.sqrt()*2_f32.sqrt());
+15. Rust不会进行隐式类型转换
+16. 不一定，可以是bool类型变量，比如let a:bool = true; if a { println!("Y"); } else { println!("N"); }，但不能是诸如i32、i64或者f32的变量
+17. bool类型变量占据1字节
+18. 0x0000到0xD7FF，0xE000到0x10FFFF
+19. 可以，但除了u8类型以外的值，都不可以通过as转换为char类型
+20. if let Some(res) = char::from_u32(0xD7FF_u32) { println!("{}", res); } else { println!("No"); }
+21. 没，不在char表示范围内。if let Some(res) = char::from_u32(0xD912_u32) { println!("{}", res); } else { println!("No"); }
+22. println!("{} {}", 'a'.is_alphabetic(), 'B'.is_alphabetic());
+23. println!("{} {}", '1'.is_alphabetic(), '.'.is_alphabetic());
+24. println!("{} {}", 'α'.is_ascii_alphabetic(), 'β'.is_ascii_alphabetic());
+println!("{} {}", 'α'.is_alphabetic(), 'β'.is_alphabetic());
+25. if let Some(res)='a'.to_digit(10) { println!("{}", res); } else { println!("No"); }
+if let Some(res)='g'.to_digit(17) { println!("{}", res); } else { println!("No"); }
+26. println!("{}", 'a'.len_utf8());
+println!("{}", 'α'.len_utf8());
+27. println!("{}", '1'.len_utf8());
+println!("{}", 'β'.len_utf8());
+28. if let Some(res)=char::from_digit(17, 18) { println!("{}", res); } else { println!("No"); }
+29. if let Some(res)=char::from_digit(34, 35) { println!("{}", res); } else { println!("No"); }
+30. 不合法，条件必须是布尔类型

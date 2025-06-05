@@ -1,0 +1,132 @@
+1. panic是基于线程的，还是基于进程的？
+2. panic是哪种错误？
+3. 如何设置环境变量RUST_BACKTRACE？
+4. Rust中read_line的函数原型是：fn read_line(&mut self, buf: &mut String) -> Result<usize>，使用read_line函数。
+5. 使用result.is_ok()判断函数是否成功执行。
+6. 使用result.is_err()判断函数是否成功执行。
+7. 使用result.ok()输出函数成功执行之后的返回值。
+8. 使用result.err()输出函数执行错误的原因。
+9. result.is_ok()的返回值类型。
+10. result.is_err()的返回值类型。
+11. result.ok()的返回值类型。
+12. result.err()的返回值类型。
+13. 使用result.expect()来处理错误。
+14. 使用result.unwrap()来处理错误。
+15. 使用result.unwrap_or(T)来处理错误。
+16. result.expect(msg : &str)的返回值类型。
+17. result.unwrap()的返回值类型。
+18. result.unwrap_or(T)的返回值类型。
+19. 调用一个函数，得到其执行结果，判断此函数是否成功执行。
+20. fn remove_file(path : &Path) -> Result<()>，这意味着什么？
+21. 执行一个必定会失败的函数，并输出其错误。
+22. 弹出panic
+23. 弹出panic
+24. 弹出panic
+25. 弹出panic
+
+
+1. panic基于线程
+2. panic是本不应发生的错误
+3. export RUST_BACKTRACE=1
+4. 
+fn main() {
+	let mut tmpstr = String::with_capacity(100);
+	match std::io::stdin().read_line(&mut tmpstr) {
+		Ok(cnt) => { println!("读取了{}个字符", cnt); },
+		Err(err) => { println!("{}", err); }
+	}
+	for i in tmpstr.chars() {
+		println!("{}, {}", i, i as i32);
+	}
+}
+5. let mut tmpstr = String::with_capacity(100);
+let result = std::io::stdin().read_line(&mut tmpstr);
+println!("{}", result.as_ref().is_ok());
+6. 
+fn tmpf() -> Result<i32, String> {
+	Err("Error!".to_owned())
+}
+fn main() {
+let result = tmpf();
+println!("{}", result.as_ref().is_err());
+}
+7. let mut tmpstr = String::with_capacity(100);
+let result = std::io::stdin().read_line(&mut tmpstr);
+if let Some(cnt) = result.as_ref().ok() {
+	println!("{}", cnt);
+}
+else {
+	println!("None");
+}
+8. 
+fn tmpf() -> Result<i32, String> {
+	Err("Error!".to_owned())
+}
+fn main() {
+let result = tmpf();
+if let Some(errres) = result.as_ref().err() {
+	println!("{}", errres);
+}
+else {
+	println!("No err");
+}
+}
+9. bool
+10. bool
+11. Option<T>
+12. Option<T>
+13. 
+fn tmpf() -> Result<i32, String> {
+	Err("Error!".to_owned())
+}
+fn tmpf2() -> Result<i32, String> {
+	Ok(23)
+}
+fn main() {
+	let result = tmpf2().expect("No!!!!!");
+	println!("{}", result);
+}
+14. 
+fn tmpf() -> Result<i32, String> {
+	Err("Error!".to_owned())
+}
+fn tmpf2() -> Result<i32, String> {
+	Ok(23)
+}
+fn main() {
+	let result = tmpf().unwrap();
+	println!("{}", result);
+}
+15. T或者panic
+16. T或者panic
+18. T
+19. 
+fn tmpf() -> Result<i32, String> {
+	Err("tmpf error".to_owned())
+}
+fn tmpf2() -> Result<i32, String> {
+	Ok(1)
+}
+fn main() {
+	let result = tmpf2();
+	println!("函数执行成功？{:?}", result.as_ref().is_ok());
+	println!("函数执行失败？{:?}", result.as_ref().is_err());
+}
+20. 意味着在使用Result的类型别名
+21. 
+fn tmpf() -> Result<i32, String> {
+	Err("tmpf error".to_owned())
+}
+fn main() {
+	let result = tmpf2();
+	if let Some(err) = result.as_ref().err() {
+		println!("{}", err);
+	}
+	else {
+		println!("没有错误");
+	}
+}
+22. panic!("The journey took no time at all. That's impossible!")
+23. panic!("The journey took no time at all. That's impossible!")
+24. panic!("The journey took no time at all. That's impossible!")
+25. panic!("The journey took no time at all. That's impossible!")

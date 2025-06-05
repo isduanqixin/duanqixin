@@ -1,0 +1,119 @@
+1. 斐波那契数列
+2. Box与元组搭配使用
+3. 遍历输出一个向量
+4. 遍历输出一个向量时，for i in vec1还是for i in &vec1？
+5. 可变字符串向量，其字符串元素可变嘛？不可变字符串向量，其字符串元素可变嘛？
+6. 遍历输出一个结构体向量
+7. vim，将node都替换为Node
+8. vim，选出Node，并下一个上一个
+9. 结构体定义好之后，后面用到时，还需要在前面加struct嘛？
+10. let tmp : Vec<i32> = vec![12, 21]; let a = tmp; let b = tmp;会报错嘛？为什么？
+let tmp : Vec<i32> = vec![12, 21]; let a = tmp.clone(); let b = tmp.clone();会报错嘛？为什么？
+11. let mut s = "hello, world".to_string(); s = "what's wrong".to_string(); println!("{:?}", s);"hello, world"值被丢弃嘛？
+12. let mut s : String = "what's wrong".to_string(); let t : String = s; s = "i'm ok".to_string(); println!("{:?}\n{:?}", s, t); "what's wrong"值被丢弃嘛？
+13. vec::new，vec::with_capacity，to_string，to_owned这些函数、方法，所有权如何变化？
+14. 函数传参，所有权如何变化？
+15. 构造新值，所有权如何变化？
+16. 所有权移动，注意哪两点？
+17. 调用函数时，需要注意什么？
+18. 循环中调用函数，需要注意什么？
+19. let mut v = Vec::new(); for i in 101..106 { v.push(i.to_string()); }可以编译通过嘛？Rust类型推断局限在一条语句，还是会通过上下文一起推断呢？
+20. let mut v = Vec::new(); for i in 101..106 { v.push(i.to_string()); } let third = v[2]; let fifth = v[4];可以编译通过嘛？
+21. 将一个元素移出向量。
+22. 在循环中消耗所有元素。
+23. 纠错
+    let vec2 : Vec<String> = vec!["what'".to_owned(), "wrong".to_owned(), "?".to_owned()];
+    println!("{:?}", vec2[0]);
+    // vec2[0].push('s'); println!("{:?}", vec2[0]);
+    for i in &mut vec2 {
+        if i.starts_with("wh") {
+            i.push('s');
+        }
+    }
+    println!("{:?}", vec2);
+24. 移出结构体变量成员
+25. 字符串的replace、trim、start_with等方法，需要的是字符串的可变引用&str还是不可变引用&mut str？
+26. 访问一个结构体的成员变量时，要求这个结构体是可变的还是不可变的？
+27. 调用一个结构体成员的方法时，要求这个结构体是可变的还是不可变的？
+28. let str1 : String = "four".to_owned(); let str2 = str1; let tmp1 : i32 = 32; let tmp2 = tmp1;问str1和tmp1还能够继续正常使用嘛？
+29. 实现了copy trait的数据类型有哪些？
+30. String、Vec<T>、Box<T>实现了copy trait嘛？File、MutexGuard实现了copy trait嘛？
+31. struct、enum有copy trait嘛？
+32. 多线程引用计数，怎么做？
+33. Rc<T>多线程引用计数，如果是Rc<String>的一个变量，栈上保存什么？指向String的指针么？
+34. Rc<T>多线程引用计数，可变还是不可变？
+
+
+1. fn fq() { let mut vec1 : Vec<i32> = vec![1, 1, 2, 3]; for i in 4..10 { let tmp : i32 = vec1[i-1]+vec1[i-2]; vec1.push(tmp); } println!("{:?}", vec1); }
+fn main() { fq(); }
+2. let tmp : Box<(i32, i32)> = Box::new((12, 21)); println!("{:?}", tmp);
+let tmp2 : Box<(&str, &str)> = Box::new(("hello", "world")); println!("{:?}", tmp2);
+3. let tmp : Vec<&str> = vec!["hello", "world", "how", "are", "you", "and", "you", "?"];
+for item in &tmp { println!("{:?}", item); }
+for item in &tmp { println!("{:?}", item); }
+let tmp2 : Vec<String> = vec!["what's".to_owned(), "wrong".to_owned(),"?".to_owned()];
+for item in &tmp2 { println!("{:?}", item); }
+for item in &tmp2 { println!("{:?}", item); }
+4. 后者，因为前者所有权被转移到了循环中，后面无法再使用向量。
+5. 可变字符串向量的元素可变，不可变字符串向量的元素不可变
+let mut vec1 : Vec<String> = vec!["what'".to_string(), "wrong".to_string(), "?".to_string()];
+println!("{:?}", vec1[0]);
+vec1[0].push('s'); println!("{:?}", vec1[0]);
+let vec2 : Vec<String> = vec!["what'".to_owned(), "wrong".to_owned(), "?".to_owned()];
+println!("{:?}", vec2[0]);
+vec2[0].push('s'); println!("{:?}", vec2[0]);
+6. struct Node { sx1 : String, sx2 : i32 }
+let mut vec1 : Vec<Node> = Vec::with_capacity(8);
+vec1.push( Node { sx1 : "x".to_string(), sx2 : 13 });
+vec1.push( Node { sx1 : "y".to_string(), sx2 : 17 });
+vec1.push( Node { sx1 : "z".to_string(), sx2 : 19 });
+for item in &vec1 { println!("{:?} {}", item.sx1, item.sx2); }
+7. :%s/node/Node/g
+8. /Node, n或者N
+9. 不需要
+10. 前者会，因为所有权已被转移到a，后者不会
+11. 被丢弃
+12. 不被丢弃，因为t = s之后，"what's wrong"被转移给了t，s为空
+13. 函数、方法将新的向量、字符串所有权返回
+14. 传给函数、方法
+15. 传给上层
+16. 1. 移动的是三字标头；2. 编译器直接看穿
+17. 调用函数时传参，所有权也会被转移给函数
+18. 不在循环中进行变量移动
+19. 可以 上下文一起
+20. 不会，因为third = v[2]; fifth = v[4];不能将向量成员所有权移出来
+21. let mut tmp : Vec<i32> = vec![1, 3, 5, 7, 9];
+if let Some(t) = tmp.pop() { println!("{}", t); } else { println!("null"); }
+let m = tmp.swap_remove(1); println!("{}, {:?}", m, tmp);
+
+use std::mem::replace;
+let mut tmp : Vec<i32> = vec![1, 3, 5, 7, 9];
+let t = replace(&mut tmp[2], 121);
+println!("{} {:?}", t, tmp);
+22. let tmp :Vec<&str> = vec!["sb", "bd"];
+for i in tmp { println!("{:?}", i); };
+// println!("{:?}", tmp);
+23. 不可变字符串不能被可变借用
+24. struct node { sx1 : Option<String>, sx2 : i32 }
+let mut tmp : node = node { sx1 : Some("six".to_owned()), sx2 : 100 };
+let t = tmp.sx1.take();
+25. 需要不可变引用
+26. 结构体得不可变
+27. 成员不可变方法，则结构体可不可变；成员可变方法，则结构体得可变。
+struct node { sx1 : String, sx2 : i32 }
+let t1 : node = node { sx1 : "\tnine\t".to_owned(), sx2 : 323232 };
+let mut t2 : node = node { sx1 : "\teighty two\t".to_owned(), sx2 : 101 };
+println!("{:?}", t1.sx1.trim());
+// println!("{:?}", t1.sx1.push('a'));
+println!("{:?}", t2.sx1.trim());
+println!("{:?}", t2.sx1.push('a'));
+28. str1不能，因为String没有copy trait，tmp1能，因为i32有copy trait
+29. 整型、浮点型、字符型、布尔型、简单元组、简单数组
+30. 都没有。String在堆分配了内存，Vec<T>在堆也分配了内存，Box<T>在堆也分配了内存，File向操作系统申请句柄，MutexGuard没意义
+31. 没有，但简单struct, enum有copy trait，通过在前面#[derive(Copy, Clone)]
+32. use std::rc::Rc;
+let t : Rc<String> = Rc::new("flyingbird".to_owned());
+let m : Rc<String> = t.clone();
+let p : Rc<String> = t.clone();
+33. 指针 不是，指向堆中的计数，计数后面跟着本应放在栈上的String变量的三标头，一标头才指向String
+34. 不可变 要么多个共享，要么一个可变
